@@ -24,6 +24,7 @@
     "@storybook/preset-create-react-app": "^3.2.0",
     "@storybook/react": "^6.3.7",
     "add": "^2.0.6",
+    "chromatic": "^5.9.2",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
@@ -37,7 +38,8 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "chromatic": "npx chromatic --project-token=23d3e4988adc"
   },
   "eslintConfig": {
     "extends": [
