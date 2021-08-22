@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "dependencies": {
+    "firebase-tools": "^9.16.5",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -39,7 +40,8 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "chromatic": "npx chromatic --project-token=23d3e4988adc"
+    "chromatic": "npx chromatic --project-token=23d3e4988adc",
+    "deploy": "firebase deploy"
   },
   "eslintConfig": {
     "extends": [
