@@ -16,7 +16,7 @@
 
 > Pick your favorites!
 
-### 🏠 [Homepage]( 배포 URL)
+### 🏠 [Homepage](https://ideal-world-cup-a0d9f.web.app/)
 
 ## Prerequisites
 
