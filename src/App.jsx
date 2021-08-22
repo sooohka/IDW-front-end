@@ -1,9 +1,14 @@
 import React from "react";
-import "./App.css";
 import MainRouter from "./page/MainRouter";
+import GlobalStyle from "./style/GlobalStyle";
 
-function App() {
-  return <MainRouter />;
-}
+const App = () => {
+  return (
+    <>
+      <GlobalStyle />
+      <MainRouter />
+    </>
+  );
+};
 
 export default App;

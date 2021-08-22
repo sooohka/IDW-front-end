@@ -1,5 +1,6 @@
-import "../src/index.css"
-
+import { BrowserRouter } from "react-router-dom";
+import GlobalStyle from "../src/style/GlobalStyle";
+import React from "react";
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
@@ -8,4 +9,13 @@ export const parameters = {
       date: /Date$/,
     },
   },
-}
+};
+
+export const decorators = [
+  (Story) => (
+    <BrowserRouter>
+      <GlobalStyle></GlobalStyle>
+      <Story></Story>
+    </BrowserRouter>
+  ),
+];
