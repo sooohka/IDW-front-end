@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import Text from "./common/Text";
-import { theme } from "../style/theme";
+import Text from "../common/Text";
+import { theme } from "../../style/theme";
 
 const sidebarWidth = "20rem";
 
 const StyledSidebar = styled.div`
   width: ${sidebarWidth};
+  height: 100%;
 `;
 
 const StyledList = styled.li`

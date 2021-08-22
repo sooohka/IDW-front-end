@@ -1,25 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { theme } from "../style/theme";
-import Text from "./common/Text";
+import { theme } from "../../style/theme";
+import Text from "../common/Text";
 
 const StyledNavbar = styled.div`
+  height: fit-content;
   padding: 2rem 0;
   display: flex;
-  width: 100%;
+  flex-basis: 100%;
   margin: 0 0 5rem;
 `;
 
 const LeftContainer = styled.div`
   display: flex;
-  flex: 1;
   & > * {
     margin-right: 5rem;
   }
 `;
 
 const LogoContainer = styled.div`
+  display: inline-block;
   & > * {
     &:first-child {
       margin: 0 1rem 0;
