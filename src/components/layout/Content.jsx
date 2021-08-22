@@ -5,7 +5,7 @@ import Card from "../common/Card";
 
 const StyledContent = styled.div`
   padding: 3rem;
-  background-color: blueviolet;
+  background-color: orangered;
   min-height: 100%;
   flex: 1;
   display: flex;
