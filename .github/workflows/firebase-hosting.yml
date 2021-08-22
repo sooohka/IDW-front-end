@@ -16,3 +16,4 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_IDEAL_WORLD_CUP_A0D9F}}'
           projectId: ideal-world-cup-a0d9f
+          channelId: live
