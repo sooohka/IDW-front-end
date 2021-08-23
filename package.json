@@ -31,6 +31,7 @@
     "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-react": "^7.24.0",
     "prettier": "^2.3.2",
+    "serve": "^12.0.0",
     "yarn": "^1.22.11"
   },
   "scripts": {
@@ -40,7 +41,8 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "chromatic": "npx chromatic --project-token=23d3e4988adc",
-    "deploy": "firebase deploy"
+    "deploy": "firebase deploy",
+    "serve":"serve -s build -l 80"
   },
   "eslintConfig": {
     "extends": [
