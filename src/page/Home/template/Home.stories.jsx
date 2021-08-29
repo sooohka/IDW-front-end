@@ -1,6 +1,5 @@
 import React from "react";
-import Component from "./Wrapper";
-
+import Component from "./index";
 export default {
   title: "Wrapper",
   component: Component,
@@ -8,6 +7,6 @@ export default {
 const Template = (args) => <Component {...args} />;
 Template.args = {};
 
-const Wrapper = Template.bind({});
+const Home = Template.bind({});
 
-export { Wrapper };
+export { Home };

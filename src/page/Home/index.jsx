@@ -1,8 +1,7 @@
 import React from "react";
-import Wrapper from "../../components/layout/Wrapper";
-
+import Template from './template'
 const Home = () => {
-  return <Wrapper />;
+  return <Template/>;
 };
 
 export default Home;

@@ -28,6 +28,8 @@
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-react": "^7.24.0",
     "prettier": "^2.3.2",
@@ -42,7 +44,7 @@
     "build-storybook": "build-storybook -s public",
     "chromatic": "npx chromatic --project-token=23d3e4988adc",
     "deploy": "firebase deploy",
-    "serve":"serve -s build -l 80"
+    "serve": "serve -s build -l 80"
   },
   "eslintConfig": {
     "extends": [
