@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Text from "./Text";
 import { theme } from "../../style/theme";
+import { ReactComponent as CommentReg } from "../../assets/icons/comment-regular.svg";
+import { ReactComponent as Share } from "../../assets/icons/share-square-solid.svg";
+import { ReactComponent as ThumbUpReg } from "../../assets/icons/thumbs-up-regular.svg";
+import { ReactComponent as ThumbUpSol } from "../../assets/icons/thumbs-up-solid.svg";
+import useFetch from "../../utils/hooks/useFetch";
 
 const StyledCard = styled.div`
   width: 30rem;
-  height: 40rem;
+  height: 45rem;
   margin: 1rem;
   display: flex;
   flex-direction: column;
@@ -16,7 +21,7 @@ const StyledCard = styled.div`
 
 const Img = styled.img`
   width: 100%;
-  height: 70%;
+  height: 30rem;
 `;
 
 const Box = styled.div`
@@ -24,11 +29,15 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   width: "100%";
-  padding: 1rem 0;
+  padding: 1rem 1rem;
+  & > * {
+    margin: 0 0 1rem 0;
+  }
 `;
 
 const ExtraBox = styled.div`
   padding: 0 1rem 0 0;
+  flex-grow: 1;
   display: flex;
   align-items: center;
 `;
@@ -36,7 +45,6 @@ const ExtraBox = styled.div`
 const ToolBox = styled.div`
   flex-grow: 1;
   display: flex;
-  padding: 0 0 0 1rem;
 `;
 
 const IconWrapper = styled.div`
@@ -49,32 +57,57 @@ const IconWrapper = styled.div`
   }
 `;
 
-const Card = ({ title, desc, img, numberOfComments, numberOfLikes }) => {
+const SvgWrapper = styled.div`
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Card = ({ title, desc, img, numberOfComments, numberOfLikes, isLoading: fetching }) => {
+  const [thumbUp, setThumbUp] = useState(false);
+  const [isLoading]
+  const isLoading = fetching && loading;
+  // useEffects
+  useEffect(() => {}, [thumbUp]);
+
+  // event Handlers
+  const onThumbUpBtnClick = useCallback(() => {
+    if (thumbUp) setThumbUp(false);
+    else setThumbUp(true);
+  }, [thumbUp, setThumbUp]);
+
   return (
     <StyledCard>
-      <Img src={img.src} alt={img.alt}></Img>
-      <Box>
-        <Text bold fontSize={theme.fonts.strongBody} text={title} />
-        <div style={{ flexGrow: 1 }}>
-          <Text fontSize={theme.fonts.body} text={desc} />
-        </div>
-        <ExtraBox>
-          <ToolBox>
-            <IconWrapper>
-              <i className="far fa-comment"></i>
-              <Text
-                fontSize={theme.fonts.subBody}
-                text={numberOfComments}
-              ></Text>
-            </IconWrapper>
-            <IconWrapper>
-              <i className="far fa-thumbs-up"></i>
-              <Text fontSize={theme.fonts.subBody} text={numberOfLikes}></Text>
-            </IconWrapper>
-          </ToolBox>
-          <i className="fas fa-share-square"></i>
-        </ExtraBox>
-      </Box>
+      {!isLoading && (
+        <>
+          <Img src={img.src} alt={img.alt}></Img>
+          <Box>
+            <Text bold fontSize={theme.fonts.strongBody} text={title} />
+            <Text maxRows={3} height="6rem" fontSize={theme.fonts.subBody} text={desc} />
+            <ExtraBox>
+              <ToolBox>
+                <IconWrapper>
+                  <SvgWrapper>
+                    <CommentReg width={15} height={15} />
+                  </SvgWrapper>
+                  <Text fontSize={theme.fonts.subBody} text={numberOfComments}></Text>
+                </IconWrapper>
+                <IconWrapper>
+                  <SvgWrapper onClick={onThumbUpBtnClick}>{thumbUp ? <ThumbUpSol width={15} height={15} /> : <ThumbUpReg width={15} height={15} />}</SvgWrapper>
+                  <Text fontSize={theme.fonts.subBody} text={numberOfLikes}></Text>
+                </IconWrapper>
+              </ToolBox>
+              <SvgWrapper>
+                <Share width={20} height={20} />
+              </SvgWrapper>
+            </ExtraBox>
+          </Box>
+        </>
+      )}
     </StyledCard>
   );
 };
@@ -88,5 +121,6 @@ Card.propTypes = {
     src: PropTypes.string.isRequired,
     alt: PropTypes.string.isRequired,
   }).isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 export default Card;
