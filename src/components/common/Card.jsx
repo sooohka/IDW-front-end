@@ -69,7 +69,7 @@ const SvgWrapper = styled.div`
 
 const Card = ({ title, desc, img, numberOfComments, numberOfLikes, isLoading: fetching }) => {
   const [thumbUp, setThumbUp] = useState(false);
-  const [isLoading]
+  const [isLoading] 
   const isLoading = fetching && loading;
   // useEffects
   useEffect(() => {}, [thumbUp]);
