@@ -15,6 +15,7 @@ export default {
     },
   },
 };
+
 const Template = (args) => <Component {...args} />;
 
 const Card = Template.bind({});

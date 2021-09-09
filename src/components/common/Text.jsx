@@ -39,13 +39,7 @@ const StyledTexts = styled.div`
 const Text = ({ maxRows, height, fontSize, color, bold, text, children }) => {
   if (maxRows > 1)
     return (
-      <StyledTexts
-        fontSize={fontSize}
-        color={color}
-        bold={bold}
-        maxRows={maxRows}
-        height={height}
-      >
+      <StyledTexts fontSize={fontSize} color={color} bold={bold} maxRows={maxRows} height={height}>
         {text || children || "no text"}
       </StyledTexts>
     );
@@ -59,16 +53,18 @@ const Text = ({ maxRows, height, fontSize, color, bold, text, children }) => {
 Text.propTypes = {
   fontSize: PropTypes.string,
   color: PropTypes.string,
-  bold: PropTypes.string,
+  bold: PropTypes.bool,
   text: PropTypes.string.isRequired,
   children: PropTypes.string,
-  maxRows: PropTypes.number.isRequired,
-  height: PropTypes.string.isRequired,
+  maxRows: PropTypes.number,
+  height: PropTypes.string,
 };
 Text.defaultProps = {
   fontSize: theme.fonts.body,
   color: theme.colors.black,
   bold: false,
   children: null,
+  maxRows: null,
+  height: null,
 };
 export default Text;

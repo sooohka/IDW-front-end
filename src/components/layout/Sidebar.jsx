@@ -18,12 +18,6 @@ const StyledList = styled.li`
   }
 `;
 
-const List = ({ text }) => (
-  <StyledList>
-    <Text text={text} fontSize={theme.fonts.strongBody} />
-  </StyledList>
-);
-
 const Divider = styled.div`
   width: 100%;
   height: 1rem;
@@ -41,7 +35,9 @@ const Ul = ({ title, list }) => {
       <Text bold fontSize={theme.fonts.heading} text={title} />
       <Divider />
       {list.map((li) => (
-        <List text={li} />
+        <StyledList key={li}>
+          <Text text={li} fontSize={theme.fonts.strongBody} />
+        </StyledList>
       ))}
     </StyledUl>
   );
@@ -59,9 +55,6 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-List.propTypes = {
-  text: PropTypes.string.isRequired,
-};
 
 Ul.propTypes = {
   title: PropTypes.string.isRequired,
