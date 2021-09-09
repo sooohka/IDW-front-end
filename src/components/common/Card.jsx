@@ -1,15 +1,13 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
-import styled from "styled-components";
 import PropTypes from "prop-types";
-import Text from "./Text";
-import { theme } from "../../style/theme";
+import React, { useRef } from "react";
+import styled from "styled-components";
 import { ReactComponent as CommentReg } from "../../assets/icons/comment-regular.svg";
 import { ReactComponent as Share } from "../../assets/icons/share-square-solid.svg";
 import { ReactComponent as ThumbUpReg } from "../../assets/icons/thumbs-up-regular.svg";
-import { ReactComponent as ThumbUpSol } from "../../assets/icons/thumbs-up-solid.svg";
-import "./spinner.css";
-import spinSrc from "../../assets/spinner.gif";
+import { theme } from "../../style/theme";
 import useImgLazyLoad from "../../utils/hooks/useImgLazyLoad";
+import "./spinner.css";
+import Text from "./Text";
 
 const StyledCard = styled.div`
   width: 30rem;
@@ -20,6 +18,7 @@ const StyledCard = styled.div`
   box-shadow: 0 0.25rem 0.5rem rgba(1, 1, 1, 0.1);
   border-radius: 5px;
   overflow: hidden;
+  padding: 2rem 0;
 `;
 
 const ImgBox = styled.div`
@@ -34,6 +33,7 @@ const Img = styled.img`
   max-height: 100%;
   margin: 0 auto;
 `;
+
 const Box = styled.div`
   flex: 1;
   display: flex;
@@ -88,7 +88,7 @@ const Card = ({ title, desc, img, numberOfComments, numberOfLikes }) => {
       </ImgBox>
       <Box>
         <Text bold fontSize={theme.fonts.strongBody} text={title} />
-        <Text maxRows={3} height="6rem" fontSize={theme.fonts.subBody} text={desc} />
+        <Text maxRows={3} height="5rem" fontSize={theme.fonts.subBody} text={desc} />
         <ExtraBox>
           <ToolBox>
             <IconWrapper>
