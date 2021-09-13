@@ -5,10 +5,8 @@ import { theme } from "../../style/theme";
 import Text from "../common/Text";
 
 const StyledNavbar = styled.div`
-  height: fit-content;
   padding: 2rem 0;
   display: flex;
-  flex-basis: 100%;
   margin: 0 0 5rem;
 `;
 
@@ -59,7 +57,7 @@ const Navbar = () => {
           <Text bold fontSize={theme.fonts.heading} text="Logo" />
         </LogoContainer>
         <Nav>
-          <Link to="/">
+          <Link to="/create">
             <Text color={theme.colors.lightBlue} bold text="만들기" />
           </Link>
           <Link to="/">

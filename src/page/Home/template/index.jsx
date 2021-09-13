@@ -19,7 +19,7 @@ const Template = ({ isLoading, cards }) => {
       <Navbar />
       <Sidebar />
       <Content>
-        <div style={{ backgroundColor: "rebeccapurple", width: "100%", height: "5rem" }}>filter</div>
+        {/* <div style={{ backgroundColor: "rebeccapurple", width: "100%", height: "5rem" }}>filter</div> */}
         {isLoading ? (
           <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
             <img style={{ width: "fit-content", height: "fit-content" }} src={spinner} alt="spinner" />
