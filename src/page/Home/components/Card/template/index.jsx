@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import React, { useRef } from "react";
 import styled from "styled-components";
-import { ReactComponent as CommentReg } from "../../assets/icons/comment-regular.svg";
-import { ReactComponent as Share } from "../../assets/icons/share-square-solid.svg";
-import { ReactComponent as ThumbUpReg } from "../../assets/icons/thumbs-up-regular.svg";
-import { theme } from "../../style/theme";
-import useImgLazyLoad from "../../utils/hooks/useImgLazyLoad";
-import "./spinner.css";
-import Text from "./Text";
+import { ReactComponent as CommentReg } from "../../../../../assets/icons/comment-regular.svg";
+import { ReactComponent as Share } from "../../../../../assets/icons/share-square-solid.svg";
+import { ReactComponent as ThumbUpReg } from "../../../../../assets/icons/thumbs-up-regular.svg";
+import { ReactComponent as PlaySolid } from "../../../../../assets/icons/play-solid.svg";
+import { theme } from "../../../../../style/theme";
+import useImgLazyLoad from "../../../../../utils/hooks/useImgLazyLoad";
+import Text from "../../../../../components/common/Text";
 
 const StyledCard = styled.div`
   width: 30rem;
@@ -18,7 +18,6 @@ const StyledCard = styled.div`
   box-shadow: 0 0.25rem 0.5rem rgba(1, 1, 1, 0.1);
   border-radius: 5px;
   overflow: hidden;
-  padding: 2rem 0;
 `;
 
 const ImgBox = styled.div`
@@ -26,11 +25,18 @@ const ImgBox = styled.div`
   height: 30rem;
   display: flex;
   align-items: center;
+  position: relative;
+  cursor: pointer;
+  &:hover {
+    & > img {
+      opacity: 0.3;
+    }
+  }
 `;
 
 const Img = styled.img`
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
 `;
 
@@ -77,14 +83,35 @@ const SvgWrapper = styled.div`
   }
 `;
 
-const Card = ({ title, desc, img, numberOfComments, numberOfLikes }) => {
+const PlayWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  opacity: 0;
+  &:hover {
+    opacity: 1;
+  }
+  flex-direction: column;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+`;
+
+const Template = ({ handlePlayBtnClick, title, desc, img, numberOfComments, numberOfLikes }) => {
   const imageRef = useRef(null);
   const { imgSrc } = useImgLazyLoad(imageRef, img.src);
 
   return (
     <StyledCard>
       <ImgBox>
-        <Img src={imgSrc} ref={imageRef} alt={img.alt}></Img>
+        <Img src={imgSrc} ref={imageRef} alt={img.alt} />
+        <PlayWrapper onClick={handlePlayBtnClick(1)}>
+          <PlaySolid width={50} />
+          <Text bold text="월드컵 하러 가기" />
+        </PlayWrapper>
       </ImgBox>
       <Box>
         <Text bold fontSize={theme.fonts.strongBody} text={title} />
@@ -95,13 +122,13 @@ const Card = ({ title, desc, img, numberOfComments, numberOfLikes }) => {
               <SvgWrapper>
                 <CommentReg width={15} height={15} />
               </SvgWrapper>
-              <Text fontSize={theme.fonts.subBody} text={numberOfComments.toString()}></Text>
+              <Text fontSize={theme.fonts.subBody} text={numberOfComments.toString()} />
             </IconWrapper>
             <IconWrapper>
               <SvgWrapper>
                 <ThumbUpReg width={15} height={15} />
               </SvgWrapper>
-              <Text fontSize={theme.fonts.subBody} text={numberOfLikes.toString()}></Text>
+              <Text fontSize={theme.fonts.subBody} text={numberOfLikes.toString()} />
             </IconWrapper>
           </ToolBox>
           <SvgWrapper>
@@ -113,7 +140,7 @@ const Card = ({ title, desc, img, numberOfComments, numberOfLikes }) => {
   );
 };
 
-Card.propTypes = {
+Template.propTypes = {
   title: PropTypes.string.isRequired,
   desc: PropTypes.string.isRequired,
   numberOfComments: PropTypes.number.isRequired,
@@ -123,5 +150,6 @@ Card.propTypes = {
     alt: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
   }).isRequired,
+  handlePlayBtnClick: PropTypes.func.isRequired,
 };
-export default Card;
+export default Template;

@@ -9,7 +9,6 @@ const promise = new Promise((resolve, reject) => {
 
 const Home = () => {
   const { data: cards, isLoading } = useFetch(promise);
-
   return <Template cards={cards} isLoading={isLoading} />;
 };
 

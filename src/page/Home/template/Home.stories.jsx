@@ -2,7 +2,7 @@ import React from "react";
 import Component from "./index";
 
 export default {
-  title: "Wrapper",
+  title: "Home",
   component: Component,
 };
 const Template = (args) => <Component {...args} />;

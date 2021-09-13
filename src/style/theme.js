@@ -16,7 +16,7 @@ const theme = {
   fonts: {
     subBody: "1.2rem",
     body: "1.4rem",
-    strongBody: "1.6rem",
+    strongBody: "1.8rem",
     heading: "3.5rem",
     subHeading: "3rem",
   },

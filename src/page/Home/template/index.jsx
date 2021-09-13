@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
-import Card from "../../../components/common/Card";
-import Spinner from "../../../components/common/Spinner";
+import spinner from "../../../assets/spinner.gif";
 import Content from "../../../components/layout/Content";
 import Navbar from "../../../components/layout/Navbar";
 import Sidebar from "../../../components/layout/Sidebar";
+import Cards from "../components/Cards";
 
 const Container = styled.div`
   height: 100%;
@@ -13,32 +13,21 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
-const Cards = ({ cards }) => {
-  if (!cards) return null;
-
-  return cards.map((v) => (
-    <Card
-      key={v.img.id}
-      desc={v.desc}
-      title={v.title}
-      numberOfComments={v.numberOfComments}
-      numberOfLikes={v.numberOfLikes}
-      img={{
-        src: v.img.src,
-        alt: v.img.alt,
-        id: v.img.id,
-      }}
-      isLoading
-    ></Card>
-  ));
-};
-
 const Template = ({ isLoading, cards }) => {
   return (
     <Container>
       <Navbar />
       <Sidebar />
-      <Content>{isLoading ? <Spinner /> : <Cards cards={cards} />}</Content>
+      <Content>
+        <div style={{ backgroundColor: "rebeccapurple", width: "100%", height: "5rem" }}>filter</div>
+        {isLoading ? (
+          <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <img style={{ width: "fit-content", height: "fit-content" }} src={spinner} alt="spinner" />
+          </div>
+        ) : (
+          <Cards cards={cards} />
+        )}
+      </Content>
     </Container>
   );
 };
