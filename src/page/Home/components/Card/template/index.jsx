@@ -12,7 +12,6 @@ import Text from "../../../../../components/common/Text";
 const StyledCard = styled.div`
   width: 30rem;
   height: 45rem;
-  margin: 1rem;
   display: flex;
   flex-direction: column;
   box-shadow: 0 0.25rem 0.5rem rgba(1, 1, 1, 0.1);

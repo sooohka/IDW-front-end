@@ -17,7 +17,7 @@ const Template = ({ isLoading, cards }) => {
   return (
     <Container>
       <Navbar />
-      <Sidebar />
+      <Sidebar></Sidebar>
       <Content>
         {/* <div style={{ backgroundColor: "rebeccapurple", width: "100%", height: "5rem" }}>filter</div> */}
         {isLoading ? (

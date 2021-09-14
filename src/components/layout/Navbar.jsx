@@ -8,6 +8,7 @@ const StyledNavbar = styled.div`
   padding: 2rem 0;
   display: flex;
   margin: 0 0 5rem;
+  width: 100%;
 `;
 
 const LeftContainer = styled.div`
