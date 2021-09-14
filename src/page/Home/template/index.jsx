@@ -1,10 +1,11 @@
+import PropTypes from "prop-types";
 import React from "react";
-
 import styled from "styled-components";
+import spinner from "../../../assets/spinner.gif";
+import Content from "../../../components/layout/Content";
 import Navbar from "../../../components/layout/Navbar";
 import Sidebar from "../../../components/layout/Sidebar";
-import Content from "../../../components/layout/Content";
-import Card from "../../../components/common/Card";
+import Cards from "../components/Cards";
 
 const Container = styled.div`
   height: 100%;
@@ -12,25 +13,40 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
-const Template = () => {
+const Template = ({ isLoading, cards }) => {
   return (
     <Container>
       <Navbar />
       <Sidebar />
       <Content>
-        <Card
-          desc="걸스데이, 에이핑크, 소녀시대 등 다수"
-          title="여자아이돌 외모월드컵"
-          numberOfComments={123}
-          numberOfLikes={1241}
-          img={{
-            src: "https://images.unsplash.com/photo-1496440737103-cd596325d314?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80",
-            alt: "이쁜여자",
-          }}
-        ></Card>
+        {/* <div style={{ backgroundColor: "rebeccapurple", width: "100%", height: "5rem" }}>filter</div> */}
+        {isLoading ? (
+          <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <img style={{ width: "fit-content", height: "fit-content" }} src={spinner} alt="spinner" />
+          </div>
+        ) : (
+          <Cards cards={cards} />
+        )}
       </Content>
     </Container>
   );
+};
+
+Template.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  cards: PropTypes.arrayOf(
+    PropTypes.shape({
+      desc: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      numberOfComments: PropTypes.number.isRequired,
+      numberOfLikes: PropTypes.number.isRequired,
+      img: {
+        src: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+        alt: PropTypes.string.isRequired,
+      },
+    })
+  ).isRequired,
 };
 
 export default Template;

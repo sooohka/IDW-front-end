@@ -1,5 +1,5 @@
 import React from "react";
-import Component from "./Card";
+import Component from "./index";
 
 export default {
   title: "Card",
@@ -15,6 +15,7 @@ export default {
     },
   },
 };
+
 const Template = (args) => <Component {...args} />;
 
 const Card = Template.bind({});
@@ -28,6 +29,7 @@ Card.args = {
   },
   numberOfComments: 152,
   numberOfLikes: 1245,
+  handlePlayBtnClick: () => {},
 };
 
 export { Card };

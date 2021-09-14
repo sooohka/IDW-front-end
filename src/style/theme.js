@@ -14,9 +14,10 @@ const theme = {
     white: "#ffffff",
   },
   fonts: {
-    subBody: "1.6rem",
-    body: "1.8rem",
-    strongBody: "2rem",
+    helperText: ".8rem",
+    subBody: "1.2rem",
+    body: "1.4rem",
+    strongBody: "1.8rem",
     heading: "3.5rem",
     subHeading: "3rem",
   },

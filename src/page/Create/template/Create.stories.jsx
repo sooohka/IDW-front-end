@@ -2,12 +2,14 @@ import React from "react";
 import Component from "./index";
 
 export default {
-  title: "Home",
+  title: "Create",
   component: Component,
 };
+
 const Template = (args) => <Component {...args} />;
+
 Template.args = {};
 
-const Home = Template.bind({});
+const Create = Template.bind({});
 
-export { Home };
+export { Create };

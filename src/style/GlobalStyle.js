@@ -31,6 +31,9 @@ a,a:any-link,a:-webkit-any-link{
     opacity: 0.8;
   }
 }
+textArea{
+  all:unset;
+}
 p{
   margin:0;
   padding:0;
