@@ -5,16 +5,9 @@ import ProgressBar from "../../../../components/common/ProgressBar";
 import XButton from "../../../../components/common/XButton";
 import { theme } from "../../../../style/theme";
 import { ReactComponent as Spinner } from "../../../../assets/icons/spinner.svg";
+import HelperText from "../../../../components/common/HelperText";
 
 const Container = styled.div``;
-
-const HelperText = styled.p`
-  display: block;
-  color: ${({ hasError }) => (hasError ? "red" : "green")};
-  font-size: ${({ _ }) => theme.fonts.helperText};
-  margin: 0 0 0 1rem;
-  line-height: 1.6rem;
-`;
 
 const ProgressWrapper = styled.div`
   display: flex;
@@ -30,7 +23,9 @@ const Template = ({ submitResult, fileName, progress, handleDelete }) => {
         <ProgressBar title={fileName} hasError={hasError} progress={progress}></ProgressBar>
         {isSubmitting ? <Spinner></Spinner> : <XButton onClick={handleDelete(fileName)} />}
       </ProgressWrapper>
-      <HelperText hasError={hasError}>{message}</HelperText>
+      <HelperText renderSuccess hasError={hasError}>
+        {message}
+      </HelperText>
     </Container>
   );
 };

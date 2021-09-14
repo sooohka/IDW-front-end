@@ -1,14 +1,11 @@
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import RadioField from "../../../../components/common/RadioField";
 import FileUploadField from "../../FileUploadField";
+import HelperText from "../../../../components/common/HelperText";
 
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-`;
 const Input = styled.input``;
 
 const TextArea = styled.textarea`
@@ -18,12 +15,11 @@ const TextArea = styled.textarea`
 const FieldContainer = styled.div`
   position: relative;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 `;
 
-const RadioContainer = styled.div``;
-
-const Template = () => {
+const Template = ({ handleSubmit, validate }) => {
   const radioArray = [
     { name: "연예인", id: 1 },
     { name: "음식", id: 2 },
@@ -37,47 +33,68 @@ const Template = () => {
         dateOfCreation: "",
         files: [],
       }}
-      onSubmit={(v) => {
-        console.log(v);
-      }}
+      onSubmit={handleSubmit}
+      validate={validate}
     >
       {/* TODO: 1.style FieldContainer, RadioContainer, Form */}
-      {({ values, errors, touched, handleBlur, handleChange, setFieldValue }) => (
-        <StyledForm>
+      {({ values, errors, touched, handleBlur, handleChange, setFieldValue, isSubmitting, isValid }) => (
+        <Form style={{ display: "flex", flexDirection: "column", flex: "1" }}>
           <h1>IDW Creation</h1>
           {/* title */}
           <FieldContainer>
-            <span>제목: </span>
-            <Input name="title" type="text" onChange={handleChange} onBlur={handleBlur} value={values.title}></Input>
+            <div>
+              <div>제목: </div>
+              <Input name="title" type="text" onChange={handleChange} onBlur={handleBlur} value={values.title}></Input>
+            </div>
+            <HelperText hasError={touched.title && errors.title}>{errors.title}</HelperText>
           </FieldContainer>
           {/* desc */}
           <FieldContainer>
-            <span>설명: </span>
-            <TextArea name="desc" onChange={handleChange} onBlur={handleBlur} value={values.desc}></TextArea>
+            <div>
+              <div>설명: </div>
+              <TextArea name="desc" onChange={handleChange} onBlur={handleBlur} value={values.desc}></TextArea>
+            </div>
+            <HelperText hasError={touched.desc && errors.desc}>{errors.desc}</HelperText>
           </FieldContainer>
           {/* radio */}
-          <RadioContainer>
-            {radioArray.map((v) => (
-              <RadioField
-                key={v.id}
-                id={v.name}
-                name="category"
-                checked={values.category === v.name}
-                onChange={() => setFieldValue("category", v.name)}
-                value={v.name}
-              ></RadioField>
-            ))}
-          </RadioContainer>
-          {/* files */}
-          <FileUploadField name="files"></FileUploadField>
           <FieldContainer>
-            <button type="submit"> submit</button>
+            <div>
+              <div>카테고리:</div>
+              {radioArray.map((v) => (
+                <RadioField
+                  key={v.id}
+                  id={v.name}
+                  name="category"
+                  checked={values.category === v.name}
+                  onChange={() => setFieldValue("category", v.name)}
+                  value={v.name}
+                ></RadioField>
+              ))}
+            </div>
+          </FieldContainer>
+          {/* files */}
+          <FieldContainer>
+            <div>
+              <div>파일:</div>
+              <FileUploadField name="files"></FileUploadField>
+            </div>
+          </FieldContainer>
+
+          <FieldContainer>
+            <button disabled={isSubmitting || !isValid} type="submit">
+              submit
+            </button>
+            <HelperText hasError={errors.files}>{errors.files}</HelperText>
           </FieldContainer>
           {JSON.stringify(values, null, 2)}
-        </StyledForm>
+        </Form>
       )}
     </Formik>
   );
 };
 
+Template.propTypes = {
+  validate: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};
 export default Template;
