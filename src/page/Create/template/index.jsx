@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Navbar from "../../../components/layout/Navbar";
-import CreateForm from "../components/CreateForm";
+import CreateForm from "../CreateForm";
 
 const Container = styled.div`
   display: flex;

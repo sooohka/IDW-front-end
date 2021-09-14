@@ -3,28 +3,45 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import ProgressBar from "../../../../components/common/ProgressBar";
 import XButton from "../../../../components/common/XButton";
+import { theme } from "../../../../style/theme";
+import { ReactComponent as Spinner } from "../../../../assets/icons/spinner.svg";
 
-const Container = styled.div`
+const Container = styled.div``;
+
+const HelperText = styled.p`
+  display: block;
+  color: ${({ hasError }) => (hasError ? "red" : "green")};
+  font-size: ${({ _ }) => theme.fonts.helperText};
+  margin: 0 0 0 1rem;
+  line-height: 1.6rem;
+`;
+
+const ProgressWrapper = styled.div`
   display: flex;
+  width: 100%;
   align-items: center;
 `;
 
-const Title = styled.h3`
-  margin: 0 1rem 0 0;
-`;
-
-const Template = ({ submitted, progress, handleDelete }) => {
+const Template = ({ submitResult, fileName, progress, handleDelete }) => {
+  const { isSubmitting, hasError, message } = submitResult;
   return (
     <Container>
-      <Title>fileName</Title>
-      <ProgressBar submitted={submitted} progress={progress}></ProgressBar>
-      <XButton onClick={handleDelete} />
+      <ProgressWrapper>
+        <ProgressBar title={fileName} hasError={hasError} progress={progress}></ProgressBar>
+        {isSubmitting ? <Spinner></Spinner> : <XButton onClick={handleDelete(fileName)} />}
+      </ProgressWrapper>
+      <HelperText hasError={hasError}>{message}</HelperText>
     </Container>
   );
 };
 
 Template.propTypes = {
-  submitted: PropTypes.bool.isRequired,
+  submitResult: PropTypes.shape({
+    isSubmitting: PropTypes.bool.isRequired,
+    hasError: PropTypes.bool.isRequired,
+    message: PropTypes.string.isRequired,
+  }).isRequired,
+  fileName: PropTypes.string.isRequired,
   progress: PropTypes.number.isRequired,
   handleDelete: PropTypes.func.isRequired,
 };

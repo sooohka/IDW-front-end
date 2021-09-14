@@ -14,6 +14,7 @@ const theme = {
     white: "#ffffff",
   },
   fonts: {
+    helperText: ".8rem",
     subBody: "1.2rem",
     body: "1.4rem",
     strongBody: "1.8rem",

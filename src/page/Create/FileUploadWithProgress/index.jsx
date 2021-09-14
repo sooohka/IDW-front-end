@@ -3,9 +3,9 @@ import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Template from "./template";
 
-const FileUploadWithProgress = ({ handleSubmittedFiles, file }) => {
+const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) => {
   const [progress, setProgress] = useState(0);
-  const [submitted, setSubmitted] = useState(true);
+  const [submitResult, setSubmitResult] = useState({ isSubmitting: true, hasError: false, message: "submitting..." });
 
   const handleUpload = useCallback(async (_file) => {
     const formData = new FormData();
@@ -26,16 +26,15 @@ const FileUploadWithProgress = ({ handleSubmittedFiles, file }) => {
       })
       .then((res) => {
         const { url, original_filename: name, format } = res.data;
-        const fileName = `${name}.${format}`;
-        handleSubmittedFiles({ fileName, url });
+        handleSubmittedFiles({ name: `${name}.${format}`, url });
+        setSubmitResult({ isSubmitting: false, hasError: false, message: "submitted!" });
       })
       .catch((res) => {
-        setSubmitted(false);
+        const { message } = res.response.data.error;
+        setSubmitResult({ isSubmitting: false, hasError: true, message });
         console.log(res.response.data.error.message);
       });
   }, []);
-
-  const handleDelete = useCallback(() => {}, []);
 
   useEffect(() => {
     async function upload() {
@@ -44,11 +43,12 @@ const FileUploadWithProgress = ({ handleSubmittedFiles, file }) => {
     upload();
   }, []);
 
-  return <Template submitted={submitted} progress={progress} handleDelete={handleDelete}></Template>;
+  return <Template fileName={file.name} submitResult={submitResult} progress={progress} handleDelete={handleDelete}></Template>;
 };
 
 FileUploadWithProgress.propTypes = {
+  handleDelete: PropTypes.func.isRequired,
   handleSubmittedFiles: PropTypes.func.isRequired,
-  file: PropTypes.shape({}).isRequired,
+  file: PropTypes.instanceOf(File).isRequired,
 };
 export default FileUploadWithProgress;

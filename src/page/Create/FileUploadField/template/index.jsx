@@ -17,7 +17,7 @@ const DropZone = styled.div`
   opacity: ${({ isAccepting }) => isAccepting && 0.3};
 `;
 
-const Template = ({ handleSubmittedFiles, files, isAccepting, dzInputProps, dzRootProps }) => {
+const Template = ({ handleDelete, handleSubmittedFiles, files, isAccepting, dzInputProps, dzRootProps }) => {
   return (
     <Container>
       {/* DropZone */}
@@ -28,23 +28,23 @@ const Template = ({ handleSubmittedFiles, files, isAccepting, dzInputProps, dzRo
 
       {/* ListFiles */}
       <div>
-        <ul>
-          {files.map((file) => (
-            <FileUploadWithProgress
-              handleSubmittedFiles={handleSubmittedFiles}
-              file={file.file}
-              key={`${file.file.name}${file.file.lastModified}${file.file.size}`}
-            ></FileUploadWithProgress>
-          ))}
-        </ul>
+        {files.map((file) => (
+          <FileUploadWithProgress
+            handleDelete={handleDelete}
+            handleSubmittedFiles={handleSubmittedFiles}
+            file={file}
+            key={`${file.name}${file.size}`}
+          ></FileUploadWithProgress>
+        ))}
       </div>
     </Container>
   );
 };
 
 Template.propTypes = {
+  handleDelete: PropTypes.func.isRequired,
   handleSubmittedFiles: PropTypes.func.isRequired,
-  files: PropTypes.arrayOf(PropTypes.shape({ file: PropTypes.object.isRequired, errors: PropTypes.array.isRequired })).isRequired,
+  files: PropTypes.arrayOf(PropTypes.shape(PropTypes.object.isRequired)).isRequired,
   isAccepting: PropTypes.bool.isRequired,
   dzInputProps: PropTypes.any.isRequired,
   dzRootProps: PropTypes.any.isRequired,

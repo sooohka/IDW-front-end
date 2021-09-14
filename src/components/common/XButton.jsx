@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 
 const Container = styled.div`
   position: relative;
-  width: 15px;
-  height: 15px;
+  width: 21px;
+  height: 21px;
   cursor: pointer;
   &:hover {
     & > * {
@@ -27,7 +27,7 @@ const Left = styled.span`
 
   border-radius: 2px;
   top: 50%;
-  width: 15px;
+  width: 21px;
   transform: rotate(45deg);
 `;
 
@@ -37,7 +37,7 @@ const Right = styled.span`
   border-top: 4px solid black;
   border-radius: 2px;
   top: 50%;
-  width: 15px;
+  width: 21px;
   transform: rotate(-45deg);
 `;
 
