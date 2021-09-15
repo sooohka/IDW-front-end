@@ -5,86 +5,126 @@ import PropTypes from "prop-types";
 import RadioField from "../../../../components/common/RadioField";
 import FileUploadField from "../../FileUploadField";
 import HelperText from "../../../../components/common/HelperText";
+import Text from "../../../../components/common/Text";
+import { theme } from "../../../../style/theme";
+import Button from "../../../../components/common/Button";
 
-const Input = styled.input``;
+const Input = styled.input`
+  border: 3px solid;
+  border-radius: 5px;
+  border-color: ${() => theme.colors.secondary};
+  padding: 1rem;
+  font-size: ${() => theme.fonts.strongBody};
+  letter-spacing: 0.5px;
+  font-weight: bold;
+`;
 
 const TextArea = styled.textarea`
-  border: 1px solid black;
+  border: 3px solid;
+  border-radius: 5px;
+  border-color: ${() => theme.colors.secondary};
+  padding: 1rem;
+  font-size: ${() => theme.fonts.strongBody};
+  letter-spacing: 0.5px;
+  font-weight: bold;
 `;
 
 const FieldContainer = styled.div`
+  margin: 0 0 1rem 0;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
 
-const Template = ({ handleSubmit, validate }) => {
-  const radioArray = [
-    { name: "연예인", id: 1 },
-    { name: "음식", id: 2 },
-  ];
+const StyledField = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: ${() => theme.fonts.label};
+`;
+
+const Field = ({ label, children }) => {
   return (
-    <Formik
-      initialValues={{
-        title: "",
-        desc: "",
-        category: "연예인",
-        dateOfCreation: "",
-        files: [],
-      }}
-      onSubmit={handleSubmit}
-      validate={validate}
-    >
+    <StyledField>
+      <StyledLabel>
+        {label}
+        {children}
+      </StyledLabel>
+    </StyledField>
+  );
+};
+
+const RadioFieldContainer = styled.div`
+  display: flex;
+  height: 5rem;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: start;
+  & > * {
+    padding: 0 3rem 0 0;
+  }
+`;
+
+const Template = ({ handleCategoryChange, handleFilesChange, handleImgUploading, initialValues, categories, handleSubmit, validate }) => {
+  return (
+    <Formik initialValues={initialValues} onSubmit={handleSubmit} validate={validate}>
       {/* TODO: 1.style FieldContainer, RadioContainer, Form */}
       {({ values, errors, touched, handleBlur, handleChange, setFieldValue, isSubmitting, isValid }) => (
         <Form style={{ display: "flex", flexDirection: "column", flex: "1" }}>
-          <h1>IDW Creation</h1>
+          <Text bold fontSize={theme.fonts.heading} text="IDW Creation" margin="0 0 3rem 0"></Text>
+
           {/* title */}
           <FieldContainer>
-            <div>
-              <div>제목: </div>
-              <Input name="title" type="text" onChange={handleChange} onBlur={handleBlur} value={values.title}></Input>
-            </div>
-            <HelperText hasError={touched.title && errors.title}>{errors.title}</HelperText>
+            <Field label="제목">
+              <Input tabIndex={0} name="title" type="text" onChange={handleChange} onBlur={handleBlur} value={values.title}></Input>
+            </Field>
+            <HelperText hasError={Boolean(touched.title && errors.title)} text={errors.title} />
           </FieldContainer>
+
           {/* desc */}
           <FieldContainer>
-            <div>
-              <div>설명: </div>
-              <TextArea name="desc" onChange={handleChange} onBlur={handleBlur} value={values.desc}></TextArea>
-            </div>
-            <HelperText hasError={touched.desc && errors.desc}>{errors.desc}</HelperText>
+            <Field label="설명">
+              <TextArea tabIndex={0} name="desc" onChange={handleChange} onBlur={handleBlur} value={values.desc}></TextArea>
+            </Field>
+            <HelperText hasError={Boolean(touched.desc && errors.desc)} text={errors.desc} />
           </FieldContainer>
+
           {/* radio */}
           <FieldContainer>
-            <div>
-              <div>카테고리:</div>
-              {radioArray.map((v) => (
-                <RadioField
-                  key={v.id}
-                  id={v.name}
-                  name="category"
-                  checked={values.category === v.name}
-                  onChange={() => setFieldValue("category", v.name)}
-                  value={v.name}
-                ></RadioField>
-              ))}
-            </div>
+            <Field label="카테고리">
+              <RadioFieldContainer>
+                {categories.map((v) => (
+                  <RadioField
+                    key={v.id}
+                    id={v.name}
+                    name="category"
+                    checked={values.category === v.name}
+                    onChange={handleCategoryChange(v.name)}
+                    value={v.name}
+                  ></RadioField>
+                ))}
+              </RadioFieldContainer>
+            </Field>
           </FieldContainer>
+
           {/* files */}
           <FieldContainer>
-            <div>
-              <div>파일:</div>
+            <Field label="파일">
               <FileUploadField name="files"></FileUploadField>
-            </div>
+            </Field>
+            <HelperText hasError={Boolean(errors.files)} text={errors.files}></HelperText>
           </FieldContainer>
 
           <FieldContainer>
-            <button disabled={isSubmitting || !isValid} type="submit">
-              submit
-            </button>
-            <HelperText hasError={errors.files}>{errors.files}</HelperText>
+            <Button label="submit" disabled={isSubmitting || !isValid} type="submit" />
           </FieldContainer>
           {JSON.stringify(values, null, 2)}
         </Form>
@@ -93,8 +133,16 @@ const Template = ({ handleSubmit, validate }) => {
   );
 };
 
+Field.propTypes = {
+  label: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired,
+};
+
 Template.propTypes = {
+  handleImgUploading: PropTypes.func.isRequired,
   validate: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  categories: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  initialValues: PropTypes.shape({}).isRequired,
 };
 export default Template;

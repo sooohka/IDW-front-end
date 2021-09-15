@@ -5,7 +5,7 @@ import spinner from "../../../assets/spinner.gif";
 import Content from "../../../components/layout/Content";
 import Navbar from "../../../components/layout/Navbar";
 import Sidebar from "../../../components/layout/Sidebar";
-import Cards from "../components/Cards";
+import Cards from "../Cards";
 
 const Container = styled.div`
   height: 100%;

@@ -1,21 +1,23 @@
 import { createGlobalStyle } from "styled-components";
+import { theme } from "./theme";
 
 const globalStyle = createGlobalStyle`
 
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size:1.8rem;
+    color: ${({ _ }) => theme.colors.primary};
+    line-height: 140%;
+}
 html {
   height: 100%;
   font-size: 62.5%;
-  &>*{
-    font-size:1.8rem;
-    line-height: 140%;
-  }
+  height: 100%;
 }
 
 body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;

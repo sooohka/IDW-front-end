@@ -9,8 +9,8 @@ Input fields - These should closely match the body text’s rules.
 
 const theme = {
   colors: {
-    black: "#000000",
-    lightBlue: "#18A0FB",
+    primary: "#2d3436",
+    secondary: "#18A0FB",
     white: "#ffffff",
   },
   fonts: {
@@ -18,6 +18,7 @@ const theme = {
     subBody: "1.2rem",
     body: "1.4rem",
     strongBody: "1.8rem",
+    label: "2.4rem",
     heading: "3.5rem",
     subHeading: "3rem",
   },

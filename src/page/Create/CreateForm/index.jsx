@@ -1,20 +1,29 @@
-import React, { useCallback } from "react";
+import { useFormik } from "formik";
+import React, { useCallback, useEffect, useState } from "react";
 import Template from "./template";
 
 const CreateForm = () => {
+  const [isImgUploading, setIsImgUploading] = useState(false);
+  const {} = useFormik();
+  useEffect(() => {
+    console.log(`%c createform rendered`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
+  });
+
   const handleSubmit = useCallback((v) => {
     console.log(v);
   }, []);
 
-  const validate = useCallback((v) => {
-    const errors = {
-      // title: null,
-      // desc: null,
-      // category: null,
-      // dateOfCreation: null,
-      // files: null,
-    };
+  const handleCategoryChange = useCallback(
+    (e) => (v) => {
+      setFieldValue("category", v.name);
+    },
+    []
+  );
 
+  const handleFilesChange = useCallback((e) => {}, []);
+
+  const validate = useCallback((v) => {
+    const errors = {};
     if (!v.title) {
       errors.title = "제목을 입력해주세요.";
     }
@@ -31,7 +40,36 @@ const CreateForm = () => {
 
     return errors;
   }, []);
-  return <Template handleSubmit={handleSubmit} validate={validate}></Template>;
+
+  const categories = [
+    { name: "연예인", id: 1 },
+    { name: "음식", id: 2 },
+    { name: "음식1", id: 3 },
+    { name: "음식2", id: 4 },
+    { name: "음식3", id: 5 },
+    { name: "음식4", id: 6 },
+    { name: "음식5", id: 7 },
+  ];
+
+  const initialValue = {
+    title: "",
+    desc: "",
+    category: "연예인",
+    files: [],
+  };
+  return (
+    <Formik initialValues={initialValues} onSubmit={handleSubmit} validate={validate}>
+      <Template
+        handleCategoryChange={handleCategoryChange}
+        handleFilesChange={handleFilesChange}
+        handleImgUploading={setIsImgUploading}
+        initialValues={initialValue}
+        categories={categories}
+        handleSubmit={handleSubmit}
+        validate={validate}
+      ></Template>
+    </Formik>
+  );
 };
 
 export default CreateForm;

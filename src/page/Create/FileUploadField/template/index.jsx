@@ -2,28 +2,40 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import FileUploadWithProgress from "../../FileUploadWithProgress";
+import { ReactComponent as UploadIcon } from "../../../../assets/icons/cloud-upload-alt-solid.svg";
+import { theme } from "../../../../style/theme";
 
 const Container = styled.div`
   height: fit-content;
 `;
 
 const DropZone = styled.div`
-  border: 3px solid rebeccapurple;
+  border: 3px dashed;
+  border-color: ${() => theme.colors.secondary};
   height: 15rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  opacity: ${({ isAccepting }) => isAccepting && 0.3};
+  flex-direction: column;
+  & > * {
+    transform: ${({ isAccepting }) => isAccepting && "scale(1.5)"};
+    opacity: ${({ isAccepting }) => isAccepting && 0.3};
+  }
+  & > p {
+    font-weight: bold;
+    color: ${() => theme.colors.secondary};
+  }
 `;
 
-const Template = ({ handleDelete, handleSubmittedFiles, files, isAccepting, dzInputProps, dzRootProps }) => {
+const Template = ({ handleDelete, handleSubmittedFiles, files, isAccepting, getInputProps, getRootProps }) => {
   return (
     <Container>
       {/* DropZone */}
-      <DropZone isAccepting={isAccepting} {...dzRootProps}>
-        <input {...dzInputProps} />
-        <p>Drag and Drop files here</p>
+      <DropZone isAccepting={isAccepting} {...getRootProps()} onClick={(e) => e.stopPropagation()}>
+        <input {...getInputProps()} />
+        <UploadIcon fill={theme.colors.secondary} width={50} height={50}></UploadIcon>
+        <p>Drag and Drop or click here to upload</p>
       </DropZone>
 
       {/* ListFiles */}
@@ -46,7 +58,7 @@ Template.propTypes = {
   handleSubmittedFiles: PropTypes.func.isRequired,
   files: PropTypes.arrayOf(PropTypes.shape(PropTypes.object.isRequired)).isRequired,
   isAccepting: PropTypes.bool.isRequired,
-  dzInputProps: PropTypes.any.isRequired,
-  dzRootProps: PropTypes.any.isRequired,
+  getRootProps: PropTypes.func.isRequired,
+  getInputProps: PropTypes.func.isRequired,
 };
 export default Template;
