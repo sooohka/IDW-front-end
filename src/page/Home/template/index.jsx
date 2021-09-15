@@ -13,27 +13,19 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
-const Template = ({ isLoading, cards }) => {
+const Template = ({ cards }) => {
   return (
     <Container>
       <Navbar />
       <Sidebar></Sidebar>
       <Content>
-        {/* <div style={{ backgroundColor: "rebeccapurple", width: "100%", height: "5rem" }}>filter</div> */}
-        {isLoading ? (
-          <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <img style={{ width: "fit-content", height: "fit-content" }} src={spinner} alt="spinner" />
-          </div>
-        ) : (
-          <Cards cards={cards} />
-        )}
+        <Cards cards={cards} />
       </Content>
     </Container>
   );
 };
 
 Template.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
   cards: PropTypes.arrayOf(
     PropTypes.shape({
       desc: PropTypes.string.isRequired,

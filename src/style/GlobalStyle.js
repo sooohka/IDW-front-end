@@ -14,16 +14,25 @@ const globalStyle = createGlobalStyle`
 html {
   height: 100%;
   font-size: 62.5%;
-  height: 100%;
 }
 
 body {
+  height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#root{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  padding: 0 3rem;
 }
 
 a,a:any-link,a:-webkit-any-link{
@@ -40,13 +49,8 @@ p{
   margin:0;
   padding:0;
 }
-#root{
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding:0 5rem;
-}
+
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

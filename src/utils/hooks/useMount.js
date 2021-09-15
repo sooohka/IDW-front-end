@@ -2,9 +2,10 @@ import { useEffect, useRef } from "react";
 
 const useMount = () => {
   const isMount = useRef(true);
+
   useEffect(() => {
-    if (isMount.current) isMount.current = false;
-  });
+    isMount.current = false;
+  }, []);
 
   return { isMount: isMount.current };
 };

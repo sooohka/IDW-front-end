@@ -50,7 +50,7 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
       await handleUpload(file);
     }
     upload();
-  }, []);
+  }, [file, handleUpload]);
 
   return <Template type={file.type} fileInfo={fileInfo} progress={progress} handleDelete={handleDelete}></Template>;
 };

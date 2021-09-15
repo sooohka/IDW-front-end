@@ -42,7 +42,7 @@ const StyledField = styled.div`
   flex-direction: column;
 `;
 
-const StyledLabel = styled.label`
+const FieldTitle = styled.span`
   display: flex;
   flex-direction: column;
   font-weight: bold;
@@ -53,10 +53,8 @@ const StyledLabel = styled.label`
 const Field = ({ label, children }) => {
   return (
     <StyledField>
-      <StyledLabel>
-        {label}
-        {children}
-      </StyledLabel>
+      <FieldTitle>{label}</FieldTitle>
+      {children}
     </StyledField>
   );
 };
@@ -73,7 +71,7 @@ const RadioFieldContainer = styled.div`
   }
 `;
 
-const Template = ({ initialValues, categories, handleSubmit, validate }) => {
+const Template = ({ isFileUploading, setIsFileUploading, initialValues, categories, handleSubmit, validate }) => {
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit} validate={validate}>
       {/* TODO: 1.style FieldContainer, RadioContainer, Form */}
@@ -117,21 +115,18 @@ const Template = ({ initialValues, categories, handleSubmit, validate }) => {
 
           {/* files */}
           <FieldContainer>
-            {/* <Field label="파일"> */}
-            <Text bold fontSize={theme.fonts.label}>
-              파일
-            </Text>
-            <FileUploadField name="files"></FileUploadField>
-            {/* </Field> */}
-            <HelperText hasError={Boolean(errors.files)} text={errors.files}></HelperText>
+            <Field label="파일">
+              <FileUploadField setIsFileUploading={setIsFileUploading} name="files"></FileUploadField>
+            </Field>
+            <HelperText hasError={Boolean(errors.files)} text={errors.files} />
           </FieldContainer>
 
           <FieldContainer>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <Button label="submit" disabled={!touched.title || isSubmitting || !isValid} type="submit" />
+            <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+              <Button label="submit" disabled={isFileUploading || !touched.title || isSubmitting || !isValid} type="submit" />
+              {/* <HelperText hasError={Boolean(errors.title || errors.desc || errors.files)} text={errors.title || errors.desc || errors.files}></HelperText> */}
             </div>
           </FieldContainer>
-          {JSON.stringify(values, null, 2)}
         </Form>
       )}
     </Formik>
@@ -144,6 +139,8 @@ Field.propTypes = {
 };
 
 Template.propTypes = {
+  isFileUploading: PropTypes.bool.isRequired,
+  setIsFileUploading: PropTypes.func.isRequired,
   validate: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   categories: PropTypes.arrayOf(PropTypes.shape({})).isRequired,

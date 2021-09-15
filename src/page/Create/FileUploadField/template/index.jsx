@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import FileUploadWithProgress from "../../FileUploadWithProgress";
 import { ReactComponent as UploadIcon } from "../../../../assets/icons/cloud-upload-alt-solid.svg";
 import { theme } from "../../../../style/theme";
+import { ReactComponent as Sort } from "../../../../assets/icons/sort-up-solid.svg";
 
 const Container = styled.div`
-  height: fit-content;
+  min-height: 150%;
 `;
 
 const DropZone = styled.div`
@@ -28,7 +29,58 @@ const DropZone = styled.div`
   }
 `;
 
-const Template = ({ handleDelete, handleSubmittedFiles, files, isAccepting, getInputProps, getRootProps }) => {
+const FileList = styled.div`
+  margin: 1rem 0 0 0;
+  border: 2px solid black;
+  border-radius: 5px;
+  min-height: 3rem;
+  position: relative;
+`;
+
+const FileListTitle = styled.h3`
+  flex: 1;
+`;
+
+const FileListHeader = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const Files = styled.div`
+  transition: all;
+  transform-origin: top;
+  ${({ isFolded }) => {
+    if (isFolded)
+      return css`
+        transform: scaleY(0);
+        max-height: 0;
+      `;
+    return css`
+      transform: scaleY(1);
+      padding: 2rem 0 0;
+      max-height: 10000px;
+    `;
+  }}
+`;
+const IconWrapper = styled.div`
+  cursor: pointer;
+  & > svg {
+    transition: all 0.2s;
+    ${({ isFolded }) => {
+      if (isFolded) {
+        return css`
+          transform: rotate(180deg);
+        `;
+      }
+      return css`
+        transform: rotate(0deg) translateY(30%);
+      `;
+    }}
+  }
+`;
+
+const Template = ({ isFolded, setIsFolded, handleDelete, handleSubmittedFiles, files, isAccepting, getInputProps, getRootProps }) => {
   return (
     <Container>
       {/* DropZone */}
@@ -44,21 +96,48 @@ const Template = ({ handleDelete, handleSubmittedFiles, files, isAccepting, getI
       </DropZone>
 
       {/* ListFiles */}
-      <div>
-        {files.map((file) => (
-          <FileUploadWithProgress
-            handleDelete={handleDelete}
-            handleSubmittedFiles={handleSubmittedFiles}
-            file={file}
-            key={`${file.name}${file.size}`}
-          ></FileUploadWithProgress>
-        ))}
-      </div>
+      <FileList isFolded={isFolded}>
+        <FileListHeader
+          onClick={() => {
+            setIsFolded((prev) => !prev);
+          }}
+          isFolded={isFolded}
+        >
+          <FileListTitle>파일들</FileListTitle>
+          <IconWrapper isFolded={isFolded}>
+            <Sort width={30} height={30}></Sort>
+          </IconWrapper>
+        </FileListHeader>
+        <Files isFolded={isFolded}>
+          {files.map((file, i, a) => (
+            <FileUploadWithProgress
+              handleDelete={handleDelete}
+              handleSubmittedFiles={handleSubmittedFiles}
+              file={file}
+              // TODO: 제대로된 키값 설정하기
+              key={`${file.name}${file.size}`}
+            ></FileUploadWithProgress>
+          ))}
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <IconWrapper
+              onClick={() => {
+                setIsFolded(true);
+              }}
+              isFolded={isFolded}
+            >
+              go Top
+              <Sort width={30} height={30}></Sort>
+            </IconWrapper>
+          </div>
+        </Files>
+      </FileList>
     </Container>
   );
 };
 
 Template.propTypes = {
+  isFolded: PropTypes.bool.isRequired,
+  setIsFolded: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
   handleSubmittedFiles: PropTypes.func.isRequired,
   files: PropTypes.arrayOf(PropTypes.shape(PropTypes.object.isRequired)).isRequired,

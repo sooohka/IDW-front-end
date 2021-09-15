@@ -22,11 +22,12 @@ const HelperText = ({ hasError, children, text, always }) => {
 
 HelperText.propTypes = {
   hasError: PropTypes.bool.isRequired,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   children: PropTypes.string,
   always: PropTypes.bool,
 };
 HelperText.defaultProps = {
+  text: " ",
   children: "",
   always: false,
 };

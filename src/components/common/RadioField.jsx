@@ -3,11 +3,15 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { theme } from "../../style/theme";
 
-const Container = styled.div`
-  & > label {
-    display: flex;
-    align-items: center;
-  }
+const Container = styled.div``;
+
+const Label = styled.label`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  font-weight: bold;
+  font-size: ${() => theme.fonts.strongBody};
 `;
 
 const Radio = styled.span`
@@ -43,17 +47,17 @@ const Radio = styled.span`
 const RadioField = ({ id, name, checked, onChange, value }) => {
   return (
     <Container>
-      <label htmlFor={id}>
-        <input tabIndex={-1} id={id} name={name} type="radio" checked={checked} onChange={onChange} value={value} hidden></input>
+      <Label htmlFor={id}>
+        <input id={id} name={name} type="radio" checked={checked} onChange={onChange} value={value} hidden></input>
         <Radio
           onKeyDown={(e) => {
-            if (e.key === " ") onChange();
+            if (e.key === " ") onChange(e);
           }}
           tabIndex={0}
           checked={checked}
         ></Radio>
         {value}
-      </label>
+      </Label>
     </Container>
   );
 };
