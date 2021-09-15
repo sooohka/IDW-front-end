@@ -1,18 +1,18 @@
 import PropTypes from "prop-types";
 import React, { useRef } from "react";
 import styled from "styled-components";
-import { ReactComponent as CommentReg } from "../../../../../assets/icons/comment-regular.svg";
-import { ReactComponent as Share } from "../../../../../assets/icons/share-square-solid.svg";
-import { ReactComponent as ThumbUpReg } from "../../../../../assets/icons/thumbs-up-regular.svg";
-import { ReactComponent as PlaySolid } from "../../../../../assets/icons/play-solid.svg";
-import { theme } from "../../../../../style/theme";
-import useImgLazyLoad from "../../../../../utils/hooks/useImgLazyLoad";
-import Text from "../../../../../components/common/Text";
+import { ReactComponent as CommentReg } from "../../../../assets/icons/comment-regular.svg";
+import { ReactComponent as Share } from "../../../../assets/icons/share-square-solid.svg";
+import { ReactComponent as ThumbUpReg } from "../../../../assets/icons/thumbs-up-regular.svg";
+import { ReactComponent as PlaySolid } from "../../../../assets/icons/play-solid.svg";
+import { theme } from "../../../../style/theme";
+import useImgLazyLoad from "../../../../utils/hooks/useImgLazyLoad";
+import Text from "../../../../components/common/Text";
+import Img from "../../../../components/common/Img";
 
 const StyledCard = styled.div`
-  width: 30rem;
-  height: 45rem;
-  margin: 1rem;
+  width: 20rem;
+  height: 35rem;
   display: flex;
   flex-direction: column;
   box-shadow: 0 0.25rem 0.5rem rgba(1, 1, 1, 0.1);
@@ -22,7 +22,7 @@ const StyledCard = styled.div`
 
 const ImgBox = styled.div`
   width: 100%;
-  height: 30rem;
+  min-height: 60%;
   display: flex;
   align-items: center;
   position: relative;
@@ -34,32 +34,25 @@ const ImgBox = styled.div`
   }
 `;
 
-const Img = styled.img`
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-`;
-
 const Box = styled.div`
-  flex: 1;
   display: flex;
   flex-direction: column;
-  width: "100%";
-  padding: 1rem 1rem;
+  padding: 1rem 1rem 0;
+  width: 100%;
+
   & > * {
     margin: 0 0 1rem 0;
   }
 `;
 
 const ExtraBox = styled.div`
-  padding: 0 1rem 0 0;
   flex-grow: 1;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 const ToolBox = styled.div`
-  flex-grow: 1;
   display: flex;
 `;
 
@@ -67,7 +60,7 @@ const IconWrapper = styled.div`
   width: fit-content;
   display: flex;
   align-items: center;
-  padding: 0 2rem 0 0;
+  padding: 0 0.5rem 0 0;
   & > * {
     margin: 0 0.5rem 0 0;
   }
@@ -107,7 +100,7 @@ const Template = ({ handlePlayBtnClick, title, desc, img, numberOfComments, numb
   return (
     <StyledCard>
       <ImgBox>
-        <Img src={imgSrc} ref={imageRef} alt={img.alt} />
+        <Img width="100%" height="100%" src={imgSrc} ref={imageRef} alt={img.alt} />
         <PlayWrapper onClick={handlePlayBtnClick(1)}>
           <PlaySolid width={50} />
           <Text bold text="월드컵 하러 가기" />

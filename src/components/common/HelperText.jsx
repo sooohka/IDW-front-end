@@ -5,24 +5,30 @@ import { theme } from "../../style/theme";
 
 const StyledHelperText = styled.p`
   display: block;
-  opacity: ${({ renderSuccess, hasError }) => (renderSuccess || hasError ? "1" : "0")};
+  height: 5px;
+  opacity: ${({ always, hasError }) => (hasError || always ? "1" : "0")};
   color: ${({ hasError }) => (hasError ? "red" : "green")};
-  font-size: ${({ _ }) => theme.fonts.helperText};
-  margin: 0 0 0 1rem;
+  font-size: ${() => theme.fonts.helperText};
   line-height: 1.6rem;
 `;
 
-const HelperText = ({ hasError, children, renderSuccess }) => {
+const HelperText = ({ hasError, children, text, always }) => {
   return (
-    <StyledHelperText renderSuccess={renderSuccess} hasError={hasError}>
-      {children}
+    <StyledHelperText always={always} hasError={hasError}>
+      {children || text}
     </StyledHelperText>
   );
 };
 
 HelperText.propTypes = {
   hasError: PropTypes.bool.isRequired,
-  children: PropTypes.string.isRequired,
-  renderSuccess: PropTypes.bool.isRequired,
+  text: PropTypes.string,
+  children: PropTypes.string,
+  always: PropTypes.bool,
+};
+HelperText.defaultProps = {
+  text: " ",
+  children: "",
+  always: false,
 };
 export default HelperText;

@@ -8,6 +8,7 @@ const StyledText = styled.p`
   font-size: ${({ fontSize }) => fontSize};
   font-weight: ${({ bold }) => bold && "bold"};
   color: ${({ color }) => color};
+  margin: ${({ margin }) => margin};
 `;
 
 const StyledTexts = styled.div`
@@ -15,6 +16,7 @@ const StyledTexts = styled.div`
   font-size: ${({ fontSize }) => fontSize};
   font-weight: ${({ bold }) => bold && "bold"};
   color: ${({ color }) => color};
+  margin: ${({ margin }) => margin};
 
   height: ${({ height }) => height};
 
@@ -36,15 +38,15 @@ const StyledTexts = styled.div`
   }};
 `;
 
-const Text = ({ maxRows, height, fontSize, color, bold, text, children }) => {
+const Text = ({ maxRows, height, fontSize, color, bold, text, margin, children }) => {
   if (maxRows > 1)
     return (
-      <StyledTexts fontSize={fontSize} color={color} bold={bold} maxRows={maxRows} height={height}>
+      <StyledTexts margin={margin} fontSize={fontSize} color={color} bold={bold} maxRows={maxRows} height={height}>
         {text || children || "no text"}
       </StyledTexts>
     );
   return (
-    <StyledText fontSize={fontSize} color={color} bold={bold}>
+    <StyledText margin={margin} fontSize={fontSize} color={color} bold={bold}>
       {text || children || "no text"}
     </StyledText>
   );
@@ -58,13 +60,15 @@ Text.propTypes = {
   children: PropTypes.string,
   maxRows: PropTypes.number,
   height: PropTypes.string,
+  margin: PropTypes.string,
 };
 Text.defaultProps = {
   fontSize: theme.fonts.body,
-  color: theme.colors.black,
+  color: theme.colors.primary,
   bold: false,
   children: null,
   maxRows: null,
   height: null,
+  margin: "0",
 };
 export default Text;

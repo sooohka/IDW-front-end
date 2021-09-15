@@ -4,22 +4,23 @@ const useFetch = (promise) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+
   useEffect(() => {
-    // fetch
-    promise
-      .then((res) => {
+    async function getData() {
+      try {
+        const res = await promise();
         if (res.status === 200) {
           setData(res.data);
         }
-
         return res;
-      })
-      .catch((e) => {
+      } catch (e) {
         console.log(e.response);
-
         throw new Error(e.message);
-      });
-    setIsLoading(false);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    getData();
   }, []);
 
   return { isLoading, data };

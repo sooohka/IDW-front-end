@@ -3,12 +3,8 @@
     "browser": true,
     "es2021": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "airbnb",
-    "prettier"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb", "prettier"],
+  
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -16,15 +12,25 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": ["react","react-hooks", "prettier"],
   "rules": {
     "react/forbid-prop-types": "off",
+    "react-hooks/exhaustive-deps":"warn",
     "arrow-body-style": "off",
     "prettier/prettier": "warn",
     "prefer-destructuring": "warn",
     "import/prefer-default-export": "off",
     "react/jsx-props-no-spreading": "off",
     "no-unused-vars": "warn",
-    "react/self-closing-comp": "off"
+    "react/self-closing-comp": "off",
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "labelComponents": ["CustomInputLabel"],
+        "labelAttributes": ["label"],
+        "controlComponents": ["CustomInput"],
+        "depth": 3
+      }
+    ]
   }
 }

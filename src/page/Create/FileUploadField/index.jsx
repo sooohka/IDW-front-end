@@ -1,23 +1,54 @@
 import { useField } from "formik";
-import React, { useCallback, useEffect, useState } from "react";
-import { DropzoneState, useDropzone } from "react-dropzone";
 import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import useMount from "../../../utils/hooks/useMount";
 import Template from "./template";
 
-const FileUploadField = ({ name }) => {
+const FileUploadField = ({ name, setIsFileUploading }) => {
   const [, , helpers] = useField(name);
   const [files, setFiles] = useState([]);
   const [submittedFiles, setSubmittedFiles] = useState([]);
   const [isAccepting, setIsAccepting] = useState(false);
+  const { isMount } = useMount();
+  const [isFolded, setIsFolded] = useState(true);
 
   useEffect(() => {
-    helpers.setValue(submittedFiles);
+    // console.log(helpers);
+    console.log(`%c fileUploadField rendered`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
+  }, []);
+
+  useEffect(() => {
+    console.log(`%c state isAccepting in FileUploadField change`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
+    console.log(isAccepting);
+  }, [isAccepting]);
+
+  useEffect(() => {
+    console.log(`%c state files in FileUploadField change`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
+    setIsFileUploading(true);
+  }, [files, setIsFileUploading]);
+
+  useEffect(() => {
+    if (isMount) return;
+    console.log(`%c state submittedFiles in FileUploadField changed`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
+
+    if (submittedFiles.length === files.length) setIsFileUploading(false);
+    else helpers.setError("파일이 업로드중입니다.");
+
+    helpers.setValue(submittedFiles, true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submittedFiles]);
 
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-    if (rejectedFiles.length > 0) alert("같은이름의 파일은 제외하고 업로드하겠습니다.");
+    // TODO: 에러메시지 개선
+    console.log("rejected");
+
+    console.log(rejectedFiles);
+
+    if (rejectedFiles.length > 0) alert(rejectedFiles[0].errors[0].message);
     const formedAcceptedFiles = acceptedFiles.map((file) => file);
     setFiles((prev) => [...prev, ...formedAcceptedFiles]);
+    setIsAccepting(false);
   }, []);
 
   const onDragEnter = useCallback(() => {
@@ -32,41 +63,54 @@ const FileUploadField = ({ name }) => {
     setSubmittedFiles((prev) => [...prev, submittedFile]);
   }, []);
 
-  const handleValidation = useCallback((_file) => {
-    if (files.find((file) => file.name === _file.name)) {
-      return { message: "같은 이름의 파일이 이미 존재합니다." };
-    }
-    // TODO: file size validation
-    return null;
-  });
+  const handleValidation = useCallback(
+    (_file) => {
+      // if (!_file.type.startsWith("image")) return { message: "jpg,png,gif파일만 업로드하겠습니다." };
+      if (files.find((file) => file.name === _file.name)) {
+        return { message: "같은 이름의 파일은 업로드불가능합니다." };
+      }
+      if (files.length > 50) return { message: "파일은 최대 50장 업로드 가능합니다." };
+
+      // TODO: file size validation
+      return null;
+    },
+    [files]
+  );
 
   const handleDelete = useCallback(
-    (fileName) => (e) => {
+    (fileName) => () => {
       setFiles((prev) => prev.filter((file) => file.name !== fileName));
       setSubmittedFiles((prev) => prev.filter((file) => file.name !== fileName));
     },
     []
   );
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop, onDragEnter, onDragLeave, validator: handleValidation });
-  const dzRootProps = getRootProps();
-  const dzInputProps = getInputProps();
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "image/*",
+    maxFiles: 50,
+    onDrop,
+    onDragEnter,
+    onDragLeave,
+    validator: handleValidation,
+  });
+
   return (
-    <>
-      <Template
-        handleDelete={handleDelete}
-        handleSubmittedFiles={handleSubmittedFiles}
-        handleValidation={handleValidation}
-        files={files}
-        isAccepting={isAccepting}
-        dzRootProps={dzRootProps}
-        dzInputProps={dzInputProps}
-      ></Template>
-    </>
+    <Template
+      isFolded={isFolded}
+      setIsFolded={setIsFolded}
+      handleDelete={handleDelete}
+      handleSubmittedFiles={handleSubmittedFiles}
+      handleValidation={handleValidation}
+      files={files}
+      isAccepting={isAccepting}
+      getRootProps={getRootProps}
+      getInputProps={getInputProps}
+    ></Template>
   );
 };
 
 FileUploadField.propTypes = {
+  setIsFileUploading: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
 };
 

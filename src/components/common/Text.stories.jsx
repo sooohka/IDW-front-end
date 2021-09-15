@@ -8,10 +8,10 @@ export default {
   argTypes: {
     color: {
       control: "select",
-      options: ["black", "lightBlue", "white"],
+      options: ["primary", "secondary", "white"],
       mapping: {
-        black: theme.colors.black,
-        lightBlue: theme.colors.lightBlue,
+        primary: theme.colors.primary,
+        secondary: theme.colors.secondary,
         white: theme.colors.white,
       },
     },

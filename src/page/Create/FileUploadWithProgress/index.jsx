@@ -5,45 +5,54 @@ import Template from "./template";
 
 const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) => {
   const [progress, setProgress] = useState(0);
-  const [submitResult, setSubmitResult] = useState({ isSubmitting: true, hasError: false, message: "submitting..." });
+  const [fileInfo, setFileInfo] = useState({
+    file: {
+      name: file.name,
+      url: "",
+    },
+    isSubmitting: true,
+    hasError: false,
+    message: "submitting...",
+  });
 
-  const handleUpload = useCallback(async (_file) => {
-    const formData = new FormData();
+  const handleUpload = useCallback(
+    async (_file) => {
+      const formData = new FormData();
 
-    formData.append("upload_preset", "docs_upload_example_us_preset");
-    formData.append("file", _file);
+      formData.append("upload_preset", "docs_upload_example_us_preset");
+      formData.append("file", _file);
+      try {
+        const response = await axios.post("https://api.cloudinary.com/v1_1/demo/image/upload", formData, {
+          onUploadProgress: (prog) => {
+            const { loaded } = prog;
+            const { total } = prog;
+            setProgress(Math.round((loaded / total) * 100));
+          },
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
-    axios
-      .post("https://api.cloudinary.com/v1_1/demo/image/upload", formData, {
-        onUploadProgress: (prog) => {
-          const { loaded } = prog;
-          const { total } = prog;
-          setProgress(Math.round((loaded / total) * 100));
-        },
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        const { url, original_filename: name, format } = res.data;
+        const { url, original_filename: name, format } = response.data;
         handleSubmittedFiles({ name: `${name}.${format}`, url });
-        setSubmitResult({ isSubmitting: false, hasError: false, message: "submitted!" });
-      })
-      .catch((res) => {
-        const { message } = res.response.data.error;
-        setSubmitResult({ isSubmitting: false, hasError: true, message });
-        console.log(res.response.data.error.message);
-      });
-  }, []);
+        setFileInfo((prev) => ({ ...prev, isSubmitting: false, message: "submitted!", file: { ...prev.file, url } }));
+      } catch (err) {
+        const message = err.response?.data?.error?.message || "something went wrong😅 ";
+        setFileInfo((prev) => ({ isSubmitting: false, hasError: true, message, file: { ...prev.file } }));
+        console.error(message);
+      }
+    },
+    [handleSubmittedFiles]
+  );
 
   useEffect(() => {
     async function upload() {
       await handleUpload(file);
     }
     upload();
-  }, []);
+  }, [file, handleUpload]);
 
-  return <Template fileName={file.name} submitResult={submitResult} progress={progress} handleDelete={handleDelete}></Template>;
+  return <Template type={file.type} fileInfo={fileInfo} progress={progress} handleDelete={handleDelete}></Template>;
 };
 
 FileUploadWithProgress.propTypes = {

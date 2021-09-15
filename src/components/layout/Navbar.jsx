@@ -8,6 +8,7 @@ const StyledNavbar = styled.div`
   padding: 2rem 0;
   display: flex;
   margin: 0 0 5rem;
+  width: 100%;
 `;
 
 const LeftContainer = styled.div`
@@ -58,13 +59,13 @@ const Navbar = () => {
         </LogoContainer>
         <Nav>
           <Link to="/create">
-            <Text color={theme.colors.lightBlue} bold text="만들기" />
+            <Text color={theme.colors.secondary} bold text="만들기" />
           </Link>
           <Link to="/">
-            <Text color={theme.colors.lightBlue} bold text="후원하기" />
+            <Text color={theme.colors.secondary} bold text="후원하기" />
           </Link>
           <Link to="/">
-            <Text color={theme.colors.lightBlue} bold text="커뮤니티" />
+            <Text color={theme.colors.secondary} bold text="커뮤니티" />
           </Link>
         </Nav>
       </LeftContainer>

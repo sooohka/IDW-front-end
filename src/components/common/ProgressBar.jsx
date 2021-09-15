@@ -10,12 +10,13 @@ const StyledProgressBar = styled.div`
   border-radius: 10000px;
   height: 3rem;
   overflow: hidden;
+  display: flex;
+  align-items: center;
 `;
 
 const Title = styled.p`
   z-index: 100;
   display: inline-block;
-  height: 100%;
   width: 100%;
   padding: 0 0 0 1rem;
   color: white;
@@ -26,7 +27,7 @@ const Title = styled.p`
 `;
 
 const Progress = styled.div`
-  background: ${({ hasError }) => (hasError ? "red" : "rebeccapurple")};
+  background: ${({ hasError }) => (hasError ? "red" : theme.colors.secondary)};
   height: 100%;
   /* width: "80%"; */
   border-radius: 10000px;
