@@ -27,7 +27,7 @@ const Title = styled.p`
 `;
 
 const Progress = styled.div`
-  background: ${({ hasError }) => (hasError ? "red" : "rebeccapurple")};
+  background: ${({ hasError }) => (hasError ? "red" : theme.colors.secondary)};
   height: 100%;
   /* width: "80%"; */
   border-radius: 10000px;

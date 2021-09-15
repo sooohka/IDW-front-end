@@ -7,7 +7,7 @@ import useTraceUpdate from "../../../utils/hooks/useTraceComponent";
 import Template from "./template";
 
 const FileUploadField = (props) => {
-  const { handleImgUploading, name } = props;
+  const { name } = props;
   const [, , helpers] = useField(name);
   const [files, setFiles] = useState([]);
   const [submittedFiles, setSubmittedFiles] = useState([]);
@@ -15,8 +15,8 @@ const FileUploadField = (props) => {
   const { isMount } = useMount();
 
   useEffect(() => {
-    // console.log(files);
-    // console.log(submittedFiles);
+    console.log(files);
+    console.log(submittedFiles);
     // console.log(helpers);
     console.log(`%c fileUploadField rendered`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
   });
@@ -27,6 +27,7 @@ const FileUploadField = (props) => {
     if (isMount) return;
 
     helpers.setValue(submittedFiles);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submittedFiles, isMount]);
 
   useEffect(() => {
@@ -38,6 +39,7 @@ const FileUploadField = (props) => {
   useEffect(() => {
     console.log("isAccepting");
   }, [isAccepting]);
+
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     console.log("ondrop");
 
@@ -51,7 +53,6 @@ const FileUploadField = (props) => {
 
   const onDragEnter = useCallback(() => {
     console.log("dragenter");
-
     setIsAccepting(true);
   }, []);
 

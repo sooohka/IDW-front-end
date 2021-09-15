@@ -73,7 +73,7 @@ const RadioFieldContainer = styled.div`
   }
 `;
 
-const Template = ({ handleCategoryChange, handleFilesChange, handleImgUploading, initialValues, categories, handleSubmit, validate }) => {
+const Template = ({ initialValues, categories, handleSubmit, validate }) => {
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit} validate={validate}>
       {/* TODO: 1.style FieldContainer, RadioContainer, Form */}
@@ -107,7 +107,7 @@ const Template = ({ handleCategoryChange, handleFilesChange, handleImgUploading,
                     id={v.name}
                     name="category"
                     checked={values.category === v.name}
-                    onChange={handleCategoryChange(v.name)}
+                    onChange={() => setFieldValue("category", v.name)}
                     value={v.name}
                   ></RadioField>
                 ))}
@@ -117,14 +117,19 @@ const Template = ({ handleCategoryChange, handleFilesChange, handleImgUploading,
 
           {/* files */}
           <FieldContainer>
-            <Field label="파일">
-              <FileUploadField name="files"></FileUploadField>
-            </Field>
+            {/* <Field label="파일"> */}
+            <Text bold fontSize={theme.fonts.label}>
+              파일
+            </Text>
+            <FileUploadField name="files"></FileUploadField>
+            {/* </Field> */}
             <HelperText hasError={Boolean(errors.files)} text={errors.files}></HelperText>
           </FieldContainer>
 
           <FieldContainer>
-            <Button label="submit" disabled={isSubmitting || !isValid} type="submit" />
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Button label="submit" disabled={!touched.title || isSubmitting || !isValid} type="submit" />
+            </div>
           </FieldContainer>
           {JSON.stringify(values, null, 2)}
         </Form>
@@ -139,7 +144,6 @@ Field.propTypes = {
 };
 
 Template.propTypes = {
-  handleImgUploading: PropTypes.func.isRequired,
   validate: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   categories: PropTypes.arrayOf(PropTypes.shape({})).isRequired,

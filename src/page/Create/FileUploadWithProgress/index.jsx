@@ -15,32 +15,35 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
     message: "submitting...",
   });
 
-  const handleUpload = useCallback(async (_file) => {
-    const formData = new FormData();
+  const handleUpload = useCallback(
+    async (_file) => {
+      const formData = new FormData();
 
-    formData.append("upload_preset", "docs_upload_example_us_preset");
-    formData.append("file", _file);
-    try {
-      const response = await axios.post("https://api.cloudinary.com/v1_1/demo/image/upload", formData, {
-        onUploadProgress: (prog) => {
-          const { loaded } = prog;
-          const { total } = prog;
-          setProgress(Math.round((loaded / total) * 100));
-        },
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      formData.append("upload_preset", "docs_upload_example_us_preset");
+      formData.append("file", _file);
+      try {
+        const response = await axios.post("https://api.cloudinary.com/v1_1/demo/image/upload", formData, {
+          onUploadProgress: (prog) => {
+            const { loaded } = prog;
+            const { total } = prog;
+            setProgress(Math.round((loaded / total) * 100));
+          },
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
-      const { url, original_filename: name, format } = response.data;
-      handleSubmittedFiles({ name: `${name}.${format}`, url });
-      setFileInfo((prev) => ({ ...prev, isSubmitting: false, message: "submitted!", file: { ...prev.file, url } }));
-    } catch (err) {
-      const message = err.response?.data?.error?.message || "something went wrong😅 ";
-      setFileInfo((prev) => ({ isSubmitting: false, hasError: true, message, file: { ...prev.file } }));
-      console.error(message);
-    }
-  }, []);
+        const { url, original_filename: name, format } = response.data;
+        handleSubmittedFiles({ name: `${name}.${format}`, url });
+        setFileInfo((prev) => ({ ...prev, isSubmitting: false, message: "submitted!", file: { ...prev.file, url } }));
+      } catch (err) {
+        const message = err.response?.data?.error?.message || "something went wrong😅 ";
+        setFileInfo((prev) => ({ isSubmitting: false, hasError: true, message, file: { ...prev.file } }));
+        console.error(message);
+      }
+    },
+    [handleSubmittedFiles]
+  );
 
   useEffect(() => {
     async function upload() {

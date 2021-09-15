@@ -32,7 +32,12 @@ const Template = ({ handleDelete, handleSubmittedFiles, files, isAccepting, getI
   return (
     <Container>
       {/* DropZone */}
-      <DropZone isAccepting={isAccepting} {...getRootProps()} onClick={(e) => e.stopPropagation()}>
+      <DropZone
+        isAccepting={isAccepting}
+        {...getRootProps()}
+
+        // onClick={(e) => e.stopPropagation()}
+      >
         <input {...getInputProps()} />
         <UploadIcon fill={theme.colors.secondary} width={50} height={50}></UploadIcon>
         <p>Drag and Drop or click here to upload</p>

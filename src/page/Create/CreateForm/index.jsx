@@ -3,8 +3,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import Template from "./template";
 
 const CreateForm = () => {
-  const [isImgUploading, setIsImgUploading] = useState(false);
-  const {} = useFormik();
   useEffect(() => {
     console.log(`%c createform rendered`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
   });
@@ -12,13 +10,6 @@ const CreateForm = () => {
   const handleSubmit = useCallback((v) => {
     console.log(v);
   }, []);
-
-  const handleCategoryChange = useCallback(
-    (e) => (v) => {
-      setFieldValue("category", v.name);
-    },
-    []
-  );
 
   const handleFilesChange = useCallback((e) => {}, []);
 
@@ -51,24 +42,20 @@ const CreateForm = () => {
     { name: "음식5", id: 7 },
   ];
 
-  const initialValue = {
+  const initialValues = {
     title: "",
     desc: "",
     category: "연예인",
     files: [],
   };
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit} validate={validate}>
-      <Template
-        handleCategoryChange={handleCategoryChange}
-        handleFilesChange={handleFilesChange}
-        handleImgUploading={setIsImgUploading}
-        initialValues={initialValue}
-        categories={categories}
-        handleSubmit={handleSubmit}
-        validate={validate}
-      ></Template>
-    </Formik>
+    <Template
+      handleFilesChange={handleFilesChange}
+      initialValues={initialValues}
+      categories={categories}
+      handleSubmit={handleSubmit}
+      validate={validate}
+    ></Template>
   );
 };
 

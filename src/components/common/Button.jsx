@@ -1,11 +1,25 @@
 import React, { forwardRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { theme } from "../../style/theme";
 
 const StyledButton = styled.button`
-  /* border: 1px solid black;
+  border: none;
   border-radius: 5px;
-  background-color: red; */
+  padding: 1rem 2rem;
+  color: ${() => theme.colors.white};
+  font-size: ${() => theme.fonts.label};
+  font-weight: bold;
+  background-color: ${() => theme.colors.secondary};
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+  &:disabled {
+    background-color: ${() => "gray"};
+    opacity: 1;
+    cursor: default;
+  }
 `;
 
 const Button = ({ label, children, type, disabled }) => {
