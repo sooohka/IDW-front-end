@@ -28,14 +28,16 @@ const Template = ({ cards }) => {
 Template.propTypes = {
   cards: PropTypes.arrayOf(
     PropTypes.shape({
+      createDate: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
       desc: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      numberOfComments: PropTypes.number.isRequired,
+      commentCounts: PropTypes.number.isRequired,
       numberOfLikes: PropTypes.number.isRequired,
-      img: {
-        src: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
-        alt: PropTypes.string.isRequired,
+      imageDto: {
+        originalImage: PropTypes.string.isRequired,
+        reducedImage: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
       },
     })
   ).isRequired,

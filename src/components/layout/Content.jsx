@@ -8,8 +8,6 @@ const StyledContent = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
 const Content = ({ children }) => {
   return <StyledContent>{children}</StyledContent>;

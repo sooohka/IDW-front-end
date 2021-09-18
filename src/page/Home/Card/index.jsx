@@ -3,30 +3,36 @@ import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import Template from "./template";
 
-const Card = ({ title, desc, numberOfComments, numberOfLikes, img }) => {
+const Card = ({ createDate, id, title, desc, commentCounts, numberOfLikes, imageDto }) => {
   const history = useHistory();
 
-  const handlePlayBtnClick = useCallback(
-    (gameId) => (e) => {
-      history.push(`/play/${gameId}`);
-    },
-    []
-  );
+  const handlePlayBtnClick = useCallback((gameId) => (e) => history.push(`/play/${gameId}`), [history]);
 
   return (
-    <Template handlePlayBtnClick={handlePlayBtnClick} desc={desc} img={img} numberOfComments={numberOfComments} numberOfLikes={numberOfLikes} title={title} />
+    <Template
+      handlePlayBtnClick={handlePlayBtnClick}
+      desc={desc}
+      createDate={createDate}
+      id={id}
+      imageDto={imageDto}
+      commentCounts={commentCounts}
+      numberOfLikes={numberOfLikes}
+      title={title}
+    />
   );
 };
 
 Card.propTypes = {
-  title: PropTypes.string.isRequired,
+  createDate: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   desc: PropTypes.string.isRequired,
-  numberOfComments: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  commentCounts: PropTypes.number.isRequired,
   numberOfLikes: PropTypes.number.isRequired,
-  img: PropTypes.shape({
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
+  imageDto: PropTypes.shape({
+    originalImage: PropTypes.string.isRequired,
+    reducedImage: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
   }).isRequired,
 };
 export default Card;

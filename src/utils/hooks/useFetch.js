@@ -4,7 +4,6 @@ const useFetch = (promise) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-
   useEffect(() => {
     async function getData() {
       try {
@@ -12,9 +11,11 @@ const useFetch = (promise) => {
         if (res.status === 200) {
           setData(res.data);
         }
+        console.log(res);
         return res;
       } catch (e) {
         console.log(e.response);
+        setError(e.message);
         throw new Error(e.message);
       } finally {
         setIsLoading(false);
@@ -23,7 +24,7 @@ const useFetch = (promise) => {
     getData();
   }, []);
 
-  return { isLoading, data };
+  return { isLoading, data, error };
 };
 
 export default useFetch;

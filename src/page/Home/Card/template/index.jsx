@@ -93,14 +93,14 @@ const PlayWrapper = styled.div`
   left: 50%;
 `;
 
-const Template = ({ handlePlayBtnClick, title, desc, img, numberOfComments, numberOfLikes }) => {
+const Template = ({ createDate, id, handlePlayBtnClick, title, desc, imageDto, commentCounts, numberOfLikes }) => {
   const imageRef = useRef(null);
-  const { imgSrc } = useImgLazyLoad(imageRef, img.src);
+  const { imgSrc } = useImgLazyLoad(imageRef, imageDto.originalImage, imageDto.reducedImage);
 
   return (
     <StyledCard>
       <ImgBox>
-        <Img width="100%" height="100%" src={imgSrc} ref={imageRef} alt={img.alt} />
+        <Img width="100%" height="100%" src={imgSrc} ref={imageRef} alt={title} />
         <PlayWrapper onClick={handlePlayBtnClick(1)}>
           <PlaySolid width={50} />
           <Text bold text="월드컵 하러 가기" />
@@ -115,13 +115,13 @@ const Template = ({ handlePlayBtnClick, title, desc, img, numberOfComments, numb
               <SvgWrapper>
                 <CommentReg width={15} height={15} />
               </SvgWrapper>
-              <Text fontSize={theme.fonts.subBody} text={numberOfComments.toString()} />
+              <Text fontSize={theme.fonts.subBody} text={commentCounts?.toString()} />
             </IconWrapper>
             <IconWrapper>
               <SvgWrapper>
                 <ThumbUpReg width={15} height={15} />
               </SvgWrapper>
-              <Text fontSize={theme.fonts.subBody} text={numberOfLikes.toString()} />
+              <Text fontSize={theme.fonts.subBody} text={numberOfLikes?.toString()} />
             </IconWrapper>
           </ToolBox>
           <SvgWrapper>
@@ -134,14 +134,16 @@ const Template = ({ handlePlayBtnClick, title, desc, img, numberOfComments, numb
 };
 
 Template.propTypes = {
-  title: PropTypes.string.isRequired,
+  createDate: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   desc: PropTypes.string.isRequired,
-  numberOfComments: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  commentCounts: PropTypes.number.isRequired,
   numberOfLikes: PropTypes.number.isRequired,
-  img: PropTypes.shape({
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
+  imageDto: PropTypes.shape({
+    originalImage: PropTypes.string.isRequired,
+    reducedImage: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
   }).isRequired,
   handlePlayBtnClick: PropTypes.func.isRequired,
 };

@@ -2,113 +2,133 @@
   "status": 200,
   "data": [
     {
+      "id":1,
       "desc": "Lorem ipsum dolor sit amet numquam sed ducimus error laudantium laborum ullam fugiat beatae voluptatum asperioresLorem ipsum dolor sit amet numquam sed ducimus error laudantium laborum ullam fugiat beatae voluptatum asperiores??",
       "title": "스파게티",
-      "numberOfComments": 123,
+      "commentCounts": 123,
       "numberOfLikes": 1241,
-      "img": {
-        "src": "https://images.unsplash.com/photo-1496440737103-cd596325d314?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80",
-        "id": "1",
-        "alt": "이쁜누님"
+      "createDate":"2021-09-12",
+      "imageDto": {
+        "originalImage": "https://images.unsplash.com/photo-1496440737103-cd596325d314?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80",
+        "reducedImage": "",
+        "id": 1
       }
     },
     {
+      "id":2,
       "desc": "Lorem ipsum dolor sit amet numquam sed ducimus error laudantium laborum ullam fugiat beatae voluptatum asperiores?",
       "title": "스파게티",
-      "numberOfComments": 123,
+      "commentCounts": 123,
       "numberOfLikes": 1241,
-      "img": {
-        "src": "https://images.unsplash.com/photo-1534970028765-38ce47ef7d8d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-        "id": "2",
-        "alt": "나무"
+      "createDate":"2021-09-12",
+      "imageDto": {
+        "originalImage": "https://images.unsplash.com/photo-1534970028765-38ce47ef7d8d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+        "reducedImage": "",
+        "id": 2
       }
     },
     {
+      "id":3,
       "desc": "Lorem ipsum dolor sit amet numquam sed ducimus error laudantium laborum ullam fugiat beatae voluptatum asperiores?",
       "title": "스파게티",
-      "numberOfComments": 123,
+      "commentCounts": 123,
       "numberOfLikes": 1241,
-      "img": {
-        "src": "https://images.unsplash.com/photo-1584806728314-bf2de23844d1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
-        "id": "3",
-        "alt": "이쁜누님"
+      "createDate":"2021-09-12",
+      "imageDto": {
+        "originalImage": "https://images.unsplash.com/photo-1584806728314-bf2de23844d1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
+        "reducedImage": "",
+        "id": 3
       }
     },
     {
+      "id":4,
       "desc": "Lorem ipsum dolor sit amet numquam sed ducimus error laudantium laborum ullam fugiat beatae voluptatum asperiores?",
       "title": "스파게티",
-      "numberOfComments": 123,
+      "commentCounts": 123,
       "numberOfLikes": 1241,
-      "img": {
-        "src": "https://images.unsplash.com/photo-1598902108854-10e335adac99?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80",
-        "id": "4",
-        "alt": "이쁜누님"
+      "createDate":"2021-09-12",
+      "imageDto": {
+        "originalImage": "https://images.unsplash.com/photo-1598902108854-10e335adac99?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80",
+        "reducedImage": "",
+        "id": 4
       }
     },
     {
+      "id":5,
       "desc": "Lorem ipsum dolor sit amet numquam sed ducimus error laudantium laborum ullam fugiat beatae voluptatum asperiores?",
       "title": "스파게티",
-      "numberOfComments": 123,
+      "commentCounts": 123,
       "numberOfLikes": 1241,
-      "img": {
-        "src": "https://images.unsplash.com/photo-1567449395031-3c05aafbffd1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80",
-        "id": "5",
-        "alt": "이쁜누님"
+      "createDate":"2021-09-12",
+      "imageDto": {
+        "originalImage": "https://images.unsplash.com/photo-1567449395031-3c05aafbffd1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80",
+        "reducedImage": "",
+        "id": 5
       }
     },
     {
+      "id":6,
       "desc": "Lorem ipsum dolor sit amet numquam sed ducimus error laudantium laborum ullam fugiat beatae voluptatum asperiores?",
       "title": "스파게티",
-      "numberOfComments": 123,
+      "commentCounts": 123,
       "numberOfLikes": 1241,
-      "img": {
-        "src": "https://images.unsplash.com/photo-1496440737103-cd596325d314?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80",
-        "id": "6",
-        "alt": "이쁜누님"
+      "createDate":"2021-09-12",
+      "imageDto": {
+        "originalImage": "https://images.unsplash.com/photo-1496440737103-cd596325d314?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80",
+        "reducedImage": "",
+        "id": 6
       }
     },
     {
+      "id":7,
       "desc": "Lorem ipsum dolor sit amet numquam sed ducimus error laudantium laborum ullam fugiat beatae voluptatum asperiores?",
       "title": "스파게티",
-      "numberOfComments": 123,
+      "commentCounts": 123,
       "numberOfLikes": 1241,
-      "img": {
-        "src": "https://images.unsplash.com/photo-1610969014702-0b039f9b3528?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=680&q=80",
-        "id": "7",
-        "alt": "이쁜누님"
+      "createDate":"2021-09-12",
+      "imageDto": {
+        "originalImage": "https://images.unsplash.com/photo-1610969014702-0b039f9b3528?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=680&q=80",
+        "reducedImage": "",
+        "id": 7
       }
     },
     {
+      "id":8,
       "desc": "Lorem ipsum dolor sit amet numquam sed ducimus error laudantium laborum ullam fugiat beatae voluptatum asperiores?",
       "title": "스파게티",
-      "numberOfComments": 123,
+      "commentCounts": 123,
       "numberOfLikes": 1241,
-      "img": {
-        "src": "https://images.unsplash.com/photo-1608920765383-6e9cad8e7c24?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=648&q=80",
-        "id": "8",
-        "alt": "이쁜누님"
+      "createDate":"2021-09-12",
+      "imageDto": {
+        "originalImage": "https://images.unsplash.com/photo-1608920765383-6e9cad8e7c24?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=648&q=80",
+        "reducedImage": "",
+        "id": 8
       }
     },
     {
+      "id":9,
       "desc": "Lorem ipsum dolor sit amet numquam sed ducimus error laudantium laborum ullam fugiat beatae voluptatum asperiores?",
       "title": "스파게티",
-      "numberOfComments": 123,
+      "commentCounts": 123,
       "numberOfLikes": 1241,
-      "img": {
-        "src": "https://images.unsplash.com/photo-1569742152946-b802f045df68?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=564&q=80",
-        "id": "9",
-        "alt": "이쁜누님"
+      "createDate":"2021-09-12",
+      "imageDto": {
+        "originalImage": "https://images.unsplash.com/photo-1569742152946-b802f045df68?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=564&q=80",
+        "reducedImage": "",
+        "id": 9
       }
     },
     {
+      "id":10,
       "desc": "Lorem ipsum dolor sit amet numquam sed ducimus error laudantium laborum ullam fugiat beatae voluptatum asperiores?",
       "title": "스파게티",
-      "numberOfComments": 123,
+      "commentCounts": 123,
       "numberOfLikes": 1241,
-      "img": {
-        "src": "https://images.unsplash.com/photo-1508919801845-fc2ae1bc2a28?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1570&q=80",
-        "id": "10",
-        "alt": "이쁜누님"
+      "createDate":"2021-09-12",
+      "imageDto": {
+        "originalImage": "https://images.unsplash.com/photo-1508919801845-fc2ae1bc2a28?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1570&q=80",
+        "reducedImage": "",
+        "id": 1
       }
     }
   ]

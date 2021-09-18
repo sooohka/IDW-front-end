@@ -4,21 +4,25 @@ import Template from "./template";
 
 const Cards = ({ cards }) => {
   if (!cards) return null;
+  console.log(cards);
+
   return <Template cards={cards}></Template>;
 };
 
 Cards.propTypes = {
   cards: PropTypes.arrayOf(
     PropTypes.shape({
-      title: PropTypes.string.isRequired,
+      createDate: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
       desc: PropTypes.string.isRequired,
-      numberOfComments: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      commentCounts: PropTypes.number.isRequired,
       numberOfLikes: PropTypes.number.isRequired,
-      img: PropTypes.shape({
-        src: PropTypes.string.isRequired,
-        alt: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
-      }).isRequired,
+      imageDto: {
+        originalImage: PropTypes.string.isRequired,
+        reducedImage: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+      },
     })
   ).isRequired,
 };

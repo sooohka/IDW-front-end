@@ -11,37 +11,44 @@ const Cards = styled.div`
   }
 `;
 
-const Template = ({ cards }) => (
-  <Cards>
-    {cards.map((v) => (
-      <Card
-        key={v.img.id}
-        desc={v.desc}
-        title={v.title}
-        numberOfComments={v.numberOfComments}
-        numberOfLikes={v.numberOfLikes}
-        img={{
-          src: v.img.src,
-          alt: v.img.alt,
-          id: v.img.id,
-        }}
-        isLoading
-      />
-    ))}
-  </Cards>
-);
+const Template = ({ cards }) => {
+  return (
+    <Cards>
+      {cards.map((v) => (
+        <Card
+          createDate={v.createDate}
+          id={v.id}
+          key={v.id}
+          desc={v.desc}
+          title={v.title}
+          commentCounts={v.commentCounts}
+          numberOfLikes={v.numberOfLikes}
+          imageDto={{
+            originalImage: v.imageDto.originalImage,
+            reducedImage: v.imageDto.reducedImage,
+            alt: v.title,
+            id: v.imageDto.id,
+          }}
+          isLoading
+        />
+      ))}
+    </Cards>
+  );
+};
 Template.propTypes = {
   cards: PropTypes.arrayOf(
     PropTypes.shape({
-      title: PropTypes.string.isRequired,
+      createDate: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
       desc: PropTypes.string.isRequired,
-      numberOfComments: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      commentCounts: PropTypes.number.isRequired,
       numberOfLikes: PropTypes.number.isRequired,
-      img: PropTypes.shape({
-        src: PropTypes.string.isRequired,
-        alt: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
-      }).isRequired,
+      imageDto: {
+        originalImage: PropTypes.string.isRequired,
+        reducedImage: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+      },
     })
   ).isRequired,
 };

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import spinner from "../../assets/spinner.gif";
 
-const useImgLazyLoad = (imageRef, src) => {
-  const [imgSrc, setImgSrc] = useState(spinner);
+const useImgLazyLoad = (imageRef, originalImage, reducedImage) => {
+  const [imgSrc, setImgSrc] = useState(reducedImage || spinner);
   const [isObserved, setIsObserved] = useState(false);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const useImgLazyLoad = (imageRef, src) => {
       if (v[0].isIntersecting) {
         setIsObserved(true);
         console.log("observed");
-        setImgSrc(src);
+        setImgSrc(originalImage);
         observer.disconnect();
       }
     };

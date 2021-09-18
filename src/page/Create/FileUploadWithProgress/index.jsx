@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Template from "./template";
+import { uploadFile } from "../../../aws";
 
 const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) => {
   const [progress, setProgress] = useState(0);
@@ -17,30 +18,34 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
 
   const handleUpload = useCallback(
     async (_file) => {
-      const formData = new FormData();
-
-      formData.append("upload_preset", "docs_upload_example_us_preset");
-      formData.append("file", _file);
       try {
-        const response = await axios.post("https://api.cloudinary.com/v1_1/demo/image/upload", formData, {
-          onUploadProgress: (prog) => {
-            const { loaded } = prog;
-            const { total } = prog;
-            setProgress(Math.round((loaded / total) * 100));
-          },
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const response = await uploadFile(_file, setProgress);
 
-        const { url, original_filename: name, format } = response.data;
-        handleSubmittedFiles({ name: `${name}.${format}`, url });
+        // const formData = new FormData();
+
+        // formData.append("upload_preset", "docs_upload_example_us_preset");
+        // formData.append("file", _file);
+        // try {
+        //   const response = await axios.post("https://api.cloudinary.com/v1_1/demo/image/upload", formData, {
+        //     onUploadProgress: (prog) => {
+        //       const { loaded } = prog;
+        //       const { total } = prog;
+        //       setProgress(Math.round((loaded / total) * 100));
+        //     },
+        //     headers: {
+        //       "Content-Type": "multipart/form-data",
+        //     },
+        //   });
+
+        const { url, name } = response.data;
+
+        handleSubmittedFiles({ name, url });
         setFileInfo((prev) => ({ ...prev, isSubmitting: false, message: "submitted!", file: { ...prev.file, url } }));
       } catch (err) {
+        console.log(err.message);
         // TODO: fileUploadWithProgress error handling
         const message = err.response?.data?.error?.message || "something went wrong😅 ";
         setFileInfo((prev) => ({ isSubmitting: false, hasError: true, message, file: { ...prev.file } }));
-        console.error(message);
       }
     },
     [handleSubmittedFiles]
