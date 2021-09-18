@@ -1,10 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import Template from "./template";
 import useFetch from "../../../utils/hooks/useFetch";
 
 const CreateForm = ({ categories }) => {
   const [isFileUploading, setIsFileUploading] = useState(true);
+  const buttonEl = useRef(null);
+
+  useEffect(() => {
+    if (buttonEl.current) buttonEl.current.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, []);
 
   useEffect(() => {
     console.log(`%c createform rendered`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
@@ -43,6 +48,7 @@ const CreateForm = ({ categories }) => {
   return (
     <>
       <Template
+        ref={{ buttonEl }}
         setIsFileUploading={setIsFileUploading}
         isFileUploading={isFileUploading}
         initialValues={initialValues}
@@ -53,7 +59,6 @@ const CreateForm = ({ categories }) => {
     </>
   );
 };
-
 CreateForm.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.number.isRequired, name: PropTypes.string.isRequired })).isRequired,
 };

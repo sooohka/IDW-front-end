@@ -1,17 +1,23 @@
 import { useField } from "formik";
 import PropTypes from "prop-types";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { forwardRef, useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import useMount from "../../../utils/hooks/useMount";
 import Template from "./template";
 
-const FileUploadField = ({ name, setIsFileUploading }) => {
+const FileUploadField = ({ name, setIsFileUploading, buttonEl }) => {
   const [, , helpers] = useField(name);
   const [files, setFiles] = useState([]);
   const [submittedFiles, setSubmittedFiles] = useState([]);
   const [isAccepting, setIsAccepting] = useState(false);
   const { isMount } = useMount();
   const [isFolded, setIsFolded] = useState(true);
+
+  useEffect(() => {
+    console.log(buttonEl.current);
+
+    if (buttonEl.current) buttonEl.current.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [isFolded]);
 
   useEffect(() => {
     // console.log(helpers);
@@ -42,7 +48,6 @@ const FileUploadField = ({ name, setIsFileUploading }) => {
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     // TODO: 에러메시지 개선
     console.log("rejected");
-
     console.log(rejectedFiles);
 
     if (rejectedFiles.length > 0) alert(rejectedFiles[0].errors[0].message);
@@ -51,13 +56,8 @@ const FileUploadField = ({ name, setIsFileUploading }) => {
     setIsAccepting(false);
   }, []);
 
-  const onDragEnter = useCallback(() => {
-    setIsAccepting(true);
-  }, []);
-
-  const onDragLeave = useCallback(() => {
-    setIsAccepting(false);
-  }, []);
+  const onDragEnter = useCallback(() => setIsAccepting(true), []);
+  const onDragLeave = useCallback(() => setIsAccepting(false), []);
 
   const handleSubmittedFiles = useCallback((submittedFile) => {
     setSubmittedFiles((prev) => [...prev, submittedFile]);
@@ -108,10 +108,11 @@ const FileUploadField = ({ name, setIsFileUploading }) => {
     ></Template>
   );
 };
-
 FileUploadField.propTypes = {
+  buttonEl: PropTypes.shape({ current: PropTypes.object }).isRequired,
   setIsFileUploading: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
 };
+FileUploadField.defaultProps = {};
 
 export default FileUploadField;

@@ -8,5 +8,6 @@ RUN yarn install
 
 RUN yarn build
 
-CMD ["yarn","serve"]
+EXPOSE 80
 
+CMD ["yarn","serve"]

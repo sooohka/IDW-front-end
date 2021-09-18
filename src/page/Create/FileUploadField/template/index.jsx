@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { forwardRef, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import FileUploadWithProgress from "../../FileUploadWithProgress";
@@ -39,6 +39,7 @@ const FileList = styled.div`
 
 const FileListTitle = styled.h3`
   flex: 1;
+  padding-left: 1rem;
 `;
 
 const FileListHeader = styled.div`
@@ -109,7 +110,7 @@ const Template = ({ isFolded, setIsFolded, handleDelete, handleSubmittedFiles, f
           </IconWrapper>
         </FileListHeader>
         <Files isFolded={isFolded}>
-          {files.map((file, i, a) => (
+          {files.map((file) => (
             <FileUploadWithProgress
               handleDelete={handleDelete}
               handleSubmittedFiles={handleSubmittedFiles}
@@ -118,17 +119,14 @@ const Template = ({ isFolded, setIsFolded, handleDelete, handleSubmittedFiles, f
               key={`${file.name}${file.size}`}
             ></FileUploadWithProgress>
           ))}
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <IconWrapper
-              onClick={() => {
-                setIsFolded(true);
-              }}
-              isFolded={isFolded}
-            >
-              go Top
-              <Sort width={30} height={30}></Sort>
-            </IconWrapper>
-          </div>
+          {files.length > 5 && (
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <IconWrapper onClick={() => setIsFolded(true)} isFolded={isFolded}>
+                go Top
+                <Sort width={30} height={30}></Sort>
+              </IconWrapper>
+            </div>
+          )}
         </Files>
       </FileList>
     </Container>

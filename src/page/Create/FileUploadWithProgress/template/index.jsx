@@ -11,7 +11,7 @@ import Img from "../../../../components/common/Img";
 const Container = styled.div`
   display: flex;
   align-items: center;
-  padding: 1rem 1rem 0;
+  padding: 1rem 1rem;
 `;
 
 const ProgressWrapper = styled.div`

@@ -1,5 +1,5 @@
 import { Formik, Form } from "formik";
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import RadioField from "../../../../components/common/RadioField";
@@ -71,7 +71,7 @@ const RadioFieldContainer = styled.div`
   }
 `;
 
-const Template = ({ isFileUploading, setIsFileUploading, initialValues, categories, handleSubmit, validate }) => {
+const Template = forwardRef(({ isFileUploading, setIsFileUploading, initialValues, categories, handleSubmit, validate }, { buttonEl }) => {
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit} validate={validate}>
       {/* TODO: 1.style FieldContainer, RadioContainer, Form */}
@@ -116,13 +116,13 @@ const Template = ({ isFileUploading, setIsFileUploading, initialValues, categori
           {/* files */}
           <FieldContainer>
             <Field label="파일">
-              <FileUploadField setIsFileUploading={setIsFileUploading} name="files"></FileUploadField>
+              <FileUploadField buttonEl={buttonEl} setIsFileUploading={setIsFileUploading} name="files"></FileUploadField>
             </Field>
             <HelperText hasError={Boolean(errors.files)} text={errors.files} />
           </FieldContainer>
 
           <FieldContainer>
-            <div style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+            <div ref={buttonEl} style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
               <Button label="submit" disabled={isFileUploading || !touched.title || isSubmitting || !isValid} type="submit" />
               {/* <HelperText hasError={Boolean(errors.title || errors.desc || errors.files)} text={errors.title || errors.desc || errors.files}></HelperText> */}
             </div>
@@ -131,7 +131,7 @@ const Template = ({ isFileUploading, setIsFileUploading, initialValues, categori
       )}
     </Formik>
   );
-};
+});
 
 Field.propTypes = {
   label: PropTypes.string.isRequired,

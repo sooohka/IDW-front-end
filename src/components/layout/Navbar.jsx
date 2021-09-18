@@ -54,8 +54,10 @@ const Navbar = () => {
     <StyledNavbar>
       <LeftContainer>
         <LogoContainer>
-          <Logo />
-          <Text bold fontSize={theme.fonts.heading} text="Logo" />
+          <Link to="/">
+            <Logo />
+            <Text bold fontSize={theme.fonts.heading} text="Logo" />
+          </Link>
         </LogoContainer>
         <Nav>
           <Link to="/create">
