@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { forwardRef, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import FileUploadWithProgress from "../../FileUploadWithProgress";
@@ -80,7 +80,7 @@ const IconWrapper = styled.div`
   }
 `;
 
-const Template = ({ isFolded, setIsFolded, handleDelete, handleSubmittedFiles, files, isAccepting, getInputProps, getRootProps }) => {
+const Template = forwardRef(({ isFolded, setIsFolded, handleDelete, handleSubmittedFiles, files, isAccepting, getInputProps, getRootProps }, ref) => {
   return (
     <Container>
       {/* DropZone */}
@@ -118,13 +118,8 @@ const Template = ({ isFolded, setIsFolded, handleDelete, handleSubmittedFiles, f
               key={`${file.name}${file.size}`}
             ></FileUploadWithProgress>
           ))}
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <IconWrapper
-              onClick={() => {
-                setIsFolded(true);
-              }}
-              isFolded={isFolded}
-            >
+          <div ref={ref} style={{ display: "flex", justifyContent: "flex-end" }}>
+            <IconWrapper onClick={() => setIsFolded(true)} isFolded={isFolded}>
               go Top
               <Sort width={30} height={30}></Sort>
             </IconWrapper>
@@ -133,7 +128,7 @@ const Template = ({ isFolded, setIsFolded, handleDelete, handleSubmittedFiles, f
       </FileList>
     </Container>
   );
-};
+});
 
 Template.propTypes = {
   isFolded: PropTypes.bool.isRequired,

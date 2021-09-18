@@ -31,7 +31,7 @@ const Progress = styled.div`
   height: 100%;
   /* width: "80%"; */
   border-radius: 10000px;
-  width: ${({ progress }) => (progress ? `${progress.toString()}%` : "0%")};
+  width: ${({ progress }) => (progress ? `${progress}%` : "0%")};
 `;
 
 const ProgressBar = ({ hasError, title, progress }) => {

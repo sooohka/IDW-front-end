@@ -37,6 +37,7 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
         handleSubmittedFiles({ name: `${name}.${format}`, url });
         setFileInfo((prev) => ({ ...prev, isSubmitting: false, message: "submitted!", file: { ...prev.file, url } }));
       } catch (err) {
+        // TODO: fileUploadWithProgress error handling
         const message = err.response?.data?.error?.message || "something went wrong😅 ";
         setFileInfo((prev) => ({ isSubmitting: false, hasError: true, message, file: { ...prev.file } }));
         console.error(message);
