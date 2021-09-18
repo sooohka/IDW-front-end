@@ -39,6 +39,7 @@ const FileList = styled.div`
 
 const FileListTitle = styled.h3`
   flex: 1;
+  padding-left: 1rem;
 `;
 
 const FileListHeader = styled.div`
@@ -80,7 +81,7 @@ const IconWrapper = styled.div`
   }
 `;
 
-const Template = forwardRef(({ isFolded, setIsFolded, handleDelete, handleSubmittedFiles, files, isAccepting, getInputProps, getRootProps }, ref) => {
+const Template = ({ isFolded, setIsFolded, handleDelete, handleSubmittedFiles, files, isAccepting, getInputProps, getRootProps }) => {
   return (
     <Container>
       {/* DropZone */}
@@ -109,7 +110,7 @@ const Template = forwardRef(({ isFolded, setIsFolded, handleDelete, handleSubmit
           </IconWrapper>
         </FileListHeader>
         <Files isFolded={isFolded}>
-          {files.map((file, i, a) => (
+          {files.map((file) => (
             <FileUploadWithProgress
               handleDelete={handleDelete}
               handleSubmittedFiles={handleSubmittedFiles}
@@ -118,17 +119,19 @@ const Template = forwardRef(({ isFolded, setIsFolded, handleDelete, handleSubmit
               key={`${file.name}${file.size}`}
             ></FileUploadWithProgress>
           ))}
-          <div ref={ref} style={{ display: "flex", justifyContent: "flex-end" }}>
-            <IconWrapper onClick={() => setIsFolded(true)} isFolded={isFolded}>
-              go Top
-              <Sort width={30} height={30}></Sort>
-            </IconWrapper>
-          </div>
+          {files.length > 5 && (
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <IconWrapper onClick={() => setIsFolded(true)} isFolded={isFolded}>
+                go Top
+                <Sort width={30} height={30}></Sort>
+              </IconWrapper>
+            </div>
+          )}
         </Files>
       </FileList>
     </Container>
   );
-});
+};
 
 Template.propTypes = {
   isFolded: PropTypes.bool.isRequired,

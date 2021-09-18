@@ -1,23 +1,22 @@
 import { useField } from "formik";
 import PropTypes from "prop-types";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { forwardRef, useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import useMount from "../../../utils/hooks/useMount";
 import Template from "./template";
 
-const FileUploadField = ({ name, setIsFileUploading }) => {
+const FileUploadField = ({ name, setIsFileUploading, buttonEl }) => {
   const [, , helpers] = useField(name);
   const [files, setFiles] = useState([]);
   const [submittedFiles, setSubmittedFiles] = useState([]);
   const [isAccepting, setIsAccepting] = useState(false);
   const { isMount } = useMount();
   const [isFolded, setIsFolded] = useState(true);
-  const ref = useRef(null);
 
   useEffect(() => {
-    console.log(ref.current);
+    console.log(buttonEl.current);
 
-    if (ref.current) ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    if (buttonEl.current) buttonEl.current.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [isFolded]);
 
   useEffect(() => {
@@ -97,7 +96,6 @@ const FileUploadField = ({ name, setIsFileUploading }) => {
 
   return (
     <Template
-      ref={ref}
       isFolded={isFolded}
       setIsFolded={setIsFolded}
       handleDelete={handleDelete}
@@ -110,10 +108,11 @@ const FileUploadField = ({ name, setIsFileUploading }) => {
     ></Template>
   );
 };
-
 FileUploadField.propTypes = {
+  buttonEl: PropTypes.shape({ current: PropTypes.object }).isRequired,
   setIsFileUploading: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
 };
+FileUploadField.defaultProps = {};
 
 export default FileUploadField;
