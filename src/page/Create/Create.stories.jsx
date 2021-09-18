@@ -1,5 +1,5 @@
 import React from "react";
-import Component from "./index";
+import Component from "./template/index";
 
 export default {
   title: "pages/Create",
