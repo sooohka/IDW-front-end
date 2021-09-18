@@ -17,7 +17,7 @@ Cards.propTypes = {
       desc: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       commentCounts: PropTypes.number.isRequired,
-      numberOfLikes: PropTypes.number.isRequired,
+      likeCounts: PropTypes.number.isRequired,
       imageDto: {
         originalImage: PropTypes.string.isRequired,
         reducedImage: PropTypes.string.isRequired,

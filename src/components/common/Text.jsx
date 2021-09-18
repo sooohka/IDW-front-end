@@ -9,6 +9,10 @@ const StyledText = styled.p`
   font-weight: ${({ bold }) => bold && "bold"};
   color: ${({ color }) => color};
   margin: ${({ margin }) => margin};
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 const StyledTexts = styled.div`

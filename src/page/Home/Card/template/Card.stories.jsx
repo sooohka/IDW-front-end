@@ -27,7 +27,7 @@ export default {
     commentCounts: {
       control: "number",
     },
-    numberOfLikes: {
+    likeCounts: {
       control: "number",
     },
     img: { control: "object" },
@@ -46,7 +46,7 @@ Card.args = {
     alt: "이쁜여자",
   },
   commentCounts: 152,
-  numberOfLikes: 1245,
+  likeCounts: 1245,
   handlePlayBtnClick: () => {},
 };
 

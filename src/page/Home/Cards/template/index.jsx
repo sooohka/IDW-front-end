@@ -22,7 +22,7 @@ const Template = ({ cards }) => {
           desc={v.desc}
           title={v.title}
           commentCounts={v.commentCounts}
-          numberOfLikes={v.numberOfLikes}
+          likeCounts={v.likeCounts}
           imageDto={{
             originalImage: v.imageDto.originalImage,
             reducedImage: v.imageDto.reducedImage,
@@ -43,7 +43,7 @@ Template.propTypes = {
       desc: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       commentCounts: PropTypes.number.isRequired,
-      numberOfLikes: PropTypes.number.isRequired,
+      likeCounts: PropTypes.number.isRequired,
       imageDto: {
         originalImage: PropTypes.string.isRequired,
         reducedImage: PropTypes.string.isRequired,

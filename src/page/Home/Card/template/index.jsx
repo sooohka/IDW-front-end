@@ -93,7 +93,7 @@ const PlayWrapper = styled.div`
   left: 50%;
 `;
 
-const Template = ({ createDate, id, handlePlayBtnClick, title, desc, imageDto, commentCounts, numberOfLikes }) => {
+const Template = ({ createDate, id, handlePlayBtnClick, title, desc, imageDto, commentCounts, likeCounts }) => {
   const imageRef = useRef(null);
   const { imgSrc } = useImgLazyLoad(imageRef, imageDto.originalImage, imageDto.reducedImage);
 
@@ -121,7 +121,7 @@ const Template = ({ createDate, id, handlePlayBtnClick, title, desc, imageDto, c
               <SvgWrapper>
                 <ThumbUpReg width={15} height={15} />
               </SvgWrapper>
-              <Text fontSize={theme.fonts.subBody} text={numberOfLikes?.toString()} />
+              <Text fontSize={theme.fonts.subBody} text={likeCounts?.toString()} />
             </IconWrapper>
           </ToolBox>
           <SvgWrapper>
@@ -139,7 +139,7 @@ Template.propTypes = {
   desc: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   commentCounts: PropTypes.number.isRequired,
-  numberOfLikes: PropTypes.number.isRequired,
+  likeCounts: PropTypes.number.isRequired,
   imageDto: PropTypes.shape({
     originalImage: PropTypes.string.isRequired,
     reducedImage: PropTypes.string.isRequired,

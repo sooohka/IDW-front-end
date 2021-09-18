@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import Template from "./template";
 
-const Card = ({ createDate, id, title, desc, commentCounts, numberOfLikes, imageDto }) => {
+const Card = ({ createDate, id, title, desc, commentCounts, likeCounts, imageDto }) => {
   const history = useHistory();
 
   const handlePlayBtnClick = useCallback((gameId) => (e) => history.push(`/play/${gameId}`), [history]);
@@ -16,7 +16,7 @@ const Card = ({ createDate, id, title, desc, commentCounts, numberOfLikes, image
       id={id}
       imageDto={imageDto}
       commentCounts={commentCounts}
-      numberOfLikes={numberOfLikes}
+      likeCounts={likeCounts}
       title={title}
     />
   );
@@ -28,7 +28,7 @@ Card.propTypes = {
   desc: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   commentCounts: PropTypes.number.isRequired,
-  numberOfLikes: PropTypes.number.isRequired,
+  likeCounts: PropTypes.number.isRequired,
   imageDto: PropTypes.shape({
     originalImage: PropTypes.string.isRequired,
     reducedImage: PropTypes.string.isRequired,
