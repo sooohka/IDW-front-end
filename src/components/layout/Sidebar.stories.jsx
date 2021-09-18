@@ -2,7 +2,7 @@ import React from "react";
 import Component from "./Sidebar";
 
 export default {
-  title: "Sidebar",
+  title: "Layout/sidebar",
   component: Component,
 };
 const Template = (args) => <Component {...args} />;

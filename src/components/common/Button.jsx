@@ -22,13 +22,13 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({ label, children, type, disabled }) => {
+const Button = forwardRef(({ label, children, type, disabled }, ref) => {
   return (
-    <StyledButton tabIndex={0} type={type} disabled={disabled}>
-      {children || label}
+    <StyledButton ref={ref} tabIndex={0} type={type} disabled={disabled}>
+      {label || children}
     </StyledButton>
   );
-};
+});
 
 Button.propTypes = {
   label: PropTypes.string.isRequired,

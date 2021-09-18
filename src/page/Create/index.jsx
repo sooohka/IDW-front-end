@@ -4,6 +4,7 @@ import categoriesJSON from "../../assets/temp/categories.json";
 import useFetch from "../../utils/hooks/useFetch";
 import PageSpinner from "../../components/common/PageSpinner";
 
+// Create page 하위 컴포넌트와 너무 빡쌔게 결합되있음 결합 줄일 수 있는 방법 찾아보자
 const Create = () => {
   const promise = () =>
     new Promise((res, rej) => {

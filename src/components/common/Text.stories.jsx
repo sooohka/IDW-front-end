@@ -3,7 +3,7 @@ import { theme } from "../../style/theme";
 import T from "./Text";
 
 export default {
-  title: "Typography",
+  title: "components/Text",
   component: T,
   argTypes: {
     color: {
@@ -32,11 +32,27 @@ export default {
 
 const Template = (args) => <T {...args} />;
 
-const Text = Template.bind({});
+const Normal = Template.bind({});
 
-Text.args = {
-  bold: true,
+Normal.args = {
+  bold: false,
   text: "Text",
+  fontSize: theme.fonts.body,
 };
 
-export { Text };
+const Heading = Template.bind({});
+
+Heading.args = {
+  bold: false,
+  text: "Heading",
+  fontSize: theme.fonts.heading,
+};
+
+const Bold = Template.bind({});
+Bold.args = {
+  bold: true,
+  text: "bold",
+  fontSize: theme.fonts.body,
+};
+
+export { Normal, Bold, Heading };

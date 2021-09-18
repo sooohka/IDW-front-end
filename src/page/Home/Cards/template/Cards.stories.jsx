@@ -1,6 +1,6 @@
 import React from "react";
-import Component from "./index";
-
+import Component from ".";
+import cards from "../../../../assets/temp/cards.json";
 // Data Type	|Control Type	|Description																							| Options
 // boolean		|boolean			|checkbox input																						| -
 // number			|number				|a numeric text box input	|min, max, step
@@ -17,37 +17,13 @@ import Component from "./index";
 // string			|text					|simple text input																				| -
 // 						|color				|color picker input that assumes strings are color values	|presetColors
 // 						|date					|date picker input
-
 export default {
-  title: "pages/Home/components",
+  title: "pages/Home/components/Cards",
   component: Component,
-  argTypes: {
-    title: { control: "text" },
-    desc: { control: "text" },
-    numberOfComments: {
-      control: "number",
-    },
-    numberOfLikes: {
-      control: "number",
-    },
-    img: { control: "object" },
-  },
 };
-
 const Template = (args) => <Component {...args} />;
 
-const Card = Template.bind({});
+const Cards = Template.bind({});
+Cards.args = { cards: cards.data };
 
-Card.args = {
-  title: "title",
-  desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit alias, quisquam aspernatur iusto officia magni.",
-  img: {
-    src: "https://images.unsplash.com/photo-1496440737103-cd596325d314?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80",
-    alt: "이쁜여자",
-  },
-  numberOfComments: 152,
-  numberOfLikes: 1245,
-  handlePlayBtnClick: () => {},
-};
-
-export { Card };
+export { Cards };

@@ -9,6 +9,7 @@ const StyledProgressBar = styled.div`
   flex: 1;
   border-radius: 10000px;
   height: 3rem;
+  max-height: 3rem;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -22,7 +23,7 @@ const Title = styled.p`
   color: white;
   position: absolute;
   top: "50%";
-  font-size: ${({ _ }) => theme.fonts.subBody};
+  font-size: ${() => theme.fonts.subBody};
   font-weight: bold;
 `;
 

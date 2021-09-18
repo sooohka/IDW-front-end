@@ -144,6 +144,6 @@ Template.propTypes = {
   validate: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   categories: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  initialValues: PropTypes.shape({}).isRequired,
+  initialValues: PropTypes.shape({ id: PropTypes.number.isRequired, name: PropTypes.string.isRequired }).isRequired,
 };
 export default Template;
