@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import spinner from "../../assets/spinner.gif";
 
 const useImgLazyLoad = (imageRef, originalImage, reducedImage) => {
@@ -11,7 +11,6 @@ const useImgLazyLoad = (imageRef, originalImage, reducedImage) => {
     const callback = (v) => {
       if (v[0].isIntersecting) {
         setIsObserved(true);
-        console.log("observed");
         setImgSrc(originalImage);
         observer.disconnect();
       }
@@ -25,7 +24,7 @@ const useImgLazyLoad = (imageRef, originalImage, reducedImage) => {
     return () => {
       observer.disconnect();
     };
-  }, [imageRef]);
+  }, [imageRef, isObserved, originalImage]);
 
   return {
     imgSrc,

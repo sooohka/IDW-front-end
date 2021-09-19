@@ -15,6 +15,7 @@ const Create = () => {
   // const { data, isLoading } = useFetch(promise);
   const promise = () => axios.get("http://13.125.23.168:8080/categories");
   const { data, isLoading } = useFetch(promise);
+  console.log(data);
 
   useEffect(() => {
     console.log(`%c create rendered`, "background-color:pink;font-size:15px;font-weight:bold;color:black");

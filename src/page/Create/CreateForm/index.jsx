@@ -21,18 +21,20 @@ const CreateForm = ({ categories }) => {
   const handleSubmit = useCallback((v) => {
     console.log(v);
     setIsSubmitting(true);
-    axios
-      .post("http://13.125.23.168:8080/worldcups", {
-        category: sd, // TODO:카테고리 변경
-        desc: v.desc,
-        files: v.files,
-        title: v.title,
-      })
-      .then((res) => {
-        setIsSubmitting(false);
-        alert("업로드 성공!");
-        console.log(res);
-      });
+    if (!process.env.REACT_APP_LOCAL)
+      axios
+        .post("http://13.125.23.168:8080/worldcups", {
+          category: v.category, // TODO:카테고리 변경
+          desc: v.desc,
+          files: v.files,
+          title: v.title,
+        })
+        .then((res) => {
+          setIsSubmitting(false);
+          alert("업로드 성공!");
+          console.log(res);
+        });
+    else alert("로컬 업로드 성공");
   }, []);
 
   const validate = useCallback((v) => {

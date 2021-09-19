@@ -22,8 +22,8 @@ Img.propTypes = {
 };
 
 Img.defaultProps = {
-  width: 50,
-  height: 50,
+  width: "5rem",
+  height: "5rem",
 };
 
 export default Img;

@@ -1,6 +1,6 @@
 import { useField } from "formik";
 import PropTypes from "prop-types";
-import React, { forwardRef, useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import useMount from "../../../utils/hooks/useMount";
 import Template from "./template";
@@ -14,13 +14,10 @@ const FileUploadField = ({ name, setIsFileUploading, buttonEl }) => {
   const [isFolded, setIsFolded] = useState(true);
 
   useEffect(() => {
-    console.log(buttonEl.current);
-
     if (buttonEl.current) buttonEl.current.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [isFolded]);
+  }, [buttonEl, isFolded]);
 
   useEffect(() => {
-    // console.log(helpers);
     console.log(`%c fileUploadField rendered`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
   }, []);
 
@@ -47,9 +44,7 @@ const FileUploadField = ({ name, setIsFileUploading, buttonEl }) => {
 
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     // TODO: 에러메시지 개선
-    console.log("rejected");
-    console.log(rejectedFiles);
-
+    if (rejectedFiles.length > 0) console.log(rejectedFiles);
     if (rejectedFiles.length > 0) alert(rejectedFiles[0].errors[0].message);
     const formedAcceptedFiles = acceptedFiles.map((file) => file);
     setFiles((prev) => [...prev, ...formedAcceptedFiles]);

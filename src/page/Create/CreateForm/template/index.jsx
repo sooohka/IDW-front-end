@@ -104,8 +104,8 @@ const Template = forwardRef(({ isFileUploading, setIsFileUploading, initialValue
                     key={v.id}
                     id={v.name}
                     name="category"
-                    checked={values.category === v.name}
-                    onChange={() => setFieldValue("category", v.name)}
+                    checked={values.category === v.id}
+                    onChange={() => setFieldValue("category", v.id)}
                     value={v.name}
                   ></RadioField>
                 ))}

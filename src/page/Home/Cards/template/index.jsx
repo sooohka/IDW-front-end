@@ -35,6 +35,7 @@ const Template = ({ cards }) => {
     </Cards>
   );
 };
+
 Template.propTypes = {
   cards: PropTypes.arrayOf(
     PropTypes.shape({
@@ -44,11 +45,11 @@ Template.propTypes = {
       title: PropTypes.string.isRequired,
       commentCounts: PropTypes.number.isRequired,
       likeCounts: PropTypes.number.isRequired,
-      imageDto: {
+      imageDto: PropTypes.shape({
         originalImage: PropTypes.string.isRequired,
         reducedImage: PropTypes.string.isRequired,
         id: PropTypes.number.isRequired,
-      },
+      }).isRequired,
     })
   ).isRequired,
 };

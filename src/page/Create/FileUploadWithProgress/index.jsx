@@ -19,24 +19,26 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
   const handleUpload = useCallback(
     async (_file) => {
       try {
-        const response = await uploadFile(_file, setProgress);
+        let response;
+        if (!process.env.REACT_APP_LOCAL) {
+          response = await uploadFile(_file, setProgress);
+        } else {
+          const formData = new FormData();
 
-        // const formData = new FormData();
+          formData.append("upload_preset", "docs_upload_example_us_preset");
+          formData.append("file", _file);
 
-        // formData.append("upload_preset", "docs_upload_example_us_preset");
-        // formData.append("file", _file);
-        // try {
-        //   const response = await axios.post("https://api.cloudinary.com/v1_1/demo/image/upload", formData, {
-        //     onUploadProgress: (prog) => {
-        //       const { loaded } = prog;
-        //       const { total } = prog;
-        //       setProgress(Math.round((loaded / total) * 100));
-        //     },
-        //     headers: {
-        //       "Content-Type": "multipart/form-data",
-        //     },
-        //   });
-
+          response = await axios.post("https://api.cloudinary.com/v1_1/demo/image/upload", formData, {
+            onUploadProgress: (prog) => {
+              const { loaded } = prog;
+              const { total } = prog;
+              setProgress(Math.round((loaded / total) * 100));
+            },
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+        }
         const { url, name } = response.data;
 
         handleSubmittedFiles({ name, url });

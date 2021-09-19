@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
-import spinner from "../../../assets/spinner.gif";
 import Content from "../../../components/layout/Content";
 import Navbar from "../../../components/layout/Navbar";
 import Sidebar from "../../../components/layout/Sidebar";
@@ -34,11 +33,11 @@ Template.propTypes = {
       title: PropTypes.string.isRequired,
       commentCounts: PropTypes.number.isRequired,
       likeCounts: PropTypes.number.isRequired,
-      imageDto: {
+      imageDto: PropTypes.shape({
         originalImage: PropTypes.string.isRequired,
         reducedImage: PropTypes.string.isRequired,
         id: PropTypes.number.isRequired,
-      },
+      }).isRequired,
     })
   ).isRequired,
 };

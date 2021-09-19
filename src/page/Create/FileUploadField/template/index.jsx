@@ -1,10 +1,10 @@
-import React, { forwardRef, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
+import React from "react";
 import styled, { css } from "styled-components";
-import FileUploadWithProgress from "../../FileUploadWithProgress";
 import { ReactComponent as UploadIcon } from "../../../../assets/icons/cloud-upload-alt-solid.svg";
-import { theme } from "../../../../style/theme";
 import { ReactComponent as Sort } from "../../../../assets/icons/sort-up-solid.svg";
+import { theme } from "../../../../style/theme";
+import FileUploadWithProgress from "../../FileUploadWithProgress";
 
 const Container = styled.div`
   min-height: 150%;
