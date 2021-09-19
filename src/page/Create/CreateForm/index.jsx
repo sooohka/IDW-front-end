@@ -1,15 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
-import axios from "axios";
-import Template from "./template";
-import useFetch from "../../../utils/hooks/useFetch";
+import axios from "../../../api/axios";
 import PageSpinner from "../../../components/common/PageSpinner";
+import Template from "./template";
 
-const CreateForm = ({ categories }) => {
+const CreateForm = () => {
   const [isFileUploading, setIsFileUploading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const buttonEl = useRef(null);
-
   useEffect(() => {
     if (buttonEl.current) buttonEl.current.scrollIntoView({ behavior: "smooth", block: "end" });
   }, []);
@@ -18,23 +15,29 @@ const CreateForm = ({ categories }) => {
     console.log(`%c createform rendered`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
   });
 
-  const handleSubmit = useCallback((v) => {
+  const handleSubmit = useCallback(async (v) => {
     console.log(v);
     setIsSubmitting(true);
-    if (!process.env.REACT_APP_LOCAL)
-      axios
-        .post("http://13.125.23.168:8080/worldcups", {
-          category: v.category, // TODO:카테고리 변경
-          desc: v.desc,
-          files: v.files,
-          title: v.title,
-        })
-        .then((res) => {
-          setIsSubmitting(false);
-          alert("업로드 성공!");
-          console.log(res);
-        });
-    else alert("로컬 업로드 성공");
+    try {
+      const data = {
+        category: v.category, // TODO:카테고리 변경
+        desc: v.desc,
+        files: v.files,
+        title: v.title,
+      };
+      if (!process.env.REACT_APP_LOCAL) {
+        const res = await axios.post("worldcup", data);
+        alert("업로드 성공!");
+        console.log(res);
+      } else {
+        alert(JSON.stringify(data, null, 2));
+      }
+    } catch (e) {
+      console.log(e);
+      throw new Error(e.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   }, []);
 
   const validate = useCallback((v) => {
@@ -56,7 +59,7 @@ const CreateForm = ({ categories }) => {
   const initialValues = {
     title: "",
     desc: "",
-    category: "연예인",
+    category: 0,
     files: [],
   };
 
@@ -70,7 +73,6 @@ const CreateForm = ({ categories }) => {
           setIsFileUploading={setIsFileUploading}
           isFileUploading={isFileUploading}
           initialValues={initialValues}
-          categories={categories}
           handleSubmit={handleSubmit}
           validate={validate}
         ></Template>
@@ -78,8 +80,6 @@ const CreateForm = ({ categories }) => {
     </>
   );
 };
-CreateForm.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.number.isRequired, name: PropTypes.string.isRequired })).isRequired,
-};
+CreateForm.propTypes = {};
 
 export default CreateForm;

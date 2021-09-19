@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Template from "./template";
-import { uploadFile } from "../../../aws";
+import { uploadFile } from "../../../api/aws";
 
 const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) => {
   const [progress, setProgress] = useState(0);

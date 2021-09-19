@@ -22,7 +22,7 @@ const useImgLazyLoad = (imageRef, originalImage, reducedImage) => {
     }
 
     return () => {
-      observer.disconnect();
+      if (observer) observer.disconnect();
     };
   }, [imageRef, isObserved, originalImage]);
 

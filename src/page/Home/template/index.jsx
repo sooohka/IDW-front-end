@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
 import Content from "../../../components/layout/Content";
@@ -12,34 +11,16 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
-const Template = ({ cards }) => {
+const Template = () => {
   return (
     <Container>
       <Navbar />
       <Sidebar></Sidebar>
       <Content>
-        <Cards cards={cards} />
+        <Cards />
       </Content>
     </Container>
   );
-};
-
-Template.propTypes = {
-  cards: PropTypes.arrayOf(
-    PropTypes.shape({
-      createDate: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      desc: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      commentCounts: PropTypes.number.isRequired,
-      likeCounts: PropTypes.number.isRequired,
-      imageDto: PropTypes.shape({
-        originalImage: PropTypes.string.isRequired,
-        reducedImage: PropTypes.string.isRequired,
-        id: PropTypes.number.isRequired,
-      }).isRequired,
-    })
-  ).isRequired,
 };
 
 export default Template;

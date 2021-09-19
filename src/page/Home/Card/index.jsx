@@ -31,7 +31,7 @@ Card.propTypes = {
   likeCounts: PropTypes.number.isRequired,
   imageDto: PropTypes.shape({
     originalImage: PropTypes.string.isRequired,
-    reducedImage: PropTypes.string.isRequired,
+    reducedImage: PropTypes.string,
     id: PropTypes.number.isRequired,
   }).isRequired,
 };

@@ -1,5 +1,5 @@
 import { Formik, Form } from "formik";
-import React, { forwardRef } from "react";
+import React, { forwardRef, useContext } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import RadioField from "../../../../components/common/RadioField";
@@ -8,6 +8,7 @@ import HelperText from "../../../../components/common/HelperText";
 import Text from "../../../../components/common/Text";
 import { theme } from "../../../../style/theme";
 import Button from "../../../../components/common/Button";
+import CategoryContext from "../../../../utils/contexts/CategoryContext";
 
 const Input = styled.input`
   border: 3px solid;
@@ -71,7 +72,8 @@ const RadioFieldContainer = styled.div`
   }
 `;
 
-const Template = forwardRef(({ isFileUploading, setIsFileUploading, initialValues, categories, handleSubmit, validate }, { buttonEl }) => {
+const Template = forwardRef(({ isFileUploading, setIsFileUploading, initialValues, handleSubmit, validate }, { buttonEl }) => {
+  const { categories } = useContext(CategoryContext);
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit} validate={validate}>
       {/* TODO: 1.style FieldContainer, RadioContainer, Form */}
@@ -143,7 +145,11 @@ Template.propTypes = {
   setIsFileUploading: PropTypes.func.isRequired,
   validate: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  categories: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  initialValues: PropTypes.shape({ id: PropTypes.number.isRequired, name: PropTypes.string.isRequired }).isRequired,
+  initialValues: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    desc: PropTypes.string.isRequired,
+    category: PropTypes.number.isRequired,
+    files: PropTypes.array.isRequired,
+  }).isRequired,
 };
 export default Template;

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Text from "../common/Text";
 import { theme } from "../../style/theme";
+import CategoryContext from "../../utils/contexts/CategoryContext";
 
 const sidebarWidth = "20rem";
 
@@ -35,8 +36,8 @@ const Ul = ({ title, list }) => {
       <Text bold fontSize={theme.fonts.heading} text={title} />
       <Divider />
       {list.map((li) => (
-        <StyledList key={li}>
-          <Text text={li} fontSize={theme.fonts.strongBody} />
+        <StyledList key={li.id}>
+          <Text text={li.name} fontSize={theme.fonts.strongBody} />
         </StyledList>
       ))}
     </StyledUl>
@@ -44,11 +45,14 @@ const Ul = ({ title, list }) => {
 };
 
 const Sidebar = () => {
-  const categoryList = ["연예인", "음식", "애니메이션"];
-  const sortList = ["인기순", "오래된 날짜순", "염둥"];
+  const { categories } = useContext(CategoryContext);
+  const sortList = [
+    { name: "인기순", id: 1 },
+    { name: "오래된 날짜순", id: 2 },
+  ];
   return (
     <StyledSidebar>
-      <Ul title="카테고리" list={categoryList} />
+      <Ul title="카테고리" list={categories} />
       <Ul title="정렬" list={sortList} />
     </StyledSidebar>
   );
@@ -58,5 +62,10 @@ export default Sidebar;
 
 Ul.propTypes = {
   title: PropTypes.string.isRequired,
-  list: PropTypes.arrayOf(PropTypes.string).isRequired,
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };

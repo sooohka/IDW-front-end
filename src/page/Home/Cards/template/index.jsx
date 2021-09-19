@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
+import CardsContext from "../../../../utils/contexts/CardsContext";
 import Card from "../../Card";
 
 const Cards = styled.div`
@@ -11,7 +11,9 @@ const Cards = styled.div`
   }
 `;
 
-const Template = ({ cards }) => {
+const Template = () => {
+  const { cards } = useContext(CardsContext);
+
   return (
     <Cards>
       {cards.map((v) => (
@@ -25,7 +27,7 @@ const Template = ({ cards }) => {
           likeCounts={v.likeCounts}
           imageDto={{
             originalImage: v.imageDto.originalImage,
-            reducedImage: v.imageDto.reducedImage,
+            reducedImage: v.imageDto.reducedImage || null,
             alt: v.title,
             id: v.imageDto.id,
           }}
@@ -36,21 +38,4 @@ const Template = ({ cards }) => {
   );
 };
 
-Template.propTypes = {
-  cards: PropTypes.arrayOf(
-    PropTypes.shape({
-      createDate: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      desc: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      commentCounts: PropTypes.number.isRequired,
-      likeCounts: PropTypes.number.isRequired,
-      imageDto: PropTypes.shape({
-        originalImage: PropTypes.string.isRequired,
-        reducedImage: PropTypes.string.isRequired,
-        id: PropTypes.number.isRequired,
-      }).isRequired,
-    })
-  ).isRequired,
-};
 export default Template;

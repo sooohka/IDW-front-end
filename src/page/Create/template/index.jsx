@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import Navbar from "../../../components/layout/Navbar";
 import CreateForm from "../CreateForm";
@@ -10,17 +9,15 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Template = ({ categories }) => {
+const Template = () => {
   return (
     <Container>
       <Navbar></Navbar>
-      <CreateForm categories={categories}></CreateForm>
+      <CreateForm></CreateForm>
     </Container>
   );
 };
 
-Template.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.number.isRequired, name: PropTypes.string.isRequired })).isRequired,
-};
+Template.propTypes = {};
 
 export default Template;

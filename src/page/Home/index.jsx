@@ -1,21 +1,29 @@
-import axios from "axios";
 import React from "react";
+import axios from "../../api/axios";
 import cardsJson from "../../assets/temp/cards.json";
 import PageSpinner from "../../components/common/PageSpinner";
 import useFetch from "../../utils/hooks/useFetch";
 import Template from "./template";
+import CardsContext from "../../utils/contexts/CardsContext";
 
 const promise = () =>
   new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(cardsJson);
-    }, 1000);
+    }, 100);
   });
 
+// const promise = () => axios.get("worldcups");
 const Home = () => {
-  // const promise = () => axios.get("http://13.125.23.168:8080/worldcups");
   const { data: cards, isLoading } = useFetch(promise);
-  return <>{isLoading ? <PageSpinner /> : <Template cards={cards} />}</>;
+  if (isLoading) return <PageSpinner></PageSpinner>;
+  console.log(cards);
+
+  return (
+    <CardsContext.Provider value={{ cards }}>
+      <Template />
+    </CardsContext.Provider>
+  );
 };
 
 export default Home;

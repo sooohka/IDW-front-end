@@ -12,17 +12,16 @@ const useFetch = (promise) => {
           setData(res.data);
         }
         console.log(res);
-        return res;
+        setIsLoading(false);
       } catch (e) {
         console.log(e.response);
         setError(e.message);
-        throw new Error(e.message);
-      } finally {
         setIsLoading(false);
+        throw new Error(e.message);
       }
     }
     getData();
-  }, []);
+  }, [promise]);
 
   return { isLoading, data, error };
 };
