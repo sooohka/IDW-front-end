@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import spinner from "../../assets/spinner.gif";
+import spinner2 from "../../assets/spinner2.svg";
 
 const useImgLazyLoad = (imageRef, originalImage, reducedImage) => {
-  const [imgSrc, setImgSrc] = useState(reducedImage || spinner);
+  const [imgSrc, setImgSrc] = useState(reducedImage || spinner2);
   const [isObserved, setIsObserved] = useState(false);
 
   useEffect(() => {

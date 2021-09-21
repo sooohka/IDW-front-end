@@ -9,7 +9,11 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
   const [fileInfo, setFileInfo] = useState({
     file: {
       name: file.name,
-      url: "",
+      images: {
+        image_origin: "",
+        image_400: "",
+        image_800: "",
+      },
     },
     isSubmitting: true,
     hasError: false,
@@ -20,7 +24,10 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
     async (_file) => {
       try {
         let response;
-        if (!process.env.REACT_APP_LOCAL) {
+        console.log(process.env.REACT_APP_ENV);
+
+        if (process.env.REACT_APP_ENV === "production") {
+          // TODO: category 추가해서 업로드할 수 있도록
           response = await uploadFile(_file, setProgress);
         } else {
           const formData = new FormData();
@@ -39,10 +46,11 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
             },
           });
         }
-        const { url, name } = response.data;
+        const { images, name } = response.data;
+        console.log(JSON.stringify(response.data));
 
-        handleSubmittedFiles({ name, url });
-        setFileInfo((prev) => ({ ...prev, isSubmitting: false, message: "submitted!", file: { ...prev.file, url } }));
+        handleSubmittedFiles({ name, images });
+        setFileInfo((prev) => ({ ...prev, isSubmitting: false, message: "submitted!", file: { ...prev.file, images } }));
       } catch (err) {
         console.log(err.message);
         // TODO: fileUploadWithProgress error handling
