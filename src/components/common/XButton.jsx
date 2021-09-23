@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 
 const Container = styled.div`
   position: relative;
-  width: 21px;
-  height: 21px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
   &:hover {
     & > * {

@@ -8,16 +8,18 @@ const globalStyle = createGlobalStyle`
     margin: 0;
     box-sizing: border-box;
     font-size:1.8rem;
-    color: ${({ _ }) => theme.colors.primary};
     line-height: 140%;
 }
 html {
-  height: 100%;
+  min-height: 100%;
+  min-width: 100%;
   font-size: 62.5%;
 }
 
 body {
-  height: 100%;
+  position: relative;
+  min-height: 100%;
+  min-width: 100%;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -27,12 +29,16 @@ body {
 }
 
 #root{
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   flex: 1;
   position: relative;
   padding: 0 3rem;
+}
+
+#modal-root{
+  
 }
 
 a,a:any-link,a:-webkit-any-link{

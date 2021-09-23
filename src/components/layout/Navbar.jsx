@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { theme } from "../../style/theme";
 import Text from "../common/Text";
+import Modal from "./Modal";
 
 const StyledNavbar = styled.div`
   padding: 2rem 0;
@@ -50,8 +51,10 @@ const RightContainer = styled.div`
 `;
 
 const Navbar = () => {
+  const [open, setOpen] = useState(true);
   return (
     <StyledNavbar>
+      {open && <Modal setOpen={setOpen}></Modal>}
       <LeftContainer>
         <LogoContainer>
           <Link to="/">
