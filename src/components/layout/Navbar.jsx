@@ -51,10 +51,8 @@ const RightContainer = styled.div`
 `;
 
 const Navbar = () => {
-  const [open, setOpen] = useState(true);
   return (
     <StyledNavbar>
-      {open && <Modal setOpen={setOpen}></Modal>}
       <LeftContainer>
         <LogoContainer>
           <Link to="/">

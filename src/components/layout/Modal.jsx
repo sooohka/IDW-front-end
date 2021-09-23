@@ -109,12 +109,8 @@ const Modal = ({ setOpen }) => {
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque eos ea cum repudiandae et dolores non ipsum adipisci sequi. Qui quisquam ipsa aperiam?
         </Content>
         <BtnContainer>
-          <Button onClick={() => console.log("ok")} size="medium">
-            ok
-          </Button>
-          <Button onClick={handleClose} color="transparent" fontColor="black" size="medium">
-            cancel
-          </Button>
+          <Button label="ok" onClick={() => console.log("ok")} size="medium" />
+          <Button label="cancel" onClick={handleClose} color="transparent" fontColor="black" size="medium" />
         </BtnContainer>
       </ContentWrapper>
     </Container>,

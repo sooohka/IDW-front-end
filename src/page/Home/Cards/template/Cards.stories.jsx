@@ -1,6 +1,6 @@
 import React from "react";
 import Component from ".";
-import cards from "../../../../assets/temp/cards.json";
+import worldCups from "../../../../assets/temp/worldCups.json";
 // Data Type	|Control Type	|Description																							| Options
 // boolean		|boolean			|checkbox input																						| -
 // number			|number				|a numeric text box input	|min, max, step
@@ -21,9 +21,10 @@ export default {
   title: "pages/Home/components/Cards",
   component: Component,
 };
+
 const Template = (args) => <Component {...args} />;
 
 const Cards = Template.bind({});
-Cards.args = { cards: cards.data };
+Cards.args = { worldCups: worldCups.data };
 
 export { Cards };

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import CardsContext from "../../../../utils/contexts/CardsContext";
+import PropTypes from "prop-types";
+import WorldCupContext from "../../../../utils/contexts/worldCupContext";
 import Card from "../../Card";
 
 const Cards = styled.div`
@@ -11,31 +12,33 @@ const Cards = styled.div`
   }
 `;
 
-const Template = () => {
-  const { cards } = useContext(CardsContext);
-
+const Template = ({ worldCups }) => {
   return (
     <Cards>
-      {cards.map((v) => (
-        <Card
-          createDate={v.createDate}
-          id={v.id}
-          key={v.id}
-          desc={v.desc}
-          title={v.title}
-          commentCounts={v.commentCounts}
-          likeCounts={v.likeCounts}
-          imageDto={{
-            originalImage: v.imageDto.originalImage,
-            reducedImage: v.imageDto.reducedImage || null,
-            alt: v.title,
-            id: v.imageDto.id,
-          }}
-          isLoading
-        />
+      {worldCups.map((v) => (
+        <Card key={v.id} worldCup={v} isLoading />
       ))}
     </Cards>
   );
 };
 
+Template.propTypes = {
+  worldCups: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      desc: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      commentCounts: PropTypes.number.isRequired,
+      likeCounts: PropTypes.number.isRequired,
+      createDate: PropTypes.string.isRequired,
+      thumbnail: PropTypes.shape({
+        smallImage: PropTypes.string.isRequired,
+        largeImage: PropTypes.string.isRequired,
+        lowQualityImage: PropTypes.string.isRequired,
+        originalImage: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+      }),
+    })
+  ).isRequired,
+};
 export default Template;

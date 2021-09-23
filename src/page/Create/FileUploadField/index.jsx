@@ -18,16 +18,6 @@ const FileUploadField = ({ name, setIsFileUploading, buttonEl }) => {
   }, [buttonEl, isFolded]);
 
   useEffect(() => {
-    console.log(`%c fileUploadField rendered`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
-  }, []);
-
-  useEffect(() => {
-    console.log(`%c state isAccepting in FileUploadField change`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
-    console.log(isAccepting);
-  }, [isAccepting]);
-
-  useEffect(() => {
-    console.log(`%c state files in FileUploadField change`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
     setIsFileUploading(true);
   }, [files, setIsFileUploading]);
 
@@ -61,9 +51,7 @@ const FileUploadField = ({ name, setIsFileUploading, buttonEl }) => {
   const handleValidation = useCallback(
     (_file) => {
       // if (!_file.type.startsWith("image")) return { message: "jpg,png,gif파일만 업로드하겠습니다." };
-      if (files.find((file) => file.name === _file.name)) {
-        return { message: "같은 이름의 파일은 업로드불가능합니다." };
-      }
+      if (files.find((file) => file.name === _file.name)) return { message: "같은 이름의 파일은 업로드불가능합니다." };
       if (files.length > 50) return { message: "파일은 최대 50장 업로드 가능합니다." };
 
       // TODO: file size validation

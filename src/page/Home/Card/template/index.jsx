@@ -93,9 +93,18 @@ const PlayWrapper = styled.div`
   left: 50%;
 `;
 
-const Template = ({ createDate, id, handlePlayBtnClick, title, desc, imageDto, commentCounts, likeCounts }) => {
+const Template = ({ handlePlayBtnClick, worldCup }) => {
+  const {
+    id,
+    desc,
+    title,
+    thumbnail: { smallImage, largeImage, lowQualityImage, originalImage },
+    commentCounts,
+    likeCounts,
+    createDate,
+  } = worldCup;
   const imageRef = useRef(null);
-  const { imgSrc } = useImgLazyLoad(imageRef, imageDto.originalImage, imageDto.reducedImage);
+  const { imgSrc } = useImgLazyLoad(imageRef, originalImage, lowQualityImage);
 
   return (
     <StyledCard>
@@ -134,17 +143,21 @@ const Template = ({ createDate, id, handlePlayBtnClick, title, desc, imageDto, c
 };
 
 Template.propTypes = {
-  createDate: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
-  desc: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  commentCounts: PropTypes.number.isRequired,
-  likeCounts: PropTypes.number.isRequired,
-  imageDto: PropTypes.shape({
-    originalImage: PropTypes.string.isRequired,
-    reducedImage: PropTypes.string,
-    id: PropTypes.number.isRequired,
-  }).isRequired,
   handlePlayBtnClick: PropTypes.func.isRequired,
+  worldCup: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    desc: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    commentCounts: PropTypes.number.isRequired,
+    likeCounts: PropTypes.number.isRequired,
+    createDate: PropTypes.string.isRequired,
+    thumbnail: PropTypes.shape({
+      smallImage: PropTypes.string.isRequired,
+      largeImage: PropTypes.string.isRequired,
+      lowQualityImage: PropTypes.string.isRequired,
+      originalImage: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+    }),
+  }).isRequired,
 };
 export default Template;

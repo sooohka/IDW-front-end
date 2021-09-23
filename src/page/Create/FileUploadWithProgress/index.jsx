@@ -9,10 +9,11 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
   const [fileInfo, setFileInfo] = useState({
     file: {
       name: file.name,
-      images: {
-        image_origin: "",
-        image_400: "",
-        image_800: "",
+      thumbnail: {
+        smallImage: "",
+        largeImage: "",
+        lowQualityImage: "",
+        originalImage: "",
       },
     },
     isSubmitting: true,
@@ -24,8 +25,7 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
     async (_file) => {
       try {
         let response;
-        console.log(process.env.REACT_APP_ENV);
-
+        // aws 사용
         if (process.env.REACT_APP_ENV === "production") {
           // TODO: category 추가해서 업로드할 수 있도록
           response = await uploadFile(_file, setProgress);
@@ -36,21 +36,20 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
           formData.append("file", _file);
 
           response = await axios.post("https://api.cloudinary.com/v1_1/demo/image/upload", formData, {
-            onUploadProgress: (prog) => {
-              const { loaded } = prog;
-              const { total } = prog;
-              setProgress(Math.round((loaded / total) * 100));
-            },
+            onUploadProgress: ({ loaded, total }) => setProgress(Math.round((loaded / total) * 100)),
             headers: {
               "Content-Type": "multipart/form-data",
             },
           });
         }
-        const { images, name } = response.data;
+
+        // aws
+        const { thumbnail, name } = response.data;
         console.log(JSON.stringify(response.data));
 
-        handleSubmittedFiles({ name, images });
-        setFileInfo((prev) => ({ ...prev, isSubmitting: false, message: "submitted!", file: { ...prev.file, images } }));
+        // FIXME:클라우드너리 최대한 안씀
+        handleSubmittedFiles({ name, thumbnail });
+        setFileInfo((prev) => ({ ...prev, isSubmitting: false, message: "submitted!", file: { ...prev.file, thumbnail } }));
       } catch (err) {
         console.log(err.message);
         // TODO: fileUploadWithProgress error handling

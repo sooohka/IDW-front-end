@@ -1,28 +1,28 @@
 import React from "react";
 import axios from "../../api/axios";
-import cardsJson from "../../assets/temp/cards.json";
+import worldCupsJson from "../../assets/temp/worldCups.json";
 import PageSpinner from "../../components/common/PageSpinner";
 import useFetch from "../../utils/hooks/useFetch";
 import Template from "./template";
-import CardsContext from "../../utils/contexts/CardsContext";
+import WorldCupContext from "../../utils/contexts/worldCupContext";
 
 const promise = () =>
   new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(cardsJson);
+      resolve(worldCupsJson);
     }, 100);
   });
 
 // const promise = () => axios.get("worldcups");
 const Home = () => {
-  const { data: cards, isLoading } = useFetch(promise);
+  const { data: worldCups, isLoading } = useFetch(promise);
   if (isLoading) return <PageSpinner></PageSpinner>;
-  console.log(cards);
+  console.log(worldCups);
 
   return (
-    <CardsContext.Provider value={{ cards }}>
+    <WorldCupContext.Provider value={{ worldCups }}>
       <Template />
-    </CardsContext.Provider>
+    </WorldCupContext.Provider>
   );
 };
 
