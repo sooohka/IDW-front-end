@@ -1,14 +1,10 @@
-import React, { useCallback } from "react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
+import React from "react";
 import Template from "./template";
 
-const Card = ({ worldCup }) => {
-  const history = useHistory();
-
-  const handlePlayBtnClick = useCallback((gameId) => (e) => history.push(`/play/${gameId}`), [history]);
-
-  return <Template worldCup={worldCup} handlePlayBtnClick={handlePlayBtnClick} />;
+const Card = ({ worldCup, handlePlayBtnClick }) => {
+  const { id } = worldCup;
+  return <Template worldCup={worldCup} handlePlayBtnClick={handlePlayBtnClick(id)} />;
 };
 
 Card.propTypes = {
@@ -19,13 +15,14 @@ Card.propTypes = {
     commentCounts: PropTypes.number.isRequired,
     likeCounts: PropTypes.number.isRequired,
     createDate: PropTypes.string.isRequired,
-    thumbnail: PropTypes.shape({
-      smallImage: PropTypes.string.isRequired,
-      largeImage: PropTypes.string.isRequired,
-      lowQualityImage: PropTypes.string.isRequired,
-      originalImage: PropTypes.string.isRequired,
+    image: PropTypes.shape({
+      small: PropTypes.string.isRequired,
+      big: PropTypes.string.isRequired,
+      lowQuality: PropTypes.string.isRequired,
+      originalQuality: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
     }),
   }).isRequired,
+  handlePlayBtnClick: PropTypes.func.isRequired,
 };
 export default Card;

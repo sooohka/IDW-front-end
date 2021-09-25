@@ -9,12 +9,7 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
   const [fileInfo, setFileInfo] = useState({
     file: {
       name: file.name,
-      thumbnail: {
-        smallImage: "",
-        largeImage: "",
-        lowQualityImage: "",
-        originalImage: "",
-      },
+      url: "",
     },
     isSubmitting: true,
     hasError: false,
@@ -30,26 +25,15 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
           // TODO: category 추가해서 업로드할 수 있도록
           response = await uploadFile(_file, setProgress);
         } else {
-          const formData = new FormData();
-
-          formData.append("upload_preset", "docs_upload_example_us_preset");
-          formData.append("file", _file);
-
-          response = await axios.post("https://api.cloudinary.com/v1_1/demo/image/upload", formData, {
-            onUploadProgress: ({ loaded, total }) => setProgress(Math.round((loaded / total) * 100)),
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
+          alert("env=dev입니다.");
         }
 
         // aws
-        const { thumbnail, name } = response.data;
-        console.log(JSON.stringify(response.data));
+        const { url, fullUrl, name } = response.data;
+        console.log(response.data);
 
-        // FIXME:클라우드너리 최대한 안씀
-        handleSubmittedFiles({ name, thumbnail });
-        setFileInfo((prev) => ({ ...prev, isSubmitting: false, message: "submitted!", file: { ...prev.file, thumbnail } }));
+        handleSubmittedFiles({ name, url });
+        setFileInfo((prev) => ({ ...prev, isSubmitting: false, message: "submitted!", file: { ...prev.file, url: fullUrl } }));
       } catch (err) {
         console.log(err.message);
         // TODO: fileUploadWithProgress error handling
@@ -67,7 +51,7 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
     upload();
   }, [file, handleUpload]);
 
-  return <Template type={file.type} fileInfo={fileInfo} progress={progress} handleDelete={handleDelete}></Template>;
+  return <Template type={file.type} fileInfo={fileInfo} progress={progress} handleDelete={handleDelete} />;
 };
 
 FileUploadWithProgress.propTypes = {

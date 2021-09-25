@@ -13,12 +13,12 @@ const myBucket = new AWS.S3({ region: bucketRegion, params: { bucketName } });
 
 const uploadFile = async (file, setProgress, handleError) => {
   // TODO: 카테고리도 받아서 업로드 해야함
-  const key = `original/${uuid()}${file.name}`;
+  const key = `${uuid()}${file.name}`;
   const params = {
     ACL: "public-read",
     Body: file,
     Bucket: bucketName,
-    Key: key,
+    Key: `original/${key}`,
     ContentType: file.type,
   };
 
@@ -32,15 +32,11 @@ const uploadFile = async (file, setProgress, handleError) => {
       .promise();
     console.log(data);
     // TODO: png, jpg ,jpeg 외의 파일 핸들링 구현하기
-    const { Location, Key } = data;
+    const { Location } = data;
     return {
       data: {
-        thumbnail: {
-          smallImage: Key.replace("original", "small"),
-          largeImage: Key.replace("original", "large"),
-          lowQualityImage: Key.replace("original", "low"),
-          originalImage: Key,
-        },
+        url: key,
+        fullUrl: Location,
         name: file.name,
       },
     };

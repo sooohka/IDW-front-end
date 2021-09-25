@@ -98,19 +98,19 @@ const Template = ({ handlePlayBtnClick, worldCup }) => {
     id,
     desc,
     title,
-    thumbnail: { smallImage, largeImage, lowQualityImage, originalImage },
+    image: { small, big, lowQuality, originalQuality },
     commentCounts,
     likeCounts,
     createDate,
   } = worldCup;
   const imageRef = useRef(null);
-  const { imgSrc } = useImgLazyLoad(imageRef, originalImage, lowQualityImage);
+  const { imgSrc } = useImgLazyLoad(imageRef, originalQuality, lowQuality);
 
   return (
     <StyledCard>
       <ImgBox>
         <Img width="100%" height="100%" src={imgSrc} ref={imageRef} alt={title} />
-        <PlayWrapper onClick={handlePlayBtnClick(1)}>
+        <PlayWrapper onClick={handlePlayBtnClick}>
           <PlaySolid width={50} />
           <Text bold text="월드컵 하러 가기" />
         </PlayWrapper>
@@ -151,11 +151,11 @@ Template.propTypes = {
     commentCounts: PropTypes.number.isRequired,
     likeCounts: PropTypes.number.isRequired,
     createDate: PropTypes.string.isRequired,
-    thumbnail: PropTypes.shape({
-      smallImage: PropTypes.string.isRequired,
-      largeImage: PropTypes.string.isRequired,
-      lowQualityImage: PropTypes.string.isRequired,
-      originalImage: PropTypes.string.isRequired,
+    image: PropTypes.shape({
+      small: PropTypes.string.isRequired,
+      big: PropTypes.string.isRequired,
+      lowQuality: PropTypes.string.isRequired,
+      originalQuality: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
     }),
   }).isRequired,

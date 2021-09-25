@@ -28,7 +28,7 @@ const Wrapper = styled.div`
 `;
 const Template = ({ fileInfo, progress, handleDelete }) => {
   const {
-    file: { name, images },
+    file: { name, url },
     isSubmitting,
     hasError,
     message,
@@ -36,7 +36,7 @@ const Template = ({ fileInfo, progress, handleDelete }) => {
 
   return (
     <Container onClick={(e) => e.preventDefault()}>
-      {isSubmitting ? <FileImage width={50} height={50}></FileImage> : <Img src={images.image_origin} alt={name}></Img>}
+      {isSubmitting ? <FileImage width={50} height={50}></FileImage> : <Img src={url} alt={name}></Img>}
       <Wrapper>
         <ProgressWrapper>
           <ProgressBar title={name} hasError={hasError} progress={progress}></ProgressBar>
@@ -52,11 +52,7 @@ Template.propTypes = {
   fileInfo: PropTypes.shape({
     file: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      images: PropTypes.shape({
-        image_origin: PropTypes.string,
-        image_400: PropTypes.string,
-        image_800: PropTypes.string,
-      }),
+      url: PropTypes.string.isRequired,
     }).isRequired,
     isSubmitting: PropTypes.bool.isRequired,
     hasError: PropTypes.bool.isRequired,

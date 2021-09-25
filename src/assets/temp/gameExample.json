@@ -1,0 +1,101 @@
+{
+	"statusCode": 200,
+	"data": [
+		{
+			"id": 5,
+			"name": "베이비복리 스피터키",
+			"likeCount": 0,
+			"image": {
+				"id": 5,
+				"originalQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/original/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-gift_habeshaw-ZzoKKRK_W7Q.jpg",
+				"lowQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/low/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-gift_habeshaw-ZzoKKRK_W7Q.jpg",
+				"big": "https://idw-images.s3.ap-northeast-2.amazonaws.com/big/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-gift_habeshaw-ZzoKKRK_W7Q.jpg",
+				"small": "https://idw-images.s3.ap-northeast-2.amazonaws.com/small/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-gift_habeshaw-ZzoKKRK_W7Q.jpg"
+			}
+		},
+		{
+			"id": 8,
+			"name": "스미스 윌리엄스",
+			"likeCount": 0,
+			"image": {
+				"id": 8,
+				"originalQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/original/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-elidefaria-pOODuHYyla0.jpg",
+				"lowQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/low/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-elidefaria-pOODuHYyla0.jpg",
+				"big": "https://idw-images.s3.ap-northeast-2.amazonaws.com/big/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-elidefaria-pOODuHYyla0.jpg",
+				"small": "https://idw-images.s3.ap-northeast-2.amazonaws.com/small/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-elidefaria-pOODuHYyla0.jpg"
+			}
+		},
+		{
+			"id": 1,
+			"name": "알렉산드리아 리아",
+			"likeCount": 0,
+			"image": {
+				"id": 1,
+				"originalQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/original/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-a2eorigins-uGXEEwnvIkQ.jpg",
+				"lowQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/low/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-a2eorigins-uGXEEwnvIkQ.jpg",
+				"big": "https://idw-images.s3.ap-northeast-2.amazonaws.com/big/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-a2eorigins-uGXEEwnvIkQ.jpg",
+				"small": "https://idw-images.s3.ap-northeast-2.amazonaws.com/small/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-a2eorigins-uGXEEwnvIkQ.jpg"
+			}
+		},
+		{
+			"id": 10,
+			"name": "스미스 윌리엄스",
+			"likeCount": 0,
+			"image": {
+				"id": 10,
+				"originalQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/original/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-elidefaria-pOODuHYyla0.jpg",
+				"lowQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/low/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-elidefaria-pOODuHYyla0.jpg",
+				"big": "https://idw-images.s3.ap-northeast-2.amazonaws.com/big/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-elidefaria-pOODuHYyla0.jpg",
+				"small": "https://idw-images.s3.ap-northeast-2.amazonaws.com/small/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-elidefaria-pOODuHYyla0.jpg"
+			}
+		},
+		{
+			"id": 3,
+			"name": "안젤리나 졸리",
+			"likeCount": 0,
+			"image": {
+				"id": 3,
+				"originalQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/original/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-bradlloyd-2xmUz-1nlkE.jpg",
+				"lowQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/low/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-bradlloyd-2xmUz-1nlkE.jpg",
+				"big": "https://idw-images.s3.ap-northeast-2.amazonaws.com/big/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-bradlloyd-2xmUz-1nlkE.jpg",
+				"small": "https://idw-images.s3.ap-northeast-2.amazonaws.com/small/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-bradlloyd-2xmUz-1nlkE.jpg"
+			}
+		},
+		{
+			"id": 2,
+			"name": "마르코프 체이선",
+			"likeCount": 0,
+			"image": {
+				"id": 2,
+				"originalQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/original/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-austin_pacheco-2mF-yTUmC5Q.jpg",
+				"lowQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/low/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-austin_pacheco-2mF-yTUmC5Q.jpg",
+				"big": "https://idw-images.s3.ap-northeast-2.amazonaws.com/big/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-austin_pacheco-2mF-yTUmC5Q.jpg",
+				"small": "https://idw-images.s3.ap-northeast-2.amazonaws.com/small/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-austin_pacheco-2mF-yTUmC5Q.jpg"
+			}
+		},
+		{
+			"id": 7,
+			"name": "요한 베르그",
+			"likeCount": 0,
+			"image": {
+				"id": 7,
+				"originalQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/original/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-friarjames-zbGu56ASvhA.jpg",
+				"lowQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/low/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-friarjames-zbGu56ASvhA.jpg",
+				"big": "https://idw-images.s3.ap-northeast-2.amazonaws.com/big/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-friarjames-zbGu56ASvhA.jpg",
+				"small": "https://idw-images.s3.ap-northeast-2.amazonaws.com/small/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-friarjames-zbGu56ASvhA.jpg"
+			}
+		},
+		{
+			"id": 6,
+			"name": "마이크 지젤란스코프",
+			"likeCount": 0,
+			"image": {
+				"id": 6,
+				"originalQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/original/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-bradlloyd-2xmUz-1nlkE.jpg",
+				"lowQuality": "https://idw-images.s3.ap-northeast-2.amazonaws.com/low/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-bradlloyd-2xmUz-1nlkE.jpg",
+				"big": "https://idw-images.s3.ap-northeast-2.amazonaws.com/big/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-bradlloyd-2xmUz-1nlkE.jpg",
+				"small": "https://idw-images.s3.ap-northeast-2.amazonaws.com/small/https://idw-images.s3.ap-northeast-2.amazonaws.com/actors/bulksplash-bradlloyd-2xmUz-1nlkE.jpg"
+			}
+		}
+	]
+}

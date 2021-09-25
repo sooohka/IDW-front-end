@@ -27,7 +27,7 @@ const CreateForm = () => {
       };
       if (process.env.REACT_APP_ENV === "production") {
         // TODO:데이터 file에 bad 400 800 url모두 보내주자
-        const res = await axios.post("worldcup", data);
+        const res = await axios.post("worldcups", data);
         alert("업로드 성공!");
         console.log(res);
       } else {

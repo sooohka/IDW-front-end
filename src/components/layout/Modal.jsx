@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { Children, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
@@ -12,10 +12,23 @@ const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+
   min-height: 100%;
   min-width: 100%;
-  display: flex;
-  align-items: center;
+  & > * {
+    :last-child {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin: auto;
+      opacity: 1;
+      z-index: 101;
+      overflow: hidden;
+      min-width: 40rem;
+      min-height: 20rem;
+    }
+  }
 `;
 
 const BackDrop = styled.div`
@@ -26,66 +39,14 @@ const BackDrop = styled.div`
   z-index: 100;
 `;
 
-const ContentWrapper = styled.div`
-  margin: auto;
-  width: 40rem;
-  min-height: 20rem;
-  padding: 2rem;
-  background-color: white;
-  opacity: 1;
-  z-index: 101;
-
-  display: flex;
-  flex-direction: column;
-  border-radius: 2rem;
-  overflow: hidden;
-`;
-
-const Heading = styled.div`
-  flex-basis: 20%;
-  display: flex;
-  align-items: center;
-  position: relative;
-`;
-
-const HeadingTitle = styled.h1`
-  flex-basis: 100%;
-  text-align: center;
-  font-size: ${() => theme.fonts.subHeading};
-`;
-
-const XContainer = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-`;
-
-const Content = styled.p`
-  flex: 1;
-  font-size: ${() => theme.fonts.body};
-  padding: 1rem 0;
-`;
-
-const BtnContainer = styled.div`
-  flex-basis: 10%;
-  display: flex;
-  padding: 0 2rem;
-  justify-content: space-around;
-`;
-
-const Modal = ({ setOpen }) => {
+const Modal = ({ handleClose, children }) => {
   const handleESCPressEvent = useCallback(
     (e) => {
       if (e.key !== "Escape") return;
-      console.log("modal open");
-      setOpen(false);
+      handleClose();
     },
-    [setOpen]
+    [handleClose]
   );
-
-  const handleClose = useCallback(() => {
-    setOpen(false);
-  }, [setOpen]);
 
   useEffect(() => {
     document.addEventListener("keydown", handleESCPressEvent);
@@ -98,27 +59,14 @@ const Modal = ({ setOpen }) => {
   return createPortal(
     <Container>
       <BackDrop></BackDrop>
-      <ContentWrapper>
-        <Heading>
-          <HeadingTitle>Title</HeadingTitle>
-          <XContainer>
-            <XButton onClick={handleClose}></XButton>
-          </XContainer>
-        </Heading>
-        <Content>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque eos ea cum repudiandae et dolores non ipsum adipisci sequi. Qui quisquam ipsa aperiam?
-        </Content>
-        <BtnContainer>
-          <Button label="ok" onClick={() => console.log("ok")} size="medium" />
-          <Button label="cancel" onClick={handleClose} color="transparent" fontColor="black" size="medium" />
-        </BtnContainer>
-      </ContentWrapper>
+      {children}
     </Container>,
     ModalRootEl
   );
 };
 
 Modal.propTypes = {
-  setOpen: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
 };
 export default Modal;

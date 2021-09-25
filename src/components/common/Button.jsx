@@ -29,9 +29,9 @@ const StyledButton = styled.button`
         return css``;
     }
   }}
-  color: ${({ fontColor }) => fontColor};
+  color: ${({ color }) => color};
   font-weight: bold;
-  background-color: ${({ color }) => color};
+  background-color: ${({ backgroundColor }) => backgroundColor};
   cursor: pointer;
   &:hover {
     opacity: 0.8;
@@ -43,9 +43,9 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = forwardRef(({ onClick, label, color, fontColor, children, type, disabled, size }, ref) => {
+const Button = forwardRef(({ onClick, label, backgroundColor, color, children, type, disabled, size }, ref) => {
   return (
-    <StyledButton onClick={onClick} color={color} fontColor={fontColor} size={size} ref={ref} tabIndex={0} type={type} disabled={disabled}>
+    <StyledButton onClick={onClick} backgroundColor={backgroundColor} color={color} size={size} ref={ref} tabIndex={0} type={type} disabled={disabled}>
       {label || children}
     </StyledButton>
   );
@@ -57,8 +57,8 @@ Button.propTypes = {
   type: PropTypes.string,
   disabled: PropTypes.bool,
   size: PropTypes.oneOf(["small", "medium", "large"]),
+  backgroundColor: PropTypes.string,
   color: PropTypes.string,
-  fontColor: PropTypes.string,
   onClick: PropTypes.func,
 };
 
@@ -68,8 +68,8 @@ Button.defaultProps = {
   type: "submit",
   disabled: false,
   size: "large",
-  color: theme.colors.secondary,
-  fontColor: theme.colors.white,
+  backgroundColor: theme.colors.secondary,
+  color: theme.colors.white,
 };
 
 export default Button;
