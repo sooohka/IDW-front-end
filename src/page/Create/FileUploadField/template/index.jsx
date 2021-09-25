@@ -12,7 +12,7 @@ const Container = styled.div`
 
 const DropZone = styled.div`
   border: 3px dashed;
-  border-color: ${() => theme.colors.secondary};
+  border-color: ${() => theme.colors.primary};
   height: 15rem;
   display: flex;
   align-items: center;
@@ -25,7 +25,7 @@ const DropZone = styled.div`
   }
   & > p {
     font-weight: bold;
-    color: ${() => theme.colors.secondary};
+    color: ${() => theme.colors.primary};
   }
 `;
 
@@ -81,57 +81,55 @@ const IconWrapper = styled.div`
   }
 `;
 
-const Template = ({ isFolded, setIsFolded, handleDelete, handleSubmittedFiles, files, isAccepting, getInputProps, getRootProps }) => {
-  return (
-    <Container>
-      {/* DropZone */}
-      <DropZone
-        isAccepting={isAccepting}
-        {...getRootProps()}
+const Template = ({ isFolded, setIsFolded, handleDelete, handleSubmittedFiles, files, isAccepting, getInputProps, getRootProps }) => (
+  <Container>
+    {/* DropZone */}
+    <DropZone
+      isAccepting={isAccepting}
+      {...getRootProps()}
 
-        // onClick={(e) => e.stopPropagation()}
+      // onClick={(e) => e.stopPropagation()}
+    >
+      <input {...getInputProps()} />
+      <UploadIcon fill={theme.colors.primary} width={50} height={50} />
+      <p>Drag and Drop or click here to upload</p>
+    </DropZone>
+
+    {/* ListFiles */}
+    <FileList isFolded={isFolded}>
+      <FileListHeader
+        onClick={() => {
+          setIsFolded((prev) => !prev);
+        }}
+        isFolded={isFolded}
       >
-        <input {...getInputProps()} />
-        <UploadIcon fill={theme.colors.secondary} width={50} height={50}></UploadIcon>
-        <p>Drag and Drop or click here to upload</p>
-      </DropZone>
-
-      {/* ListFiles */}
-      <FileList isFolded={isFolded}>
-        <FileListHeader
-          onClick={() => {
-            setIsFolded((prev) => !prev);
-          }}
-          isFolded={isFolded}
-        >
-          <FileListTitle>파일들</FileListTitle>
-          <IconWrapper isFolded={isFolded}>
-            <Sort width={30} height={30}></Sort>
-          </IconWrapper>
-        </FileListHeader>
-        <Files isFolded={isFolded}>
-          {files.map((file) => (
-            <FileUploadWithProgress
-              handleDelete={handleDelete}
-              handleSubmittedFiles={handleSubmittedFiles}
-              file={file}
-              // TODO: 제대로된 키값 설정하기
-              key={`${file.name}${file.size}`}
-            ></FileUploadWithProgress>
-          ))}
-          {files.length > 5 && (
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <IconWrapper onClick={() => setIsFolded(true)} isFolded={isFolded}>
-                go Top
-                <Sort width={30} height={30}></Sort>
-              </IconWrapper>
-            </div>
-          )}
-        </Files>
-      </FileList>
-    </Container>
-  );
-};
+        <FileListTitle>파일들</FileListTitle>
+        <IconWrapper isFolded={isFolded}>
+          <Sort width={30} height={30} />
+        </IconWrapper>
+      </FileListHeader>
+      <Files isFolded={isFolded}>
+        {files.map((file) => (
+          <FileUploadWithProgress
+            handleDelete={handleDelete}
+            handleSubmittedFiles={handleSubmittedFiles}
+            file={file}
+            // TODO: 제대로된 키값 설정하기
+            key={`${file.name}${file.size}`}
+          />
+        ))}
+        {files.length > 5 && (
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <IconWrapper onClick={() => setIsFolded(true)} isFolded={isFolded}>
+              go Top
+              <Sort width={30} height={30} />
+            </IconWrapper>
+          </div>
+        )}
+      </Files>
+    </FileList>
+  </Container>
+);
 
 Template.propTypes = {
   isFolded: PropTypes.bool.isRequired,

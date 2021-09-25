@@ -13,7 +13,7 @@ import CategoryContext from "../../../../utils/contexts/CategoryContext";
 const Input = styled.input`
   border: 3px solid;
   border-radius: 5px;
-  border-color: ${() => theme.colors.secondary};
+  border-color: ${() => theme.colors.primary};
   padding: 1rem;
   font-size: ${() => theme.fonts.strongBody};
   letter-spacing: 0.5px;
@@ -23,7 +23,7 @@ const Input = styled.input`
 const TextArea = styled.textarea`
   border: 3px solid;
   border-radius: 5px;
-  border-color: ${() => theme.colors.secondary};
+  border-color: ${() => theme.colors.primary};
   padding: 1rem;
   font-size: ${() => theme.fonts.strongBody};
   letter-spacing: 0.5px;
@@ -51,14 +51,12 @@ const FieldTitle = styled.span`
   font-size: ${() => theme.fonts.label};
 `;
 
-const Field = ({ label, children }) => {
-  return (
-    <StyledField>
-      <FieldTitle>{label}</FieldTitle>
-      {children}
-    </StyledField>
-  );
-};
+const Field = ({ label, children }) => (
+  <StyledField>
+    <FieldTitle>{label}</FieldTitle>
+    {children}
+  </StyledField>
+);
 
 const RadioFieldContainer = styled.div`
   display: flex;
@@ -79,12 +77,12 @@ const Template = forwardRef(({ isFileUploading, setIsFileUploading, initialValue
       {/* TODO: 1.style FieldContainer, RadioContainer, Form */}
       {({ values, errors, touched, handleBlur, handleChange, setFieldValue, isSubmitting, isValid }) => (
         <Form style={{ display: "flex", flexDirection: "column", flex: "1" }}>
-          <Text bold fontSize={theme.fonts.heading} text="IDW Creation" margin="0 0 3rem 0"></Text>
+          <Text bold fontSize={theme.fonts.heading} text="IDW Creation" margin="0 0 3rem 0" />
 
           {/* title */}
           <FieldContainer>
             <Field label="제목">
-              <Input tabIndex={0} name="title" type="text" onChange={handleChange} onBlur={handleBlur} value={values.title}></Input>
+              <Input tabIndex={0} name="title" type="text" onChange={handleChange} onBlur={handleBlur} value={values.title} />
             </Field>
             <HelperText hasError={Boolean(touched.title && errors.title)} text={errors.title} />
           </FieldContainer>
@@ -92,7 +90,7 @@ const Template = forwardRef(({ isFileUploading, setIsFileUploading, initialValue
           {/* desc */}
           <FieldContainer>
             <Field label="설명">
-              <TextArea tabIndex={0} name="desc" onChange={handleChange} onBlur={handleBlur} value={values.desc}></TextArea>
+              <TextArea tabIndex={0} name="desc" onChange={handleChange} onBlur={handleBlur} value={values.desc} />
             </Field>
             <HelperText hasError={Boolean(touched.desc && errors.desc)} text={errors.desc} />
           </FieldContainer>
@@ -109,7 +107,7 @@ const Template = forwardRef(({ isFileUploading, setIsFileUploading, initialValue
                     checked={values.category === v.id}
                     onChange={() => setFieldValue("category", v.id)}
                     value={v.name}
-                  ></RadioField>
+                  />
                 ))}
               </RadioFieldContainer>
             </Field>
@@ -118,7 +116,7 @@ const Template = forwardRef(({ isFileUploading, setIsFileUploading, initialValue
           {/* files */}
           <FieldContainer>
             <Field label="파일">
-              <FileUploadField buttonEl={buttonEl} setIsFileUploading={setIsFileUploading} name="files"></FileUploadField>
+              <FileUploadField buttonEl={buttonEl} setIsFileUploading={setIsFileUploading} name="files" />
             </Field>
             <HelperText hasError={Boolean(errors.files)} text={errors.files} />
           </FieldContainer>

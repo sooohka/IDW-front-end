@@ -88,7 +88,7 @@ const FileUploadField = ({ name, setIsFileUploading, buttonEl }) => {
       isAccepting={isAccepting}
       getRootProps={getRootProps}
       getInputProps={getInputProps}
-    ></Template>
+    />
   );
 };
 FileUploadField.propTypes = {

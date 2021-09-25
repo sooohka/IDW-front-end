@@ -67,7 +67,7 @@ const CreateForm = () => {
   return (
     <>
       {isSubmitting ? (
-        <PageSpinner></PageSpinner>
+        <PageSpinner />
       ) : (
         <Template
           ref={{ buttonEl }}
@@ -76,7 +76,7 @@ const CreateForm = () => {
           initialValues={initialValues}
           handleSubmit={handleSubmit}
           validate={validate}
-        ></Template>
+        />
       )}
     </>
   );

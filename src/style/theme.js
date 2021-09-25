@@ -12,7 +12,7 @@ const theme = {
     primary: "#2d3436",
     secondary: "#18A0FB",
     white: "#ffffff",
-    gray: "#4B4B4B",
+    gray: "#6D6D6D",
   },
   fonts: {
     helperText: ".8rem",

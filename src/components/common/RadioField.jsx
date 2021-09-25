@@ -20,7 +20,7 @@ const Radio = styled.span`
   height: 20px;
   border-radius: 100000px;
   border: 3px solid;
-  border-color: ${() => theme.colors.secondary};
+  border-color: ${() => theme.colors.primary};
   position: relative;
   margin: 0 1rem 0 0;
 
@@ -32,7 +32,7 @@ const Radio = styled.span`
     border-radius: 100000px;
     width: 10px;
     height: 10px;
-    background-color: ${() => theme.colors.secondary};
+    background-color: ${() => theme.colors.primary};
   }
 
   ${({ checked }) =>
@@ -44,23 +44,21 @@ const Radio = styled.span`
     `}
 `;
 
-const RadioField = ({ id, name, checked, onChange, value }) => {
-  return (
-    <Container>
-      <Label htmlFor={id}>
-        <input id={id} name={name} type="radio" checked={checked} onChange={onChange} value={value} hidden></input>
-        <Radio
-          onKeyDown={(e) => {
-            if (e.key === " ") onChange(e);
-          }}
-          tabIndex={0}
-          checked={checked}
-        ></Radio>
-        {value}
-      </Label>
-    </Container>
-  );
-};
+const RadioField = ({ id, name, checked, onChange, value }) => (
+  <Container>
+    <Label htmlFor={id}>
+      <input id={id} name={name} type="radio" checked={checked} onChange={onChange} value={value} hidden />
+      <Radio
+        onKeyDown={(e) => {
+          if (e.key === " ") onChange(e);
+        }}
+        tabIndex={0}
+        checked={checked}
+      />
+      {value}
+    </Label>
+  </Container>
+);
 
 RadioField.propTypes = {
   id: PropTypes.string.isRequired,

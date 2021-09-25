@@ -9,14 +9,12 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Template = () => {
-  return (
-    <Container>
-      <Navbar></Navbar>
-      <CreateForm></CreateForm>
-    </Container>
-  );
-};
+const Template = () => (
+  <Container>
+    <Navbar />
+    <CreateForm />
+  </Container>
+);
 
 Template.propTypes = {};
 

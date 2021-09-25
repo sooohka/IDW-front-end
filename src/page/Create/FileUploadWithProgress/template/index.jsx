@@ -36,13 +36,13 @@ const Template = ({ fileInfo, progress, handleDelete }) => {
 
   return (
     <Container onClick={(e) => e.preventDefault()}>
-      {isSubmitting ? <FileImage width={50} height={50}></FileImage> : <Img src={url} alt={name}></Img>}
+      {isSubmitting ? <FileImage width={50} height={50} /> : <Img src={url} alt={name} />}
       <Wrapper>
         <ProgressWrapper>
-          <ProgressBar title={name} hasError={hasError} progress={progress}></ProgressBar>
-          {isSubmitting ? <Spinner></Spinner> : <XButton onClick={handleDelete(name)} />}
+          <ProgressBar title={name} hasError={hasError} progress={progress} />
+          {isSubmitting ? <Spinner /> : <XButton onClick={handleDelete(name)} />}
         </ProgressWrapper>
-        <HelperText always hasError={hasError} text={message}></HelperText>
+        <HelperText always hasError={hasError} text={message} />
       </Wrapper>
     </Container>
   );
