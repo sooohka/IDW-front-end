@@ -58,7 +58,7 @@ const Modal = ({ handleClose, children }) => {
 
   return createPortal(
     <Container>
-      <BackDrop></BackDrop>
+      <BackDrop onClick={handleClose} />
       {children}
     </Container>,
     ModalRootEl

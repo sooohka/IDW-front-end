@@ -21,21 +21,16 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
       try {
         let response;
         // aws 사용
-        if (process.env.REACT_APP_ENV === "production") {
-          // TODO: category 추가해서 업로드할 수 있도록
-          response = await uploadFile(_file, setProgress);
-        } else {
-          alert("env=dev입니다.");
-        }
+        if (process.env.REACT_APP_ENV === "production") response = await uploadFile(_file, setProgress);
+        else alert("env=dev입니다.");
 
-        // aws
         const { url, fullUrl, name } = response.data;
         console.log(response.data);
 
         handleSubmittedFiles({ name, url });
         setFileInfo((prev) => ({ ...prev, isSubmitting: false, message: "submitted!", file: { ...prev.file, url: fullUrl } }));
       } catch (err) {
-        console.log(err.message);
+        console.error(err.message);
         // TODO: fileUploadWithProgress error handling
         const message = err.response?.data?.error?.message || "something went wrong😅 ";
         setFileInfo((prev) => ({ isSubmitting: false, hasError: true, message, file: { ...prev.file } }));

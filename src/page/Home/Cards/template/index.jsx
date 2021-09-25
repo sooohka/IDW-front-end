@@ -11,15 +11,13 @@ const Cards = styled.div`
   }
 `;
 
-const Template = ({ worldCups, handlePlayBtnClick }) => {
-  return (
-    <Cards>
-      {worldCups.map((v) => (
-        <Card handlePlayBtnClick={handlePlayBtnClick} key={v.id} worldCup={v} isLoading />
-      ))}
-    </Cards>
-  );
-};
+const Template = ({ worldCups, handlePlayBtnClick }) => (
+  <Cards>
+    {worldCups.map((v) => (
+      <Card handlePlayBtnClick={handlePlayBtnClick} key={v.id} worldCup={v} isLoading />
+    ))}
+  </Cards>
+);
 
 Template.propTypes = {
   handlePlayBtnClick: PropTypes.func.isRequired,
@@ -31,13 +29,20 @@ Template.propTypes = {
       commentCounts: PropTypes.number.isRequired,
       likeCounts: PropTypes.number.isRequired,
       createDate: PropTypes.string.isRequired,
-      image: PropTypes.shape({
-        small: PropTypes.string.isRequired,
-        big: PropTypes.string.isRequired,
-        lowQuality: PropTypes.string.isRequired,
-        originalQuality: PropTypes.string.isRequired,
-        id: PropTypes.number.isRequired,
-      }),
+      targets: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+          likeCounts: PropTypes.number.isRequired,
+          image: PropTypes.shape({
+            small: PropTypes.string.isRequired,
+            big: PropTypes.string.isRequired,
+            lowQuality: PropTypes.string.isRequired,
+            originalQuality: PropTypes.string.isRequired,
+            id: PropTypes.number.isRequired,
+          }),
+        })
+      ).isRequired,
     })
   ).isRequired,
 };

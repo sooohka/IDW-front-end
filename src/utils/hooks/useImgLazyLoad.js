@@ -19,7 +19,7 @@ const useImgLazyLoad = (imageRef, originalImage, lowQualityImage) => {
       }
     };
     if (!isObserved && imageRef.current) {
-      observer = new IntersectionObserver(callback, { root: null, threshold: 0.8 });
+      observer = new IntersectionObserver(callback, { root: null, threshold: 0.5 });
       observer.observe(imageRef.current);
     }
 

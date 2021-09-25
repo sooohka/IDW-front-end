@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "./api/axios";
 import MainRouter from "./page/MainRouter";
-import GlobalStyle from "./style/GlobalStyle";
 import CategoryContext from "./utils/contexts/CategoryContext";
 import PageSpinner from "./components/common/PageSpinner";
 import useFetch from "./utils/hooks/useFetch";
@@ -12,7 +11,7 @@ const promise = () => {
   return new Promise((res) => {
     setTimeout(() => {
       res(categoryJson);
-    }, 1000);
+    }, 100);
   });
 };
 
@@ -24,7 +23,6 @@ const App = () => {
 
   return (
     <>
-      <GlobalStyle />
       {isLoading ? (
         <PageSpinner />
       ) : (

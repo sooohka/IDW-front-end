@@ -12,20 +12,19 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-wrap: wrap;
+  padding: 0 3rem;
 `;
 
-const Template = ({ handlePlayBtnClick }) => {
-  return (
-    <Container>
-      <Navbar />
-      <Sidebar></Sidebar>
-      <Content>
-        <LevelModal></LevelModal>
-        <Cards handlePlayBtnClick={handlePlayBtnClick} />
-      </Content>
-    </Container>
-  );
-};
+const Template = ({ handlePlayBtnClick }) => (
+  <Container>
+    <Navbar />
+    <Sidebar />
+    <Content>
+      <LevelModal />
+      <Cards handlePlayBtnClick={handlePlayBtnClick} />
+    </Content>
+  </Container>
+);
 
 Template.propTypes = {
   handlePlayBtnClick: PropTypes.func.isRequired,

@@ -6,12 +6,10 @@ const StyledContent = styled.div`
   padding: 3rem 5rem;
   min-height: 100%;
   display: flex;
-  flex: 1;
   flex-direction: column;
+  flex: 1;
 `;
-const Content = ({ children }) => {
-  return <StyledContent>{children}</StyledContent>;
-};
+const Content = ({ children }) => <StyledContent>{children}</StyledContent>;
 
 Content.propTypes = {
   children: PropTypes.any.isRequired,

@@ -44,27 +44,34 @@ const Radio = styled.span`
     `}
 `;
 
-const RadioField = ({ id, name, checked, onChange, value }) => (
+const RadioField = ({ id, label, name, checked, onChange, value }) => (
   <Container>
     <Label htmlFor={id}>
       <input id={id} name={name} type="radio" checked={checked} onChange={onChange} value={value} hidden />
       <Radio
         onKeyDown={(e) => {
-          if (e.key === " ") onChange(e);
+          if (e.key === " ") {
+            onChange(e);
+          }
         }}
         tabIndex={0}
         checked={checked}
       />
-      {value}
+      {label || value}
     </Label>
   </Container>
 );
 
 RadioField.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  label: PropTypes.string,
   name: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+};
+
+RadioField.defaultProps = {
+  label: null,
 };
 export default RadioField;

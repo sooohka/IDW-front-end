@@ -10,9 +10,7 @@ const StyledImage = styled.img`
   overflow: hidden;
 `;
 
-const Img = forwardRef(({ width, height, src, alt }, ref) => {
-  return <StyledImage ref={ref} src={src} alt={alt} width={width} height={height}></StyledImage>;
-});
+const Img = forwardRef(({ width, height, src, alt }, ref) => <StyledImage ref={ref} src={src} alt={alt} width={width} height={height} />);
 
 Img.propTypes = {
   width: PropTypes.string,
@@ -22,8 +20,8 @@ Img.propTypes = {
 };
 
 Img.defaultProps = {
-  width: "5rem",
-  height: "5rem",
+  width: null,
+  height: null,
 };
 
 export default Img;

@@ -8,7 +8,7 @@ import Modal from "./Modal";
 const StyledNavbar = styled.div`
   padding: 2rem 0;
   display: flex;
-  margin: 0 0 5rem;
+  margin: 0 0 3rem;
   width: 100%;
 `;
 
@@ -50,31 +50,29 @@ const RightContainer = styled.div`
   display: flex;
 `;
 
-const Navbar = () => {
-  return (
-    <StyledNavbar>
-      <LeftContainer>
-        <LogoContainer>
-          <Link to="/">
-            <Logo />
-            <Text bold fontSize={theme.fonts.heading} text="Logo" />
-          </Link>
-        </LogoContainer>
-        <Nav>
-          <Link to="/create">
-            <Text color={theme.colors.secondary} bold text="만들기" />
-          </Link>
-          <Link to="/">
-            <Text color={theme.colors.secondary} bold text="후원하기" />
-          </Link>
-          <Link to="/">
-            <Text color={theme.colors.secondary} bold text="커뮤니티" />
-          </Link>
-        </Nav>
-      </LeftContainer>
-      <RightContainer />
-    </StyledNavbar>
-  );
-};
+const Navbar = () => (
+  <StyledNavbar>
+    <LeftContainer>
+      <LogoContainer>
+        <Link to="/">
+          <Logo />
+          <Text bold fontSize={theme.fonts.heading} text="Logo" />
+        </Link>
+      </LogoContainer>
+      <Nav>
+        <Link to="/create">
+          <Text color={theme.colors.secondary} bold text="만들기" />
+        </Link>
+        <Link to="/">
+          <Text color={theme.colors.secondary} bold text="후원하기" />
+        </Link>
+        <Link to="/">
+          <Text color={theme.colors.secondary} bold text="커뮤니티" />
+        </Link>
+      </Nav>
+    </LeftContainer>
+    <RightContainer />
+  </StyledNavbar>
+);
 
 export default Navbar;

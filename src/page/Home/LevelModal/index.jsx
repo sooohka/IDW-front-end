@@ -6,16 +6,17 @@ const LevelModal = () => {
   const { handleModalSubmit, handleModalClose, isLevelModalOpened } = useContext(ModalContext);
   const [level, setLevel] = useState(4);
 
-  const handleLevelChange = useCallback((e) => {
-    const lv = e.target.value;
-    console.log(lv);
-
-    setLevel(lv);
-  });
+  const handleLevelChange = useCallback(
+    (value) => (e) => {
+      const lv = parseInt(value, 10);
+      setLevel(lv);
+    },
+    []
+  );
   return (
     <>
       {isLevelModalOpened && (
-        <Template level={level} handleLevelChange={handleLevelChange} handleModalClose={handleModalClose} handleModalSubmit={handleModalSubmit}></Template>
+        <Template level={level} handleLevelChange={handleLevelChange} handleModalClose={handleModalClose} handleModalSubmit={handleModalSubmit} />
       )}
     </>
   );

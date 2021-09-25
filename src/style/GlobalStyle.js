@@ -2,7 +2,6 @@ import { createGlobalStyle } from "styled-components";
 import { theme } from "./theme";
 
 const globalStyle = createGlobalStyle`
-
 *{
     padding: 0;
     margin: 0;
@@ -10,6 +9,7 @@ const globalStyle = createGlobalStyle`
     font-size:1.8rem;
     line-height: 140%;
 }
+
 html {
   min-height: 100%;
   min-width: 100%;
@@ -26,20 +26,19 @@ body {
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
 }
 
-#root{
-  min-height: 100%;
-  min-width: 100%;
+#root {
+  flex: 1;
+  min-height: 100vh;
+  min-width: 100vw;
   display: flex;
   flex-direction: column;
-  flex: 1;
   position: relative;
-  padding: 0 3rem;
 }
 
 #modal-root{
-  
 }
 
 a,a:any-link,a:-webkit-any-link{

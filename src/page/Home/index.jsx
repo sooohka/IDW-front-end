@@ -22,22 +22,23 @@ const Home = () => {
   const { data: worldCups, isLoading } = useFetch(promise);
   const history = useHistory();
   const [isLevelModalOpened, setIsLevelModalOpened] = useState(false);
-  const [currentWorldCupId, setCurrentWorldCupId] = useState(null);
+  const [currentWorldCup, setCurrentWorldCup] = useState(null);
 
   const handlePlayBtnClick = useCallback(
     (id) => (e) => {
       setIsLevelModalOpened(true);
-      setCurrentWorldCupId(id);
+      setCurrentWorldCup(worldCups.find((v) => v.id === id));
     },
-    []
+    [worldCups]
   );
 
   // TODO:data의 id에 몇개의 타겟이 있는지 미리 검사하고 id와 비교해서 modalSubmit block
   const handleModalSubmit = useCallback(
     (level) => (e) => {
-      history.push(`/play/${currentWorldCupId}`, { level });
+      if (level <= currentWorldCup.targetCounts) history.push(`/play/${currentWorldCup.id}`, { level, worldCupId: currentWorldCup.id });
+      else alert(`선택할 수 있는 강수는 최대 ${currentWorldCup.targetCounts}입니다`);
     },
-    [currentWorldCupId, history]
+    [currentWorldCup, history]
   );
 
   const handleModalClose = useCallback(() => {
@@ -47,14 +48,7 @@ const Home = () => {
   return (
     <WorldCupsContext.Provider value={{ worldCups }}>
       <ModalContext.Provider value={{ handleModalClose, handleModalSubmit, isLevelModalOpened }}>
-        {isLoading || (
-          <Template
-            handlePlayBtnClick={handlePlayBtnClick}
-            isModalOpened={isLevelModalOpened}
-            handleModalClose={handleModalClose}
-            handleModalSubmit={handleModalSubmit}
-          />
-        )}
+        {isLoading || <Template handlePlayBtnClick={handlePlayBtnClick} />}
       </ModalContext.Provider>
     </WorldCupsContext.Provider>
   );

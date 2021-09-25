@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useRef } from "react";
+import React, { forwardRef, useRef } from "react";
 import styled from "styled-components";
 import { ReactComponent as CommentReg } from "../../../../assets/icons/comment-regular.svg";
 import { ReactComponent as Share } from "../../../../assets/icons/share-square-solid.svg";
@@ -93,23 +93,13 @@ const PlayWrapper = styled.div`
   left: 50%;
 `;
 
-const Template = ({ handlePlayBtnClick, worldCup }) => {
-  const {
-    id,
-    desc,
-    title,
-    image: { small, big, lowQuality, originalQuality },
-    commentCounts,
-    likeCounts,
-    createDate,
-  } = worldCup;
-  const imageRef = useRef(null);
-  const { imgSrc } = useImgLazyLoad(imageRef, originalQuality, lowQuality);
+const Template = forwardRef(({ handlePlayBtnClick, worldCup, imgSrc }, ref) => {
+  const { id, desc, title, targets, commentCounts, likeCounts, createDate } = worldCup;
 
   return (
     <StyledCard>
       <ImgBox>
-        <Img width="100%" height="100%" src={imgSrc} ref={imageRef} alt={title} />
+        <Img width="100%" height="100%" src={imgSrc} ref={ref} alt={title} />
         <PlayWrapper onClick={handlePlayBtnClick}>
           <PlaySolid width={50} />
           <Text bold text="월드컵 하러 가기" />
@@ -140,7 +130,7 @@ const Template = ({ handlePlayBtnClick, worldCup }) => {
       </Box>
     </StyledCard>
   );
-};
+});
 
 Template.propTypes = {
   handlePlayBtnClick: PropTypes.func.isRequired,
@@ -151,13 +141,21 @@ Template.propTypes = {
     commentCounts: PropTypes.number.isRequired,
     likeCounts: PropTypes.number.isRequired,
     createDate: PropTypes.string.isRequired,
-    image: PropTypes.shape({
-      small: PropTypes.string.isRequired,
-      big: PropTypes.string.isRequired,
-      lowQuality: PropTypes.string.isRequired,
-      originalQuality: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-    }),
+    targets: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        likeCounts: PropTypes.number.isRequired,
+        image: PropTypes.shape({
+          small: PropTypes.string.isRequired,
+          big: PropTypes.string.isRequired,
+          lowQuality: PropTypes.string.isRequired,
+          originalQuality: PropTypes.string.isRequired,
+          id: PropTypes.number.isRequired,
+        }),
+      })
+    ),
   }).isRequired,
+  imgSrc: PropTypes.string.isRequired,
 };
 export default Template;

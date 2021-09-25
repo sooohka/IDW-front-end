@@ -5,7 +5,7 @@ import Template from "./template";
 
 const Cards = ({ handlePlayBtnClick }) => {
   const { worldCups } = useContext(worldCupsContext);
-  return <Template handlePlayBtnClick={handlePlayBtnClick} worldCups={worldCups}></Template>;
+  return <Template handlePlayBtnClick={handlePlayBtnClick} worldCups={worldCups} />;
 };
 
 Cards.propTypes = {

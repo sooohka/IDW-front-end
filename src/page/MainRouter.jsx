@@ -5,15 +5,13 @@ import PageNotFound from "./404page";
 import Play from "./Play";
 import Create from "./Create";
 
-const MainRouter = () => {
-  return (
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/play/:id" component={Play} />
-      <Route path="/create" component={Create} />
-      <Route component={PageNotFound} />
-    </Switch>
-  );
-};
+const MainRouter = () => (
+  <Switch>
+    <Route exact path="/" component={Home} />
+    <Route path="/play/:id" component={Play} />
+    <Route path="/create" component={Create} />
+    <Route component={PageNotFound} />
+  </Switch>
+);
 
 export default MainRouter;

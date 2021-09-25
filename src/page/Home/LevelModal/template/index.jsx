@@ -5,6 +5,7 @@ import Modal from "../../../../components/layout/Modal";
 import { theme } from "../../../../style/theme";
 import XButton from "../../../../components/common/XButton";
 import Button from "../../../../components/common/Button";
+import RadioField from "../../../../components/common/RadioField";
 
 const ContentWrapper = styled.div`
   padding: 2rem;
@@ -34,10 +35,15 @@ const XContainer = styled.div`
   right: 0;
 `;
 
-const Content = styled.p`
+const Content = styled.div`
   flex: 1;
   font-size: ${() => theme.fonts.body};
   padding: 1rem 0;
+  & > * {
+    &:not(:last-child) {
+      margin-bottom: 3rem;
+    }
+  }
 `;
 
 const BtnContainer = styled.div`
@@ -45,6 +51,12 @@ const BtnContainer = styled.div`
   display: flex;
   padding: 0 2rem;
   justify-content: space-around;
+`;
+
+const RadioFieldContainer = styled.div`
+  & > * {
+    margin: 0 0 0.5rem 0;
+  }
 `;
 
 const Template = ({ level, handleLevelChange, handleModalSubmit, handleModalClose }) => (
@@ -58,10 +70,14 @@ const Template = ({ level, handleLevelChange, handleModalSubmit, handleModalClos
         </XContainer>
       </Heading>
       <Content>
-        <input value={level} onChange={handleLevelChange} />
+        <RadioFieldContainer>
+          {[4, 8, 16, 32, 64].map((v, i) => (
+            <RadioField key={v} id={i} name="level" checked={level === v} onChange={handleLevelChange(v)} label={`${v}강`} value={v} />
+          ))}
+        </RadioFieldContainer>
         <BtnContainer>
-          <Button color={theme.colors.white} backgroundColor={theme.colors.secondary} onClick={handleModalSubmit(level)} label="시작" />
-          <Button color={theme.colors.white} backgroundColor={theme.colors.gray} onClick={handleModalClose} label="취소" />
+          <Button size="medium" color={theme.colors.white} backgroundColor={theme.colors.secondary} onClick={handleModalSubmit(level)} label="시작" />
+          <Button size="medium" color={theme.colors.white} backgroundColor={theme.colors.gray} onClick={handleModalClose} label="취소" />
         </BtnContainer>
       </Content>
     </ContentWrapper>
