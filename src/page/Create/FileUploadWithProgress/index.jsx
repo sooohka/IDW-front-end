@@ -21,7 +21,7 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
       try {
         let response;
         // aws 사용
-        if (process.env.REACT_APP_ENV === "production") response = await uploadFile(_file, setProgress);
+        if (process.env.REACT_APP_ENV !== "local") response = await uploadFile(_file, setProgress);
         else alert("env=dev입니다.");
 
         const { url, fullUrl, name } = response.data;

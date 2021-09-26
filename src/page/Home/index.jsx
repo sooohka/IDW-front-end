@@ -9,7 +9,7 @@ import WorldCupsContext from "../../utils/contexts/WorldCupsContext";
 import ModalContext from "../../utils/contexts/ModalContext";
 
 const promise = () => {
-  if (process.env.REACT_APP_ENV === "production") return axios.get("worldcups");
+  if (process.env.REACT_APP_ENV !== "local") return axios.get("worldcups");
 
   return new Promise((resolve, reject) => {
     setTimeout(() => {

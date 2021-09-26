@@ -11,10 +11,9 @@ const Target = ({ target }) => {
     image: { small, big, lowQuality: lowQualityImage, originalQuality: originalImage, id: imageId },
   } = target;
   const imageRef = useRef(null);
-  const { imgSrc } = useImgLazyLoad(imageRef, originalImage, lowQualityImage);
-  console.log(target);
+  const { imgSrc } = useImgLazyLoad(imageRef, big, lowQualityImage);
 
-  return <Template ref={imageRef} alt={name} imgSrc={imgSrc} />;
+  return <Template ref={imageRef} name={name} likeCounts={likeCounts} imgSrc={imgSrc} />;
 };
 
 Target.propTypes = {

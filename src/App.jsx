@@ -7,7 +7,7 @@ import useFetch from "./utils/hooks/useFetch";
 import categoryJson from "./assets/temp/categories.json";
 
 const promise = () => {
-  if (process.env.REACT_APP_ENV === "production") axios.get("categories");
+  if (process.env.REACT_APP_ENV !== "local") axios.get("categories");
   return new Promise((res) => {
     setTimeout(() => {
       res(categoryJson);

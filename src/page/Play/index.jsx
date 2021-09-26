@@ -17,7 +17,7 @@ const Play = () => {
   const [currentTargets, setCurrentTargets] = useState([]); // 항상 두개의 target
 
   const promise = useCallback(() => {
-    if (process.env.REACT_APP_ENV === "production") return axios.get(`/worldcups/${worldCupId}?level=${level}`);
+    if (process.env.REACT_APP_ENV !== "local") return axios.get(`/worldcups/${worldCupId}?level=${level}`);
     return new Promise((res) => {
       setTimeout(() => {
         res(gameExample);

@@ -25,7 +25,7 @@ const CreateForm = () => {
         files: v.files,
         title: v.title,
       };
-      if (process.env.REACT_APP_ENV === "production") {
+      if (process.env.REACT_APP_ENV !== "local") {
         // TODO:데이터 file에 bad 400 800 url모두 보내주자
         const res = await axios.post("worldcups", data);
         alert("업로드 성공!");
