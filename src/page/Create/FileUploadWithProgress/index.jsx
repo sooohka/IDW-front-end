@@ -21,9 +21,29 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
       try {
         let response;
         // aws 사용
-        if (process.env.REACT_APP_ENV !== "local") response = await uploadFile(_file, setProgress);
-        else alert("env=dev입니다.");
+        // if (process.env.REACT_APP_ENV !== "local") response = await uploadFile(_file, setProgress);
+        const fileDataUri = await new Promise((res, rej) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(_file);
+          reader.onload = () => {
+            res(reader.result);
+          };
+          reader.onabort = (e) => {
+            rej(e);
+          };
+        });
 
+        const { name: fileName, type: contentType } = _file;
+        const request = { fileName, contentType, file: fileDataUri };
+        if (process.env.REACT_APP_ENV !== "local") {
+          response = await axios.post("https://dogemdas2c.execute-api.ap-northeast-2.amazonaws.com/v1", request, {
+            onUploadProgress: (prog) => {
+              setProgress(Math.round(prog.loaded * 100) / prog.total);
+            },
+          });
+        } else alert("env=dev입니다.");
+        console.log(response);
+        return;
         const { url, fullUrl, name } = response.data;
         console.log(response.data);
 
