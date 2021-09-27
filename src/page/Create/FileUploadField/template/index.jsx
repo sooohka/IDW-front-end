@@ -81,7 +81,7 @@ const IconWrapper = styled.div`
   }
 `;
 
-const Template = ({ isFolded, setIsFolded, handleDelete, handleSubmittedFiles, files, isAccepting, getInputProps, getRootProps }) => (
+const Template = ({ isFolded, setIsFolded, handleDelete, handleUpload, files, isAccepting, getInputProps, getRootProps }) => (
   <Container>
     {/* DropZone */}
     <DropZone
@@ -97,12 +97,7 @@ const Template = ({ isFolded, setIsFolded, handleDelete, handleSubmittedFiles, f
 
     {/* ListFiles */}
     <FileList isFolded={isFolded}>
-      <FileListHeader
-        onClick={() => {
-          setIsFolded((prev) => !prev);
-        }}
-        isFolded={isFolded}
-      >
+      <FileListHeader onClick={() => setIsFolded((prev) => !prev)} isFolded={isFolded}>
         <FileListTitle>파일들</FileListTitle>
         <IconWrapper isFolded={isFolded}>
           <Sort width={30} height={30} />
@@ -111,8 +106,8 @@ const Template = ({ isFolded, setIsFolded, handleDelete, handleSubmittedFiles, f
       <Files isFolded={isFolded}>
         {files.map((file) => (
           <FileUploadWithProgress
+            handleUpload={handleUpload}
             handleDelete={handleDelete}
-            handleSubmittedFiles={handleSubmittedFiles}
             file={file}
             // TODO: 제대로된 키값 설정하기
             key={`${file.name}${file.size}`}
@@ -135,8 +130,17 @@ Template.propTypes = {
   isFolded: PropTypes.bool.isRequired,
   setIsFolded: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
-  handleSubmittedFiles: PropTypes.func.isRequired,
-  files: PropTypes.arrayOf(PropTypes.shape(PropTypes.object.isRequired)).isRequired,
+  handleUpload: PropTypes.func.isRequired,
+  files: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      lastModified: PropTypes.number.isRequired,
+      lastModifiedDate: PropTypes.instanceOf(Date).isRequired,
+      path: PropTypes.string.isRequired,
+      size: PropTypes.number.isRequired,
+      type: PropTypes.string.isRequired,
+    })
+  ).isRequired,
   isAccepting: PropTypes.bool.isRequired,
   getRootProps: PropTypes.func.isRequired,
   getInputProps: PropTypes.func.isRequired,

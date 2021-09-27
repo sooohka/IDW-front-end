@@ -9,13 +9,15 @@ import WorldCupsContext from "../../utils/contexts/WorldCupsContext";
 import ModalContext from "../../utils/contexts/ModalContext";
 
 const promise = () => {
-  if (process.env.REACT_APP_ENV !== "local") return axios.get("worldcups");
+  if (process.env.REACT_APP_ENV === "local") {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(worldCupsJson);
+      }, 100);
+    });
+  }
 
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(worldCupsJson);
-    }, 100);
-  });
+  return axios.get("worldcups");
 };
 
 const Home = () => {

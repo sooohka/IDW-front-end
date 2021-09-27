@@ -26,12 +26,12 @@ const Wrapper = styled.div`
   padding: 0 0 0 1rem;
   width: 100%;
 `;
-const Template = ({ fileInfo, progress, handleDelete }) => {
+const Template = ({ isSubmitting, fileInfo, progress, handleDelete }) => {
   const {
-    file: { name, url },
-    isSubmitting,
+    file: { name, lastModified, lastModifiedDate, path, size, type },
     hasError,
     message,
+    url,
   } = fileInfo;
 
   return (
@@ -49,12 +49,17 @@ const Template = ({ fileInfo, progress, handleDelete }) => {
 };
 
 Template.propTypes = {
+  isSubmitting: PropTypes.bool.isRequired,
   fileInfo: PropTypes.shape({
     file: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
+      lastModified: PropTypes.number.isRequired,
+      lastModifiedDate: PropTypes.instanceOf(Date).isRequired,
+      path: PropTypes.string.isRequired,
+      size: PropTypes.number.isRequired,
+      type: PropTypes.string.isRequired,
     }).isRequired,
-    isSubmitting: PropTypes.bool.isRequired,
+    url: PropTypes.string.isRequired,
     hasError: PropTypes.bool.isRequired,
     message: PropTypes.string.isRequired,
   }).isRequired,

@@ -35,14 +35,12 @@ const Progress = styled.div`
   width: ${({ progress }) => (progress ? `${progress}%` : "0%")};
 `;
 
-const ProgressBar = ({ hasError, title, progress }) => {
-  return (
-    <StyledProgressBar>
-      <Title>{title}</Title>
-      <Progress hasError={hasError} progress={progress}></Progress>
-    </StyledProgressBar>
-  );
-};
+const ProgressBar = ({ hasError, title, progress }) => (
+  <StyledProgressBar>
+    <Title>{title}</Title>
+    <Progress hasError={hasError} progress={progress} />
+  </StyledProgressBar>
+);
 
 ProgressBar.propTypes = {
   title: PropTypes.string.isRequired,

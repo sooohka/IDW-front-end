@@ -102,7 +102,7 @@ const Template = forwardRef(({ isFileUploading, setIsFileUploading, initialValue
                 {categories.map((v) => (
                   <RadioField
                     key={v.id}
-                    id={v.name}
+                    id={v.id}
                     name="category"
                     checked={values.category === v.id}
                     onChange={() => setFieldValue("category", v.id)}
@@ -116,7 +116,7 @@ const Template = forwardRef(({ isFileUploading, setIsFileUploading, initialValue
           {/* files */}
           <FieldContainer>
             <Field label="파일">
-              <FileUploadField buttonEl={buttonEl} setIsFileUploading={setIsFileUploading} name="files" />
+              <FileUploadField buttonEl={buttonEl} setIsFileUploading={setIsFileUploading} formikName="files" />
             </Field>
             <HelperText hasError={Boolean(errors.files)} text={errors.files} />
           </FieldContainer>
