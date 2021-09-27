@@ -34,21 +34,36 @@ const FileUploadWithProgress = ({ handleDelete, handleSubmittedFiles, file }) =>
         });
 
         const { name: fileName, type: contentType } = _file;
-        const request = { fileName, contentType, file: fileDataUri };
+        const request = { file: { name: fileName, contentType, dataUri: fileDataUri } };
         if (process.env.REACT_APP_ENV !== "local") {
           response = await axios.post("https://dogemdas2c.execute-api.ap-northeast-2.amazonaws.com/v1", request, {
             onUploadProgress: (prog) => {
               setProgress(Math.round(prog.loaded * 100) / prog.total);
             },
           });
-        } else alert("env=dev입니다.");
+        } else alert("env=local입니다.");
+        // TODO:코드 다듬자
+        // TODO:코드 다듬자
+        // TODO:코드 다듬자
+        // TODO:코드 다듬자
+        // TODO:코드 다듬자
+        // TODO:코드 다듬자
+        // TODO:코드 다듬자
+        // TODO:코드 다듬자
+        // TODO:코드 다듬자
+        // TODO:코드 다듬자
+        // TODO:코드 다듬자
+        // TODO:코드 다듬자
         console.log(response);
-        return;
-        const { url, fullUrl, name } = response.data;
-        console.log(response.data);
-
-        handleSubmittedFiles({ name, url });
-        setFileInfo((prev) => ({ ...prev, isSubmitting: false, message: "submitted!", file: { ...prev.file, url: fullUrl } }));
+        // return;
+        // const { url, fullUrl, name } = response.data;
+        const {
+          message,
+          result: { name, ContentType, bucketUrl, locations },
+        } = response.data;
+        // 요청을 1초에 하나씩 들어갈 수 있도록
+        handleSubmittedFiles({ name, url: name });
+        setFileInfo((prev) => ({ ...prev, isSubmitting: false, message: "submitted!", file: { ...prev.file, url: `${bucketUrl}${locations.small}` } }));
       } catch (err) {
         console.error(err.message);
         // TODO: fileUploadWithProgress error handling

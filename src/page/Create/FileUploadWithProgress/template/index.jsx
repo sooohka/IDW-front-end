@@ -36,7 +36,7 @@ const Template = ({ fileInfo, progress, handleDelete }) => {
 
   return (
     <Container onClick={(e) => e.preventDefault()}>
-      {isSubmitting ? <FileImage width={50} height={50} /> : <Img src={url} alt={name} />}
+      {isSubmitting ? <FileImage width={50} height={50} /> : <Img width="50px" height="50px" src={url} alt={name} />}
       <Wrapper>
         <ProgressWrapper>
           <ProgressBar title={name} hasError={hasError} progress={progress} />
