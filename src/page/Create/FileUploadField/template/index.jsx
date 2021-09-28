@@ -105,13 +105,7 @@ const Template = ({ isFolded, setIsFolded, handleDelete, handleUpload, files, is
       </FileListHeader>
       <Files isFolded={isFolded}>
         {files.map((file) => (
-          <FileUploadWithProgress
-            handleUpload={handleUpload}
-            handleDelete={handleDelete}
-            file={file}
-            // TODO: 제대로된 키값 설정하기
-            key={`${file.name}${file.size}`}
-          />
+          <FileUploadWithProgress handleUpload={handleUpload} handleDelete={handleDelete} file={file} key={file.id} />
         ))}
         {files.length > 5 && (
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -133,12 +127,19 @@ Template.propTypes = {
   handleUpload: PropTypes.func.isRequired,
   files: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      lastModified: PropTypes.number.isRequired,
-      lastModifiedDate: PropTypes.instanceOf(Date).isRequired,
-      path: PropTypes.string.isRequired,
-      size: PropTypes.number.isRequired,
-      type: PropTypes.string.isRequired,
+      file: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        lastModified: PropTypes.number.isRequired,
+        lastModifiedDate: PropTypes.instanceOf(Date).isRequired,
+        path: PropTypes.string.isRequired,
+        size: PropTypes.number.isRequired,
+        type: PropTypes.string.isRequired,
+      }),
+      isSubmitted: PropTypes.bool.isRequired,
+      id: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+      fullUrl: PropTypes.string.isRequired,
+      error: PropTypes.shape({ status: PropTypes.bool.isRequired, message: PropTypes.string.isRequired }).isRequired,
     })
   ).isRequired,
   isAccepting: PropTypes.bool.isRequired,

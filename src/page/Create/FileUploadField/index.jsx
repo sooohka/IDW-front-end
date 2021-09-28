@@ -3,32 +3,39 @@ import { useField } from "formik";
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import uuid from "react-uuid";
 import useMount from "../../../utils/hooks/useMount";
+import { readAsDataUrl } from "../../../utils/lib/file";
 import Template from "./template";
 
 const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
   const [, , helpers] = useField(formikName);
   const [files, setFiles] = useState([]);
-  const [submittedFiles, setSubmittedFiles] = useState([]);
+  // const [submittedFiles, setSubmittedFiles] = useState([]); // { name: "", url: "" } =>helper.setValue 해야함
   const [isAccepting, setIsAccepting] = useState(false);
   const { isMount } = useMount();
   const [isFolded, setIsFolded] = useState(true);
 
-  const handleUpload = useCallback(async (file, setProgress) => {
-    const { lastModified, lastModifiedDate, name, path, size, type } = file;
+  const handleUpload = useCallback(async (_file, setProgress) => {
+    const {
+      file: { lastModified, lastModifiedDate, name, path, size, type },
+      id: currentFileId,
+      url: unused,
+      isSubmitted,
+      error: { status, message: m },
+    } = _file;
+    const copiedFile = { name, lastModified, lastModifiedDate, path, size, type };
 
     try {
-      const fileDataUri = await new Promise((res, rej) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => res(reader.result);
-        reader.onabort = (e) => rej(e);
-      });
-      const request = { file: { name: file.name, contentType: file.type, dataUri: fileDataUri } };
-      if (process.env.REACT_APP_ENV === "local") {
+      const fileDataUrl = await readAsDataUrl(_file.file);
+      const request = { file: { name, contentType: type, dataUri: fileDataUrl } };
+
+      if (process.env.REACT_APP_ENV !== "local") {
         alert("env=local입니다.");
-        return { hasError: false, message: "env=local", file: { name, lastModified, lastModifiedDate, path, size, type }, url: "" };
+        console.log("request:", request);
+        return { hasError: false, message: "env=local", file: copiedFile, url: "" };
       }
+
       const response = await axios.post("https://dogemdas2c.execute-api.ap-northeast-2.amazonaws.com/v1", request, {
         onUploadProgress: (prog) => setProgress(Math.round(prog.loaded * 100) / prog.total),
       });
@@ -37,8 +44,13 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
         message,
         result: { url, ContentType, bucketUrl, locations },
       } = response.data;
-      // 요청을 1초에 하나씩 들어갈 수 있도록
-      setSubmittedFiles((prev) => [...prev, { name, url }]);
+
+      const setFile = (v) => {
+        if (v.id === currentFileId) return { ...v, isSubmitted: true, url, fullUrl: `${bucketUrl}${locations.small}` };
+        return { ...v };
+      };
+
+      setFiles((prev) => prev.map(setFile));
       return {
         hasError: false,
         message: message || "submitted",
@@ -49,6 +61,11 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
       console.error(err.message);
       // TODO: fileUploadWithProgress error handling
       const message = err.response?.data?.error?.message || err.message || "something went wrong😅 ";
+      const setFile = (v) => {
+        if (v.id === currentFileId) return { ...v, error: { status: true, message } };
+        return { ...v };
+      };
+      setFiles(setFile);
       return { hasError: true, message, file: { name, lastModified, lastModifiedDate, path, size, type } };
     }
   }, []);
@@ -64,11 +81,15 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
   useEffect(() => {
     if (isMount) return;
     console.log(`%c state submittedFiles in FileUploadField changed`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
-    if (submittedFiles.length === files.length) setIsFileUploading(false);
+
+    const isEveryFileSubmitted = files.every((v) => v.isSubmitted);
+    if (isEveryFileSubmitted) setIsFileUploading(false);
     else helpers.setError("파일이 업로드중입니다.");
-    helpers.setValue(submittedFiles, true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [submittedFiles]);
+
+    const formattedFormikFile = files.map((v) => ({ name: v.name, url: v.url }));
+
+    helpers.setValue(formattedFormikFile, true);
+  }, [files, isMount, setIsFileUploading]);
 
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     // TODO: 에러메시지 개선
@@ -77,7 +98,7 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
       const rejected = rejectedFiles.map((v) => ({ name: v.file.name, errors: v.errors[0].message }));
       alert(JSON.stringify({ rejectedFiles: rejected }, null, 2));
     }
-    const formedAcceptedFiles = acceptedFiles.map((file) => file);
+    const formedAcceptedFiles = acceptedFiles.map((file) => ({ file, isSubmitted: false, id: uuid(), url: "", error: { status: false, message: "" } }));
     setFiles((prev) => [...prev, ...formedAcceptedFiles]);
     setIsAccepting(false);
   }, []);
@@ -87,7 +108,7 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
 
   const handleValidation = useCallback(
     (_file) => {
-      if (files.find((file) => file.name === _file.name && file.lastModified === _file.lastModified)) return { message: "같은 파일은 업로드불가능합니다." };
+      if (files.find(({ file }) => file.name === _file.name && file.lastModified === _file.lastModified)) return { message: "같은 파일은 업로드불가능합니다." };
       if (_file.size >= 5000000) return { message: "파일은 최대 4.9MB까지 업로드 가능합니다." };
       if (files.length > 50) return { message: "파일은 최대 50장 업로드 가능합니다." };
 
@@ -97,9 +118,8 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
   );
 
   const handleDelete = useCallback(
-    (fileName) => () => {
-      setFiles((prev) => prev.filter((file) => file.name !== fileName));
-      setSubmittedFiles((prev) => prev.filter((file) => file.name !== fileName));
+    (id) => () => {
+      setFiles((prev) => prev.filter((file) => file.id !== id));
     },
     []
   );

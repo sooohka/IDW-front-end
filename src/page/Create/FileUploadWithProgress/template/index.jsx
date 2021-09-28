@@ -26,31 +26,34 @@ const Wrapper = styled.div`
   padding: 0 0 0 1rem;
   width: 100%;
 `;
-const Template = ({ isSubmitting, fileInfo, progress, handleDelete }) => {
+const Template = ({ file, progress, handleDelete }) => {
   const {
     file: { name, lastModified, lastModifiedDate, path, size, type },
-    hasError,
-    message,
+    isSubmitted,
+    id,
     url,
-  } = fileInfo;
+    fullUrl,
+    error: { status: errorStatus, message },
+  } = file;
+  // name,isSubmitted,fullUrl,error
+  console.log(name, fullUrl);
 
   return (
     <Container onClick={(e) => e.preventDefault()}>
-      {isSubmitting ? <FileImage width={50} height={50} /> : <Img width="50px" height="50px" src={url} alt={name} />}
+      {isSubmitted ? <Img width="50px" height="50px" src={fullUrl} alt={name} /> : <FileImage width={50} height={50} />}
       <Wrapper>
         <ProgressWrapper>
-          <ProgressBar title={name} hasError={hasError} progress={progress} />
-          {isSubmitting ? <Spinner /> : <XButton onClick={handleDelete(name)} />}
+          <ProgressBar title={name} hasError={errorStatus} progress={progress} />
+          {isSubmitted ? <XButton onClick={handleDelete} /> : <Spinner />}
         </ProgressWrapper>
-        <HelperText always hasError={hasError} text={message} />
+        <HelperText always hasError={errorStatus} text={message} />
       </Wrapper>
     </Container>
   );
 };
 
 Template.propTypes = {
-  isSubmitting: PropTypes.bool.isRequired,
-  fileInfo: PropTypes.shape({
+  file: PropTypes.shape({
     file: PropTypes.shape({
       name: PropTypes.string.isRequired,
       lastModified: PropTypes.number.isRequired,
@@ -58,11 +61,14 @@ Template.propTypes = {
       path: PropTypes.string.isRequired,
       size: PropTypes.number.isRequired,
       type: PropTypes.string.isRequired,
-    }).isRequired,
+    }),
+    isSubmitted: PropTypes.bool.isRequired,
+    id: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
-    hasError: PropTypes.bool.isRequired,
-    message: PropTypes.string.isRequired,
+    fullUrl: PropTypes.string.isRequired,
+    error: PropTypes.shape({ status: PropTypes.bool.isRequired, message: PropTypes.string.isRequired }).isRequired,
   }).isRequired,
+
   progress: PropTypes.number.isRequired,
   handleDelete: PropTypes.func.isRequired,
 };
