@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { memo, useMemo } from "react";
 import styled, { css } from "styled-components";
 import { ReactComponent as UploadIcon } from "../../../../assets/icons/cloud-upload-alt-solid.svg";
 import { ReactComponent as Sort } from "../../../../assets/icons/sort-up-solid.svg";
@@ -83,21 +83,15 @@ const IconWrapper = styled.div`
 
 const Template = ({ isFolded, setIsFolded, handleDelete, handleUpload, files, isAccepting, getInputProps, getRootProps }) => (
   <Container>
-    {/* DropZone */}
-    <DropZone
-      isAccepting={isAccepting}
-      {...getRootProps()}
-
-      // onClick={(e) => e.stopPropagation()}
-    >
+    <DropZone isAccepting={isAccepting} {...getRootProps()}>
       <input {...getInputProps()} />
       <UploadIcon fill={theme.colors.primary} width={50} height={50} />
       <p>Drag and Drop or click here to upload</p>
     </DropZone>
 
     {/* ListFiles */}
-    <FileList isFolded={isFolded}>
-      <FileListHeader onClick={() => setIsFolded((prev) => !prev)} isFolded={isFolded}>
+    <FileList>
+      <FileListHeader onClick={() => setIsFolded((prev) => !prev)}>
         <FileListTitle>파일들</FileListTitle>
         <IconWrapper isFolded={isFolded}>
           <Sort width={30} height={30} />

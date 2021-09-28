@@ -87,7 +87,6 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
     else helpers.setError("파일이 업로드중입니다.");
 
     const formattedFormikFile = files.map((v) => ({ name: v.name, url: v.url }));
-
     helpers.setValue(formattedFormikFile, true);
   }, [files, isMount, setIsFileUploading]);
 
@@ -98,25 +97,28 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
       const rejected = rejectedFiles.map((v) => ({ name: v.file.name, errors: v.errors[0].message }));
       alert(JSON.stringify({ rejectedFiles: rejected }, null, 2));
     }
-    const formedAcceptedFiles = acceptedFiles.map((file) => ({ file, isSubmitted: false, id: uuid(), url: "", error: { status: false, message: "" } }));
+    const formedAcceptedFiles = acceptedFiles.map((file) => ({
+      file,
+      isSubmitted: false,
+      id: uuid(),
+      url: "",
+      fullUrl: "",
+      error: { status: false, message: "" },
+    }));
     setFiles((prev) => [...prev, ...formedAcceptedFiles]);
     setIsAccepting(false);
   }, []);
 
-  const onDragEnter = useCallback(() => setIsAccepting(true), []);
-  const onDragLeave = useCallback(() => setIsAccepting(false), []);
+  const onDragEnter = () => setIsAccepting(true);
+  const onDragLeave = () => setIsAccepting(false);
 
-  const handleValidation = useCallback(
-    (_file) => {
-      if (files.find(({ file }) => file.name === _file.name && file.lastModified === _file.lastModified)) return { message: "같은 파일은 업로드불가능합니다." };
-      if (_file.size >= 5000000) return { message: "파일은 최대 4.9MB까지 업로드 가능합니다." };
-      if (files.length > 50) return { message: "파일은 최대 50장 업로드 가능합니다." };
+  const handleValidation = (_file) => {
+    if (files.find(({ file }) => file.name === _file.name && file.lastModified === _file.lastModified)) return { message: "같은 파일은 업로드불가능합니다." };
+    if (_file.size >= 5000000) return { message: "파일은 최대 4.9MB까지 업로드 가능합니다." };
+    if (files.length > 50) return { message: "파일은 최대 50장 업로드 가능합니다." };
 
-      return null;
-    },
-    [files]
-  );
-
+    return null;
+  };
   const handleDelete = useCallback(
     (id) => () => {
       setFiles((prev) => prev.filter((file) => file.id !== id));
@@ -139,7 +141,7 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
       setIsFolded={setIsFolded}
       handleDelete={handleDelete}
       handleUpload={handleUpload}
-      files={files}
+      files={React.useMemo(() => files, [files])}
       isAccepting={isAccepting}
       getRootProps={getRootProps}
       getInputProps={getInputProps}

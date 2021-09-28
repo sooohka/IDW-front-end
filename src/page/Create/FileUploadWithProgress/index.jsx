@@ -1,27 +1,25 @@
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Template from "./template";
 
-const FileUploadWithProgress = ({ handleDelete, handleUpload, file }) => {
-  const [progress, setProgress] = useState(0);
-  const {
-    file: { name, lastModified, lastModifiedDate, path, size, type },
-    isSubmitted,
-    id,
-    url,
-    error: { status, message },
-  } = file;
+const FileUploadWithProgress = memo(
+  ({ handleDelete, handleUpload, file }) => {
+    const [progress, setProgress] = useState(0);
+    useEffect(() => {
+      async function upload() {
+        const res = await handleUpload(file, setProgress);
+      }
 
-  useEffect(() => {
-    async function upload() {
-      const res = await handleUpload(file, setProgress);
-    }
+      upload();
+    }, [handleUpload]);
 
-    upload();
-  }, [handleUpload]);
-
-  return <Template type={type} file={file} progress={progress} handleDelete={handleDelete(id)} />;
-};
+    return <Template file={file} progress={progress} handleDelete={handleDelete(file.id)} />;
+  },
+  (prev, next) => {
+    if (prev.file !== next.file) return false;
+    return true;
+  }
+);
 
 FileUploadWithProgress.propTypes = {
   handleUpload: PropTypes.func.isRequired,

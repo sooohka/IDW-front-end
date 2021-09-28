@@ -19,6 +19,7 @@ const ProgressWrapper = styled.div`
   width: 100%;
   align-items: center;
 `;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -26,6 +27,7 @@ const Wrapper = styled.div`
   padding: 0 0 0 1rem;
   width: 100%;
 `;
+
 const Template = ({ file, progress, handleDelete }) => {
   const {
     file: { name, lastModified, lastModifiedDate, path, size, type },
@@ -35,7 +37,6 @@ const Template = ({ file, progress, handleDelete }) => {
     fullUrl,
     error: { status: errorStatus, message },
   } = file;
-  // name,isSubmitted,fullUrl,error
   console.log(name, fullUrl);
 
   return (
