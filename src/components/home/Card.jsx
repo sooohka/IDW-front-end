@@ -1,14 +1,14 @@
 import PropTypes from "prop-types";
-import React, { forwardRef, useRef } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
-import { ReactComponent as CommentReg } from "../../../../assets/icons/comment-regular.svg";
-import { ReactComponent as Share } from "../../../../assets/icons/share-square-solid.svg";
-import { ReactComponent as ThumbUpReg } from "../../../../assets/icons/thumbs-up-regular.svg";
-import { ReactComponent as PlaySolid } from "../../../../assets/icons/play-solid.svg";
-import { theme } from "../../../../style/theme";
-import useImgLazyLoad from "../../../../utils/hooks/useImgLazyLoad";
-import Text from "../../../../components/common/Text";
-import Img from "../../../../components/common/Img";
+import Img from "../common/Img";
+import Text from "../common/Text";
+import { theme } from "../../style/theme";
+import useImgLazyLoad from "../../utils/hooks/useImgLazyLoad";
+import { ReactComponent as CommentReg } from "../../assets/icons/comment-regular.svg";
+import { ReactComponent as Share } from "../../assets/icons/share-square-solid.svg";
+import { ReactComponent as ThumbUpReg } from "../../assets/icons/thumbs-up-regular.svg";
+import { ReactComponent as PlaySolid } from "../../assets/icons/play-solid.svg";
 
 const StyledCard = styled.div`
   width: 20rem;
@@ -93,14 +93,23 @@ const PlayWrapper = styled.div`
   left: 50%;
 `;
 
-const Template = forwardRef(({ handlePlayBtnClick, worldCup, imgSrc }, ref) => {
+const Card = ({ worldCup, handlePlayBtnClick }) => {
+  // const { id } = worldCup;
   const { id, desc, title, targets, commentCounts, likeCounts, createDate } = worldCup;
+  const {
+    id: targetId,
+    name: targetName,
+    likeCounts: targetLikeCounts,
+    image: { small, big, lowQuality, originalQuality },
+  } = targets[0];
 
+  const imageRef = useRef(null);
+  const { imgSrc } = useImgLazyLoad(imageRef, originalQuality, lowQuality);
   return (
     <StyledCard>
       <ImgBox>
-        <Img width="100%" height="100%" src={imgSrc} ref={ref} alt={title} />
-        <PlayWrapper onClick={handlePlayBtnClick}>
+        <Img width="100%" height="100%" src={imgSrc} ref={imageRef} alt={title} />
+        <PlayWrapper onClick={handlePlayBtnClick(id)}>
           <PlaySolid width={50} />
           <Text bold text="월드컵 하러 가기" />
         </PlayWrapper>
@@ -130,10 +139,9 @@ const Template = forwardRef(({ handlePlayBtnClick, worldCup, imgSrc }, ref) => {
       </Box>
     </StyledCard>
   );
-});
+};
 
-Template.propTypes = {
-  handlePlayBtnClick: PropTypes.func.isRequired,
+Card.propTypes = {
   worldCup: PropTypes.shape({
     id: PropTypes.number.isRequired,
     desc: PropTypes.string.isRequired,
@@ -154,8 +162,8 @@ Template.propTypes = {
           id: PropTypes.number.isRequired,
         }),
       })
-    ),
+    ).isRequired,
   }).isRequired,
-  imgSrc: PropTypes.string.isRequired,
+  handlePlayBtnClick: PropTypes.func.isRequired,
 };
-export default Template;
+export default Card;

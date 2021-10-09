@@ -28,6 +28,8 @@ const Home = () => {
 
   const handlePlayBtnClick = useCallback(
     (id) => (e) => {
+      console.log(e);
+
       setIsLevelModalOpened(true);
       setCurrentWorldCup(worldCups.find((v) => v.id === id));
     },

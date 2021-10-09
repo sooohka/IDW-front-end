@@ -30,19 +30,17 @@ const StyledUl = styled.ul`
   padding: 0;
 `;
 
-const Ul = ({ title, list }) => {
-  return (
-    <StyledUl>
-      <Text bold fontSize={theme.fonts.heading} text={title} />
-      <Divider />
-      {list.map((li) => (
-        <StyledList key={li.id}>
-          <Text text={li.name} fontSize={theme.fonts.strongBody} />
-        </StyledList>
-      ))}
-    </StyledUl>
-  );
-};
+const Ul = ({ title, list }) => (
+  <StyledUl>
+    <Text bold fontSize={theme.fonts.heading} text={title} />
+    <Divider />
+    {list.map((li) => (
+      <StyledList key={li.id}>
+        <Text text={li.name} fontSize={theme.fonts.strongBody} />
+      </StyledList>
+    ))}
+  </StyledUl>
+);
 
 const Sidebar = () => {
   const { categories } = useContext(CategoryContext);
