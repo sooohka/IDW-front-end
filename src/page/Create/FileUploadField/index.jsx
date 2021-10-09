@@ -40,6 +40,9 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
         onUploadProgress: (prog) => setProgress(Math.round(prog.loaded * 100) / prog.total),
       });
 
+      // TODO:파일 안보내질때 에러처리
+      console.log(response);
+
       const {
         message,
         result: { url, ContentType, bucketUrl, locations },
@@ -62,10 +65,10 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
       // TODO: fileUploadWithProgress error handling
       const message = err.response?.data?.error?.message || err.message || "something went wrong😅 ";
       const setFile = (v) => {
-        if (v.id === currentFileId) return { ...v, error: { status: true, message } };
+        if (v.id === currentFileId) return { ...v, isSubmitted: true, error: { status: true, message } };
         return { ...v };
       };
-      setFiles(setFile);
+      setFiles((prev) => prev.map(setFile));
       return { hasError: true, message, file: { name, lastModified, lastModifiedDate, path, size, type } };
     }
   }, []);
