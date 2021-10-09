@@ -1,12 +1,12 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
-import ProgressBar from "../../../../components/common/ProgressBar";
-import XButton from "../../../../components/common/XButton";
-import { ReactComponent as Spinner } from "../../../../assets/icons/spinner.svg";
-import { ReactComponent as FileImage } from "../../../../assets/icons/file-image-regular.svg";
-import HelperText from "../../../../components/common/HelperText";
-import Img from "../../../../components/common/Img";
+import HelperText from "../common/HelperText";
+import Img from "../common/Img";
+import ProgressBar from "../common/ProgressBar";
+import { ReactComponent as Spinner } from "../../assets/icons/spinner.svg";
+import { ReactComponent as FileImage } from "../../assets/icons/file-image-regular.svg";
+import XButton from "../common/XButton";
 
 const Container = styled.div`
   display: flex;
@@ -28,7 +28,8 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const Template = ({ file, progress, handleDelete }) => {
+const FileUploadWithProgress = ({ handleDelete, handleUpload, file }) => {
+  const [progress, setProgress] = useState(0);
   const {
     file: { name, lastModified, lastModifiedDate, path, size, type },
     isSubmitted,
@@ -37,7 +38,14 @@ const Template = ({ file, progress, handleDelete }) => {
     fullUrl,
     error: { status: errorStatus, message },
   } = file;
-  console.log(name, fullUrl);
+
+  useEffect(() => {
+    async function upload() {
+      const res = await handleUpload(file, setProgress);
+    }
+    upload();
+  }, [handleUpload]);
+  console.log(isSubmitted);
 
   return (
     <Container onClick={(e) => e.preventDefault()}>
@@ -45,15 +53,18 @@ const Template = ({ file, progress, handleDelete }) => {
       <Wrapper>
         <ProgressWrapper>
           <ProgressBar title={name} hasError={errorStatus} progress={progress} />
-          {isSubmitted ? <XButton onClick={handleDelete} /> : <Spinner />}
+          {isSubmitted ? <XButton onClick={handleDelete(id)} /> : <Spinner />}
         </ProgressWrapper>
         <HelperText always hasError={errorStatus} text={message} />
       </Wrapper>
     </Container>
   );
+  // <Template file={file} progress={progress} handleDelete={handleDelete(file.id)} />;
 };
 
-Template.propTypes = {
+FileUploadWithProgress.propTypes = {
+  handleUpload: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
   file: PropTypes.shape({
     file: PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -69,8 +80,5 @@ Template.propTypes = {
     fullUrl: PropTypes.string.isRequired,
     error: PropTypes.shape({ status: PropTypes.bool.isRequired, message: PropTypes.string.isRequired }).isRequired,
   }).isRequired,
-
-  progress: PropTypes.number.isRequired,
-  handleDelete: PropTypes.func.isRequired,
 };
-export default Template;
+export default FileUploadWithProgress;

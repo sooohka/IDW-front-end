@@ -4,10 +4,88 @@ import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import uuid from "react-uuid";
-import useMount from "../../../utils/hooks/useMount";
-import { readAsDataUrl } from "../../../utils/lib/file";
-import Template from "./template";
+import styled, { css } from "styled-components";
+import { theme } from "../../style/theme";
+import useMount from "../../utils/hooks/useMount";
+import { readAsDataUrl } from "../../utils/lib/file";
+import { ReactComponent as UploadIcon } from "../../assets/icons/cloud-upload-alt-solid.svg";
+import { ReactComponent as Sort } from "../../assets/icons/sort-up-solid.svg";
+import FileUploadWithProgress from "./FileUploadWithProgress";
 
+const Container = styled.div`
+  min-height: 150%;
+`;
+
+const DropZone = styled.div`
+  border: 3px dashed;
+  border-color: ${() => theme.colors.primary};
+  height: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-direction: column;
+  & > * {
+    transform: ${({ isAccepting }) => isAccepting && "scale(1.5)"};
+    opacity: ${({ isAccepting }) => isAccepting && 0.3};
+  }
+  & > p {
+    font-weight: bold;
+    color: ${() => theme.colors.primary};
+  }
+`;
+
+const FileList = styled.div`
+  margin: 1rem 0 0 0;
+  border: 2px solid black;
+  border-radius: 5px;
+  min-height: 3rem;
+  position: relative;
+`;
+
+const FileListTitle = styled.h3`
+  flex: 1;
+  padding-left: 1rem;
+`;
+
+const FileListHeader = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const Files = styled.div`
+  transition: all;
+  transform-origin: top;
+  ${({ isFolded }) => {
+    if (isFolded)
+      return css`
+        transform: scaleY(0);
+        max-height: 0;
+      `;
+    return css`
+      transform: scaleY(1);
+      padding: 2rem 0 0;
+      max-height: 10000px;
+    `;
+  }}
+`;
+const IconWrapper = styled.div`
+  cursor: pointer;
+  & > svg {
+    transition: all 0.2s;
+    ${({ isFolded }) => {
+      if (isFolded) {
+        return css`
+          transform: rotate(180deg);
+        `;
+      }
+      return css`
+        transform: rotate(0deg) translateY(30%);
+      `;
+    }}
+  }
+`;
 const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
   const [, , helpers] = useField(formikName);
   const [files, setFiles] = useState([]);
@@ -139,16 +217,46 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
   });
 
   return (
-    <Template
-      isFolded={isFolded}
-      setIsFolded={setIsFolded}
-      handleDelete={handleDelete}
-      handleUpload={handleUpload}
-      files={React.useMemo(() => files, [files])}
-      isAccepting={isAccepting}
-      getRootProps={getRootProps}
-      getInputProps={getInputProps}
-    />
+    // <Template
+    //   isFolded={isFolded}
+    //   setIsFolded={setIsFolded}
+    //   handleDelete={handleDelete}
+    //   handleUpload={handleUpload}
+    //   files={React.useMemo(() => files, [files])}
+    //   isAccepting={isAccepting}
+    //   getRootProps={getRootProps}
+    //   getInputProps={getInputProps}
+    // />
+    <Container>
+      <DropZone isAccepting={isAccepting} {...getRootProps()}>
+        <input {...getInputProps()} />
+        <UploadIcon fill={theme.colors.primary} width={50} height={50} />
+        <p>Drag and Drop or click here to upload</p>
+      </DropZone>
+
+      {/* ListFiles */}
+      <FileList>
+        <FileListHeader onClick={() => setIsFolded((prev) => !prev)}>
+          <FileListTitle>파일들</FileListTitle>
+          <IconWrapper isFolded={isFolded}>
+            <Sort width={30} height={30} />
+          </IconWrapper>
+        </FileListHeader>
+        <Files isFolded={isFolded}>
+          {files.map((file) => (
+            <FileUploadWithProgress handleUpload={handleUpload} handleDelete={handleDelete} file={file} key={file.id} />
+          ))}
+          {files.length > 5 && (
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <IconWrapper onClick={() => setIsFolded(true)} isFolded={isFolded}>
+                go Top
+                <Sort width={30} height={30} />
+              </IconWrapper>
+            </div>
+          )}
+        </Files>
+      </FileList>
+    </Container>
   );
 };
 FileUploadField.propTypes = {

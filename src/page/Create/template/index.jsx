@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Navbar from "../../../components/layout/Navbar";
-import CreateForm from "../CreateForm";
+import CreateForm from "../../../components/create/CreateForm";
 
 const Container = styled.div`
   display: flex;
