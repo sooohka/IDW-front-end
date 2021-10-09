@@ -1,7 +1,5 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
-import { theme } from "../../style/theme";
 
 const Container = styled.div``;
 
@@ -11,16 +9,19 @@ const Label = styled.label`
   cursor: pointer;
   letter-spacing: 0.5px;
   font-weight: bold;
-  font-size: ${() => theme.fonts.strongBody};
+  font-size: ${({ theme }) => theme.fonts.strongBody};
 `;
 
-const Radio = styled.span`
+interface Radio {
+  checked: boolean;
+}
+const Radio = styled.span<Radio>`
   display: inline-block;
   width: 20px;
   height: 20px;
   border-radius: 100000px;
   border: 3px solid;
-  border-color: ${() => theme.colors.primary};
+  border-color: ${({ theme }) => theme.colors.primary};
   position: relative;
   margin: 0 1rem 0 0;
 
@@ -32,7 +33,7 @@ const Radio = styled.span`
     border-radius: 100000px;
     width: 10px;
     height: 10px;
-    background-color: ${() => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary};
   }
 
   ${({ checked }) =>
@@ -44,7 +45,15 @@ const Radio = styled.span`
     `}
 `;
 
-const RadioField = ({ id, label, name, checked, onChange, value }) => (
+interface IProps {
+  id: string;
+  label: string;
+  name: string;
+  checked: boolean;
+  onChange: (e: React.KeyboardEvent | React.ChangeEvent) => void;
+  value: number | string;
+}
+const RadioField: React.FC<IProps> = ({ id, label, name, checked, onChange, value }) => (
   <Container>
     <Label htmlFor={id}>
       <input id={id} name={name} type="radio" checked={checked} onChange={onChange} value={value} hidden />
@@ -61,17 +70,4 @@ const RadioField = ({ id, label, name, checked, onChange, value }) => (
     </Label>
   </Container>
 );
-
-RadioField.propTypes = {
-  id: PropTypes.number.isRequired,
-  label: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  checked: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-};
-
-RadioField.defaultProps = {
-  label: null,
-};
 export default RadioField;

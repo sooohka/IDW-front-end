@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 import XButton from "../common/XButton";
-import { theme } from "../../style/theme";
+import theme from "../../style/theme";
 import Button from "../common/Button";
 
 const ModalRootEl = document.querySelector("#modal-root");

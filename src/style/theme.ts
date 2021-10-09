@@ -7,7 +7,9 @@ Subheadings - Here too, these would often be scaled down from the heading size, 
 Input fields - These should closely match the body text’s rules.
 */
 
-const theme = {
+import { DefaultTheme } from "styled-components";
+
+const theme: DefaultTheme = {
   colors: {
     primary: "#2d3436",
     secondary: "#18A0FB",
@@ -25,4 +27,4 @@ const theme = {
   },
 };
 
-export { theme };
+export default theme;

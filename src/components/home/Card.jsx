@@ -1,14 +1,14 @@
-import PropTypes from "prop-types";
 import React, { useRef } from "react";
 import styled from "styled-components";
 import Img from "../common/Img";
 import Text from "../common/Text";
-import { theme } from "../../style/theme";
+import theme from "../../style/theme";
 import useImgLazyLoad from "../../utils/hooks/useImgLazyLoad";
 import { ReactComponent as CommentReg } from "../../assets/icons/comment-regular.svg";
 import { ReactComponent as Share } from "../../assets/icons/share-square-solid.svg";
 import { ReactComponent as ThumbUpReg } from "../../assets/icons/thumbs-up-regular.svg";
 import { ReactComponent as PlaySolid } from "../../assets/icons/play-solid.svg";
+import Texts from "../common/Texts";
 
 const StyledCard = styled.div`
   width: 20rem;
@@ -116,7 +116,7 @@ const Card = ({ worldCup, handlePlayBtnClick }) => {
       </ImgBox>
       <Box>
         <Text bold fontSize={theme.fonts.strongBody} text={title} />
-        <Text maxRows={3} height="5rem" fontSize={theme.fonts.subBody} text={desc} />
+        <Texts maxRows={3} height="5rem" fontSize={theme.fonts.subBody} text={desc} />
         <ExtraBox>
           <ToolBox>
             <IconWrapper>

@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import uuid from "react-uuid";
 import styled, { css } from "styled-components";
-import { theme } from "../../style/theme";
+import theme from "../../style/theme";
 import useMount from "../../utils/hooks/useMount";
 import { readAsDataUrl } from "../../utils/lib/file";
 import { ReactComponent as UploadIcon } from "../../assets/icons/cloud-upload-alt-solid.svg";

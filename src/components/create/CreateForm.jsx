@@ -8,7 +8,7 @@ import PageSpinner from "../common/PageSpinner";
 import RadioField from "../common/RadioField";
 import Text from "../common/Text";
 import FileUploadField from "./FileUploadField";
-import { theme } from "../../style/theme";
+import theme from "../../style/theme";
 import CategoryContext from "../../utils/contexts/CategoryContext";
 
 const Input = styled.input`

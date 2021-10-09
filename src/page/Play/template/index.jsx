@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import Navbar from "../../../components/layout/Navbar";
 import Target from "../../../components/play/Target";
-import { theme } from "../../../style/theme";
+import theme from "../../../style/theme";
 import Text from "../../../components/common/Text";
 
 const Container = styled.div`

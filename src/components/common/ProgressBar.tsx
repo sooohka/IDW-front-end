@@ -1,7 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
-import { theme } from "../../style/theme";
 
 const StyledProgressBar = styled.div`
   position: relative;
@@ -23,28 +21,32 @@ const Title = styled.p`
   color: white;
   position: absolute;
   top: "50%";
-  font-size: ${() => theme.fonts.subBody};
+  font-size: ${({ theme }) => theme.fonts.subBody};
   font-weight: bold;
 `;
 
-const Progress = styled.div`
-  background: ${({ hasError }) => (hasError ? "red" : theme.colors.secondary)};
+interface Progress {
+  hasError: boolean;
+  progress: number;
+}
+const Progress = styled.div<Progress>`
+  background: ${({ hasError, theme }) => (hasError ? "red" : theme.colors.secondary)};
   height: 100%;
   /* width: "80%"; */
   border-radius: 10000px;
   width: ${({ progress }) => (progress ? `${progress}%` : "0%")};
 `;
 
-const ProgressBar = ({ hasError, title, progress }) => (
+interface IProps {
+  hasError: boolean;
+  title: string;
+  progress: number;
+}
+const ProgressBar: React.FC<IProps> = ({ hasError, title, progress }) => (
   <StyledProgressBar>
     <Title>{title}</Title>
     {hasError ? <Progress hasError={hasError} progress={100} /> : <Progress hasError={hasError} progress={progress} />}
   </StyledProgressBar>
 );
 
-ProgressBar.propTypes = {
-  title: PropTypes.string.isRequired,
-  progress: PropTypes.number.isRequired,
-  hasError: PropTypes.bool.isRequired,
-};
 export default ProgressBar;

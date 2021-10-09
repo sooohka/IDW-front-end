@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Text from "../common/Text";
-import { theme } from "../../style/theme";
+import theme from "../../style/theme";
 import CategoryContext from "../../utils/contexts/CategoryContext";
 
 const sidebarWidth = "20rem";

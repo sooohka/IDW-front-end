@@ -1,14 +1,17 @@
 import React, { forwardRef } from "react";
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
-import { theme } from "../../style/theme";
 
-const StyledButton = styled.button`
+interface StyledButton {
+  size: "small" | "medium" | "large";
+  color: string;
+  backgroundColor: string;
+}
+const StyledButton = styled.button<StyledButton>`
   border: none;
   border-radius: 5rem;
   text-transform: capitalize;
   min-width: 7rem;
-  ${({ size }) => {
+  ${({ size, theme }) => {
     switch (size) {
       case "small":
         return css`
@@ -43,31 +46,21 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = forwardRef(({ onClick, label, backgroundColor, color, children, type, disabled, size }, ref) => (
+interface IProps {
+  label: string;
+  children: string;
+  type: "button" | "submit" | "reset" | undefined;
+  disabled: boolean;
+  size: "small" | "medium" | "large";
+  backgroundColor: string;
+  color: string;
+  onClick: () => void;
+}
+
+const Button = forwardRef<HTMLButtonElement, IProps>(({ onClick, label, backgroundColor, color, children, type, disabled, size }, ref) => (
   <StyledButton onClick={onClick} backgroundColor={backgroundColor} color={color} size={size} ref={ref} tabIndex={0} type={type} disabled={disabled}>
     {label || children}
   </StyledButton>
 ));
-
-Button.propTypes = {
-  label: PropTypes.string.isRequired,
-  children: PropTypes.string,
-  type: PropTypes.string,
-  disabled: PropTypes.bool,
-  size: PropTypes.oneOf(["small", "medium", "large"]),
-  backgroundColor: PropTypes.string,
-  color: PropTypes.string,
-  onClick: PropTypes.func,
-};
-
-Button.defaultProps = {
-  onClick: () => {},
-  children: "button",
-  type: "submit",
-  disabled: false,
-  size: "large",
-  backgroundColor: theme.colors.secondary,
-  color: theme.colors.white,
-};
 
 export default Button;

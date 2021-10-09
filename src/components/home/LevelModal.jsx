@@ -4,7 +4,7 @@ import Button from "../common/Button";
 import RadioField from "../common/RadioField";
 import XButton from "../common/XButton";
 import Modal from "../layout/Modal";
-import { theme } from "../../style/theme";
+import theme from "../../style/theme";
 import ModalContext from "../../utils/contexts/ModalContext";
 
 const ContentWrapper = styled.div`
