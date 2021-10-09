@@ -12,13 +12,11 @@ const StyledHelperText = styled.p`
   line-height: 1.6rem;
 `;
 
-const HelperText = ({ hasError, children, text, always }) => {
-  return (
-    <StyledHelperText always={always} hasError={hasError}>
-      {children || text}
-    </StyledHelperText>
-  );
-};
+const HelperText = ({ hasError, children, text, always }) => (
+  <StyledHelperText always={always} hasError={hasError}>
+    {children || text}
+  </StyledHelperText>
+);
 
 HelperText.propTypes = {
   hasError: PropTypes.bool.isRequired,

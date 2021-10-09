@@ -38,7 +38,7 @@ const Progress = styled.div`
 const ProgressBar = ({ hasError, title, progress }) => (
   <StyledProgressBar>
     <Title>{title}</Title>
-    <Progress hasError={hasError} progress={progress} />
+    {hasError ? <Progress hasError={hasError} progress={100} /> : <Progress hasError={hasError} progress={progress} />}
   </StyledProgressBar>
 );
 

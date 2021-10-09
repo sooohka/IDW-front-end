@@ -1,7 +1,20 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
-import useImgLazyLoad from "../../../utils/hooks/useImgLazyLoad";
-import Template from "./template";
+import styled from "styled-components";
+import useImgLazyLoad from "../../utils/hooks/useImgLazyLoad";
+import Img from "../common/Img";
+
+const Container = styled.div`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const InfoContainer = styled.div`
+  height: 20rem;
+`;
 
 const Target = ({ target }) => {
   const {
@@ -13,7 +26,12 @@ const Target = ({ target }) => {
   const imageRef = useRef(null);
   const { imgSrc } = useImgLazyLoad(imageRef, big, lowQualityImage);
 
-  return <Template ref={imageRef} name={name} likeCounts={likeCounts} imgSrc={imgSrc} />;
+  return (
+    <Container>
+      <Img width="600px" height="750px" ref={imageRef} src={imgSrc} alt={name} />
+      <InfoContainer />
+    </Container>
+  );
 };
 
 Target.propTypes = {

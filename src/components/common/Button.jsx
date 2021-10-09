@@ -43,13 +43,11 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = forwardRef(({ onClick, label, backgroundColor, color, children, type, disabled, size }, ref) => {
-  return (
-    <StyledButton onClick={onClick} backgroundColor={backgroundColor} color={color} size={size} ref={ref} tabIndex={0} type={type} disabled={disabled}>
-      {label || children}
-    </StyledButton>
-  );
-});
+const Button = forwardRef(({ onClick, label, backgroundColor, color, children, type, disabled, size }, ref) => (
+  <StyledButton onClick={onClick} backgroundColor={backgroundColor} color={color} size={size} ref={ref} tabIndex={0} type={type} disabled={disabled}>
+    {label || children}
+  </StyledButton>
+));
 
 Button.propTypes = {
   label: PropTypes.string.isRequired,

@@ -41,14 +41,12 @@ const Right = styled.span`
   transform: rotate(-45deg);
 `;
 
-const XButton = ({ onClick }) => {
-  return (
-    <Container onClick={onClick}>
-      <Left></Left>
-      <Right></Right>
-    </Container>
-  );
-};
+const XButton = ({ onClick }) => (
+  <Container onClick={onClick}>
+    <Left />
+    <Right />
+  </Container>
+);
 
 XButton.propTypes = {
   onClick: PropTypes.func.isRequired,
