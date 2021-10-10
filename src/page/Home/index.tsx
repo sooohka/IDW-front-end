@@ -1,53 +1,45 @@
-import React, { createContext, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
+import api from "../../api/api";
 import axios from "../../api/axios";
-import worldCupsJson from "../../assets/temp/worldCups.json";
-import PageSpinner from "../../components/common/PageSpinner";
+import ModalContext from "../../utils/contexts/ModalContext";
+import WorldCupsContext from "../../utils/contexts/WorldCupsContext";
 import useFetch from "../../utils/hooks/useFetch";
 import Template from "./template";
-import WorldCupsContext from "../../utils/contexts/WorldCupsContext";
-import ModalContext from "../../utils/contexts/ModalContext";
 
 const promise = () => {
   if (process.env.REACT_APP_ENV === "local") {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(worldCupsJson);
-      }, 100);
-    });
+    const func = () => axios.get<WorldCup[]>("../../assets/temp/worldCups.json");
+    return func;
   }
-
-  return axios.get("worldcups");
+  return api.getWorldCups;
 };
 
-const Home = () => {
-  const { data: worldCups, isLoading } = useFetch(promise);
+const Home: React.FC = () => {
+  const { data: worldCups, isLoading } = useFetch(promise());
   const history = useHistory();
   const [isLevelModalOpened, setIsLevelModalOpened] = useState(false);
-  const [currentWorldCup, setCurrentWorldCup] = useState(null);
+  const [currentWorldCup, setCurrentWorldCup] = useState<WorldCup | null>(null);
 
   const handlePlayBtnClick = useCallback(
-    (id) => (e) => {
-      console.log(e);
-
+    (id) => () => {
       setIsLevelModalOpened(true);
-      setCurrentWorldCup(worldCups.find((v) => v.id === id));
+      if (worldCups) setCurrentWorldCup(worldCups.find((v: WorldCup) => v.id === id) || null);
     },
-    [worldCups]
+    [worldCups],
   );
 
   // TODO:data의 id에 몇개의 타겟이 있는지 미리 검사하고 id와 비교해서 modalSubmit block
   const handleModalSubmit = useCallback(
-    (level) => (e) => {
-      if (level <= currentWorldCup.targetCounts) history.push(`/play/${currentWorldCup.id}`, { level, worldCupId: currentWorldCup.id });
+    (level: number) => () => {
+      if (!currentWorldCup) throw new Error("Home: currentWorldCup이 null입니다");
+      else if (level <= currentWorldCup.targetCounts) history.push(`/play/${currentWorldCup.id}`, { level, worldCupId: currentWorldCup.id });
       else alert(`선택할 수 있는 강수는 최대 ${currentWorldCup.targetCounts}입니다`);
     },
-    [currentWorldCup, history]
+    [currentWorldCup, history],
   );
 
-  const handleModalClose = useCallback(() => {
-    setIsLevelModalOpened(false);
-  }, []);
+  const handleModalClose = useCallback(() => setIsLevelModalOpened(false), []);
 
   return (
     <WorldCupsContext.Provider value={{ worldCups }}>

@@ -1,5 +1,5 @@
 import AWS from "aws-sdk";
-import uuid from "react-uuid";
+import uuid from "uuid";
 
 AWS.config.update({
   accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
@@ -13,7 +13,7 @@ const myBucket = new AWS.S3({ region: bucketRegion, params: { bucketName } });
 
 const uploadFile = async (file, setProgress, handleError) => {
   // TODO: 카테고리도 받아서 업로드 해야함
-  const key = `${uuid()}${file.name}`;
+  const key = `${uuid.v4()}${file.name}`;
   const params = {
     ACL: "public-read",
     Body: file,
@@ -40,7 +40,7 @@ const uploadFile = async (file, setProgress, handleError) => {
         name: file.name,
       },
     };
-  } catch (e) {
+  } catch (e: any) {
     if (e) {
       console.error(e);
       throw new Error(e);

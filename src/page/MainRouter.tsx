@@ -5,7 +5,7 @@ import PageNotFound from "./404page";
 import Play from "./Play";
 import Create from "./Create";
 
-const MainRouter = () => (
+const MainRouter: React.FC = () => (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route path="/play/:id" component={Play} />

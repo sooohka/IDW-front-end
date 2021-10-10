@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
 const Container = styled.div`
   position: relative;
@@ -40,15 +39,14 @@ const Right = styled.span`
   width: 21px;
   transform: rotate(-45deg);
 `;
-
-const XButton = ({ onClick }) => (
+interface IProps {
+  onClick: (e: React.MouseEvent) => void;
+}
+const XButton: React.FC<IProps> = ({ onClick }) => (
   <Container onClick={onClick}>
     <Left />
     <Right />
   </Container>
 );
 
-XButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-};
 export default XButton;

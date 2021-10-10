@@ -7,6 +7,12 @@ const StyledImage = styled.img`
   overflow: hidden;
 `;
 
-const Img = forwardRef<HTMLImageElement>(({ ...restProps }, ref) => <StyledImage {...restProps} ref={ref} />);
+interface IProps {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+const Img = forwardRef<HTMLImageElement, IProps>(({ ...restProps }, ref) => <StyledImage {...restProps} ref={ref} />);
 
 export default Img;

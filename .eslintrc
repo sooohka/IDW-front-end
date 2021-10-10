@@ -2,9 +2,10 @@
   "extends": ["airbnb-typescript-prettier"],
   "rules": {
     "react/jsx-props-no-spreading": "off",
-    "prettier/prettier": "warn",
-    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    // "prettier/prettier": "warn",
+    "react/jsx-filename-extension": "off",
     "@typescript-eslint/no-empty-function": "off",
-  },
+    "@typescript-eslint/explicit-module-boundary-types": "off"
+  }
   // "ignorePatterns": ["src/**/*"]
 }

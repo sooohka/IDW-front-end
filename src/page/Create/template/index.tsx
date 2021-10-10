@@ -10,13 +10,11 @@ const Container = styled.div`
   padding: 0 3rem;
 `;
 
-const Template = () => (
+const Template: React.FC = () => (
   <Container>
     <Navbar />
     <CreateForm />
   </Container>
 );
-
-Template.propTypes = {};
 
 export default Template;

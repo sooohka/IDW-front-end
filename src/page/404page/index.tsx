@@ -1,5 +1,5 @@
 import React from "react";
 
-const index = () => <div />;
+const index: React.FC = () => <div />;
 
 export default index;

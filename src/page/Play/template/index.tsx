@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 import Navbar from "../../../components/layout/Navbar";
 import Target from "../../../components/play/Target";
 import theme from "../../../style/theme";
@@ -26,8 +25,12 @@ const TextContainer = styled.div`
   text-align: center;
   margin: 0 0 3rem;
 `;
+interface IProps {
+  title: string;
+  currentTargets: Target[];
+}
 
-const Template = ({ currentTargets, title }) => (
+const Template: React.FC<IProps> = ({ currentTargets, title }) => (
   <Container>
     <Navbar />
     <Wrapper>
@@ -39,23 +42,5 @@ const Template = ({ currentTargets, title }) => (
     </Wrapper>
   </Container>
 );
-
-Template.propTypes = {
-  title: PropTypes.string.isRequired,
-  currentTargets: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      likeCounts: PropTypes.number.isRequired,
-      image: PropTypes.shape({
-        small: PropTypes.string.isRequired,
-        big: PropTypes.string.isRequired,
-        lowQuality: PropTypes.string.isRequired,
-        originalQuality: PropTypes.string.isRequired,
-        id: PropTypes.number.isRequired,
-      }),
-    })
-  ).isRequired,
-};
 
 export default Template;

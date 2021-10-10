@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 import Content from "../../../components/layout/Content";
 import Navbar from "../../../components/layout/Navbar";
 import Sidebar from "../../../components/layout/Sidebar";
@@ -14,7 +13,10 @@ const Container = styled.div`
   padding: 0 3rem;
 `;
 
-const Template = ({ handlePlayBtnClick }) => (
+interface IProps {
+  handlePlayBtnClick: (id: string) => (e: React.MouseEvent) => void;
+}
+const Template: React.FC<IProps> = ({ handlePlayBtnClick }) => (
   <Container>
     <Navbar />
     <Sidebar />
@@ -25,7 +27,4 @@ const Template = ({ handlePlayBtnClick }) => (
   </Container>
 );
 
-Template.propTypes = {
-  handlePlayBtnClick: PropTypes.func.isRequired,
-};
 export default Template;
