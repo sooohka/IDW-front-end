@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import styled, { css } from "styled-components";
-import theme from "../../style/theme";
+import defaultTheme from "../../style/theme";
 
 interface StyledButton {
   size: "small" | "medium" | "large";
@@ -63,8 +63,8 @@ const Button = forwardRef<HTMLButtonElement, IProps>(
     {
       onClick,
       label,
-      backgroundColor = theme.colors.secondary,
-      color = theme.colors.white,
+      backgroundColor = defaultTheme.colors.secondary,
+      color = defaultTheme.colors.white,
       type,
       disabled = false,
       size = "large",

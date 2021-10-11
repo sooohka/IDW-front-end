@@ -1,6 +1,5 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled from "styled-components";
-import useImgLazyLoad from "../../utils/hooks/useImgLazyLoad";
 import Img from "../common/Img";
 
 const Container = styled.div`
@@ -20,15 +19,12 @@ interface IProps {
 const Target: React.FC<IProps> = ({ target }) => {
   const {
     name,
-    image: { big, lowQuality: lowQualityImage },
+    image: { big },
   } = target;
-  const imageRef = useRef(null);
-  const { imgSrc } = useImgLazyLoad(imageRef, big, lowQualityImage);
 
   return (
     <Container>
-      <Img width={600} height={750} ref={imageRef} src={imgSrc} alt={name} />
-
+      <Img width={600} height={750} src={big} alt={name} />
       <InfoContainer />
     </Container>
   );

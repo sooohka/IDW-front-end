@@ -9,5 +9,5 @@
     "@typescript-eslint/no-unused-vars": "warn",
     "import/prefer-default-export": "warn"
   },
-  // "ignorePatterns": ["src/**/*"]
+  "ignorePatterns": ["src/**/*"]
 }

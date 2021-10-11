@@ -5,7 +5,7 @@ import api from "../../api/api";
 import GameContext from "../../utils/contexts/GameContext";
 import useFetch from "../../utils/hooks/useFetch";
 import Template from "./template";
-
+import gameExample from '../../assets/temp/gameExample.json'
 const Play = () => {
   const {
     location: {
@@ -18,7 +18,7 @@ const Play = () => {
 
   const promise = useCallback(() => {
     if (process.env.REACT_APP_ENV !== "local") return api.getWorldCupById(worldCupId, level);
-    return axios.get<WorldCup>("../../assets/temp/gameExample.json");
+    return Promise.resolve(gameExample)
   }, [level, worldCupId]);
 
   const { data, isLoading } = useFetch(promise);
@@ -33,8 +33,10 @@ const Play = () => {
   return (
     <>
       {!isLoading && (
-        <GameContext.Provider value={{ targets: data }}>
-          {currentTargets.length === 2 && <Template title={data!.title} currentTargets={currentTargets} />}
+      <GameContext.Provider value={{ targets: data?.targets || [] }}>
+          {currentTargets.length === 2 && (
+            <Template title={data!.title} currentTargets={currentTargets} />
+          )}
         </GameContext.Provider>
       )}
     </>

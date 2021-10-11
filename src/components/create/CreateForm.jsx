@@ -74,6 +74,7 @@ const CreateForm = () => {
   const [isFileUploading, setIsFileUploading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const buttonEl = useRef(null);
+
   useEffect(() => {
     if (buttonEl.current) buttonEl.current.scrollIntoView({ behavior: "smooth", block: "end" });
   }, []);

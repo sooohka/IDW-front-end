@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
 interface IProps {
-  targets: Target[] | null;
+  targets: Target[];
 }
-export default createContext<IProps>({ targets: null });
+export default createContext<IProps>({ targets: [] });

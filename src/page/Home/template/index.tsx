@@ -14,7 +14,7 @@ const Container = styled.div`
 `;
 
 interface IProps {
-  handlePlayBtnClick: (id: string) => (e: React.MouseEvent) => void;
+  handlePlayBtnClick: (id: number) => (e: React.MouseEvent) => void;
 }
 const Template: React.FC<IProps> = ({ handlePlayBtnClick }) => (
   <Container>

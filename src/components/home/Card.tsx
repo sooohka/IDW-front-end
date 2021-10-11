@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
+import ImgWithRef from "../common/ImgWithRef";
 import Img from "../common/Img";
 import Text from "../common/Text";
 import theme from "../../style/theme";
@@ -110,7 +111,7 @@ const Card: React.FC<IProps> = ({ worldCup, handlePlayBtnClick }) => {
   return (
     <StyledCard>
       <ImgBox>
-        <Img src={imgSrc} ref={imageRef} alt={title} />
+        <ImgWithRef src={imgSrc} ref={imageRef} alt={title} />
         <PlayWrapper onClick={handlePlayBtnClick(id)}>
           <PlaySolid width={50} />
           <Text bold text="월드컵 하러 가기" />

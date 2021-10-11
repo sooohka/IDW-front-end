@@ -13,7 +13,8 @@ const StyledImage = styled.img`
   overflow: hidden;
 `;
 
-const Img: React.FC<Omit<JSX.IntrinsicElements["img"], "ref">> = (props) => (
-  <StyledImage {...props} />
+const ImgWithRef = forwardRef<HTMLImageElement, Omit<JSX.IntrinsicElements["img"], "ref">>(
+  ({ ...restProps }, ref ) => <StyledImage {...restProps} ref={ref} />,
 );
-export default Img;
+
+export default ImgWithRef;

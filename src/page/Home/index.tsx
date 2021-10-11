@@ -9,16 +9,14 @@ import useFetch from "../../utils/hooks/useFetch";
 import Template from "./template";
 
 const promise = () => {
-  if (process.env.REACT_APP_ENV === "local") {
-    const func = () => Promise.resolve(worldcupJSON) as Promise<AxiosResponse<WorldCup[]>>;
-    // const func = () => axios.get<WorldCup[]>("../../assets/temp/worldCups.json");
-    return func;
-  }
-  return api.getWorldCups;
+  if (process.env.REACT_APP_ENV === "local") return Promise.resolve(worldcupJSON);
+
+  return api.getWorldCups();
 };
 
 const Home: React.FC = () => {
-  const { data: worldCups, isLoading } = useFetch(promise());
+  const { data: worldCups, isLoading } = useFetch(promise);
+
   const history = useHistory();
   const [isLevelModalOpened, setIsLevelModalOpened] = useState(false);
   const [currentWorldCup, setCurrentWorldCup] = useState<WorldCup | null>(null);
@@ -45,7 +43,7 @@ const Home: React.FC = () => {
   const handleModalClose = useCallback(() => setIsLevelModalOpened(false), []);
 
   return (
-    <WorldCupsContext.Provider value={{ worldCups }}>
+    <WorldCupsContext.Provider value={{ worldCups: worldCups || [] }}>
       <ModalContext.Provider
         value={{ handleModalClose, handleModalSubmit, isModalOpened: isLevelModalOpened }}
       >

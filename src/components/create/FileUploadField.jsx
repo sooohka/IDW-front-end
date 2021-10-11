@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useField } from "formik";
 import PropTypes from "prop-types";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { forwardRef, useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import * as uuid from "uuid";
 import styled, { css } from "styled-components";
@@ -126,7 +126,8 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
       } = response.data;
 
       const setFile = (v) => {
-        if (v.id === currentFileId) return { ...v, isSubmitted: true, url, fullUrl: `${bucketUrl}${locations.small}` };
+        if (v.id === currentFileId)
+          return { ...v, isSubmitted: true, url, fullUrl: `${bucketUrl}${locations.small}` };
         return { ...v };
       };
 
@@ -140,13 +141,19 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
     } catch (err) {
       console.error(err.message);
       // TODO: fileUploadWithProgress error handling
-      const message = err.response?.data?.error?.message || err.message || "something went wrong😅 ";
+      const message =
+        err.response?.data?.error?.message || err.message || "something went wrong😅 ";
       const setFile = (v) => {
-        if (v.id === currentFileId) return { ...v, isSubmitted: true, error: { status: true, message } };
+        if (v.id === currentFileId)
+          return { ...v, isSubmitted: true, error: { status: true, message } };
         return { ...v };
       };
       setFiles((prev) => prev.map(setFile));
-      return { hasError: true, message, file: { name, lastModified, lastModifiedDate, path, size, type } };
+      return {
+        hasError: true,
+        message,
+        file: { name, lastModified, lastModifiedDate, path, size, type },
+      };
     }
   }, []);
 
@@ -160,7 +167,10 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
 
   useEffect(() => {
     if (isMount) return;
-    console.log(`%c state submittedFiles in FileUploadField changed`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
+    console.log(
+      `%c state submittedFiles in FileUploadField changed`,
+      "background-color:pink;font-size:15px;font-weight:bold;color:black",
+    );
 
     const isEveryFileSubmitted = files.every((v) => v.isSubmitted);
     if (isEveryFileSubmitted) setIsFileUploading(false);
@@ -174,7 +184,10 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
     // TODO: 에러메시지 개선
     if (rejectedFiles.length > 0) {
       console.log(rejectedFiles);
-      const rejected = rejectedFiles.map((v) => ({ name: v.file.name, errors: v.errors[0].message }));
+      const rejected = rejectedFiles.map((v) => ({
+        name: v.file.name,
+        errors: v.errors[0].message,
+      }));
       alert(JSON.stringify({ rejectedFiles: rejected }, null, 2));
     }
     const formedAcceptedFiles = acceptedFiles.map((file) => ({
@@ -193,7 +206,10 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
   const onDragLeave = () => setIsAccepting(false);
 
   const handleValidation = (_file) => {
-    if (files.find(({ file }) => file.name === _file.name && file.lastModified === _file.lastModified)) return { message: "같은 파일은 업로드불가능합니다." };
+    if (
+      files.find(({ file }) => file.name === _file.name && file.lastModified === _file.lastModified)
+    )
+      return { message: "같은 파일은 업로드불가능합니다." };
     if (_file.size >= 5000000) return { message: "파일은 최대 4.9MB까지 업로드 가능합니다." };
     if (files.length > 50) return { message: "파일은 최대 50장 업로드 가능합니다." };
 
@@ -243,7 +259,12 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
         </FileListHeader>
         <Files isFolded={isFolded}>
           {files.map((file) => (
-            <FileUploadWithProgress handleUpload={handleUpload} handleDelete={handleDelete} file={file} key={file.id} />
+            <FileUploadWithProgress
+              handleUpload={handleUpload}
+              handleDelete={handleDelete}
+              file={file}
+              key={file.id}
+            />
           ))}
           {files.length > 5 && (
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
