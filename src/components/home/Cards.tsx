@@ -19,7 +19,7 @@ const Cards: React.FC<IProps> = ({ handlePlayBtnClick }) => {
   return (
     <StyledCards>
       {worldCups.map((v) => (
-        <Card handlePlayBtnClick={handlePlayBtnClick} key={v.id} worldCup={v} isLoading />
+        <Card handlePlayBtnClick={handlePlayBtnClick} key={v.id} worldCup={v} />
       ))}
     </StyledCards>
   );

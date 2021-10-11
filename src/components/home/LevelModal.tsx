@@ -1,11 +1,11 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import theme from "../../style/theme";
+import ModalContext from "../../utils/contexts/ModalContext";
 import Button from "../common/Button";
 import RadioField from "../common/RadioField";
 import XButton from "../common/XButton";
 import Modal from "../layout/Modal";
-import theme from "../../style/theme";
-import ModalContext from "../../utils/contexts/ModalContext";
 
 const ContentWrapper = styled.div`
   padding: 2rem;
@@ -63,17 +63,11 @@ const LevelModal = () => {
   const { handleModalSubmit, handleModalClose, isModalOpened } = useContext(ModalContext);
   const [level, setLevel] = useState(4);
 
-  const handleLevelChange = useCallback(
-    (value) => (e) => {
-      const lv = parseInt(value, 10);
-      setLevel(lv);
-    },
-    [],
-  );
+  const handleLevelChange = (value: number) => () => setLevel(value);
   return (
     <>
       {isModalOpened && (
-        <Modal handleModalSubmit={handleModalSubmit} handleClose={handleModalClose}>
+        <Modal handleClose={handleModalClose}>
           <ContentWrapper>
             <Heading>
               <HeadingTitle>월드컵 강수 고르기</HeadingTitle>
@@ -86,7 +80,7 @@ const LevelModal = () => {
                 {[4, 8, 16, 32, 64].map((v, i) => (
                   <RadioField
                     key={v}
-                    id={i}
+                    id={`level${i}`}
                     name="level"
                     checked={level === v}
                     onChange={handleLevelChange(v)}
@@ -97,6 +91,7 @@ const LevelModal = () => {
               </RadioFieldContainer>
               <BtnContainer>
                 <Button
+                  type="button"
                   size="medium"
                   color={theme.colors.white}
                   backgroundColor={theme.colors.secondary}
@@ -104,6 +99,7 @@ const LevelModal = () => {
                   label="시작"
                 />
                 <Button
+                  type="button"
                   size="medium"
                   color={theme.colors.white}
                   backgroundColor={theme.colors.gray}

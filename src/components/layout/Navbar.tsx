@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import theme from "../../style/theme";
 import Text from "../common/Text";
-import Modal from "./Modal";
 
 const StyledNavbar = styled.div`
   padding: 2rem 0;
@@ -50,7 +49,7 @@ const RightContainer = styled.div`
   display: flex;
 `;
 
-const Navbar = () => (
+const Navbar: React.FC = () => (
   <StyledNavbar>
     <LeftContainer>
       <LogoContainer>

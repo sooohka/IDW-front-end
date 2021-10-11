@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 interface IProps {
-  worldCups: WorldCup[] | null;
+  worldCups: WorldCup[];
 }
 
-export default createContext<IProps>({ worldCups: null });
+export default createContext<IProps>({ worldCups: [] });

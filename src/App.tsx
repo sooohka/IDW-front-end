@@ -26,7 +26,7 @@ const App = () => {
       {isLoading ? (
         <PageSpinner />
       ) : (
-        <CategoryContext.Provider value={{ categories: data }}>
+        <CategoryContext.Provider value={{ categories: data || [] }}>
           <MainRouter />
         </CategoryContext.Provider>
       )}

@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
 const StyledContent = styled.div`
   padding: 3rem 5rem;
@@ -9,10 +8,10 @@ const StyledContent = styled.div`
   flex-direction: column;
   flex: 1;
 `;
-const Content = ({ children }) => <StyledContent>{children}</StyledContent>;
 
-Content.propTypes = {
-  children: PropTypes.any.isRequired,
-};
+interface IProps {
+  children: React.ReactNode;
+}
+const Content: React.FC<IProps> = ({ children }) => <StyledContent>{children}</StyledContent>;
 
 export default Content;

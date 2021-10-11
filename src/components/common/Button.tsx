@@ -50,19 +50,38 @@ const StyledButton = styled.button<StyledButton>`
 
 interface IProps {
   label: string;
-  children: string;
-  type: "button" | "submit" | "reset" | undefined;
-  disabled: boolean;
-  size: "small" | "medium" | "large";
-  backgroundColor: string;
-  color: string;
+  type: "button" | "submit" | "reset";
+  disabled?: boolean;
+  size?: "small" | "medium" | "large";
+  backgroundColor?: string;
+  color?: string;
   onClick: () => void;
 }
 
 const Button = forwardRef<HTMLButtonElement, IProps>(
-  ({ onClick, label, backgroundColor = theme.colors.secondary, color = theme.colors.white, children, type, disabled, size = "large" }, ref) => (
-    <StyledButton onClick={onClick} backgroundColor={backgroundColor} color={color} size={size} ref={ref} tabIndex={0} type={type} disabled={disabled}>
-      {label || children}
+  (
+    {
+      onClick,
+      label,
+      backgroundColor = theme.colors.secondary,
+      color = theme.colors.white,
+      type,
+      disabled = false,
+      size = "large",
+    },
+    ref,
+  ) => (
+    <StyledButton
+      onClick={onClick}
+      backgroundColor={backgroundColor}
+      color={color}
+      size={size}
+      ref={ref}
+      tabIndex={0}
+      type={type}
+      disabled={disabled}
+    >
+      {label}
     </StyledButton>
   ),
 );

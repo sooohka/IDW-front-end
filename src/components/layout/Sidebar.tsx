@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 import Text from "../common/Text";
 import theme from "../../style/theme";
 import CategoryContext from "../../utils/contexts/CategoryContext";
@@ -30,7 +29,11 @@ const StyledUl = styled.ul`
   padding: 0;
 `;
 
-const Ul = ({ title, list }) => (
+interface UlType {
+  title: string;
+  list: Category[];
+}
+const Ul: React.FC<UlType> = ({ title, list }) => (
   <StyledUl>
     <Text bold fontSize={theme.fonts.heading} text={title} />
     <Divider />
@@ -57,13 +60,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
-Ul.propTypes = {
-  title: PropTypes.string.isRequired,
-  list: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-};

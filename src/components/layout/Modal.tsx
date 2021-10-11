@@ -1,12 +1,8 @@
-import React, { Children, useCallback, useEffect } from "react";
-import styled from "styled-components";
+import React, { useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
-import PropTypes from "prop-types";
-import XButton from "../common/XButton";
-import theme from "../../style/theme";
-import Button from "../common/Button";
+import styled from "styled-components";
 
-const ModalRootEl = document.querySelector("#modal-root");
+const ModalRootEl = document.querySelector("#modal-root") as HTMLElement;
 
 const Container = styled.div`
   position: fixed;
@@ -39,13 +35,17 @@ const BackDrop = styled.div`
   z-index: 100;
 `;
 
-const Modal = ({ handleClose, children }) => {
+interface IProps {
+  handleClose: () => void;
+  children: React.ReactNode;
+}
+const Modal: React.FC<IProps> = ({ handleClose, children }) => {
   const handleESCPressEvent = useCallback(
     (e) => {
       if (e.key !== "Escape") return;
       handleClose();
     },
-    [handleClose]
+    [handleClose],
   );
 
   useEffect(() => {
@@ -61,12 +61,8 @@ const Modal = ({ handleClose, children }) => {
       <BackDrop onClick={handleClose} />
       {children}
     </Container>,
-    ModalRootEl
+    ModalRootEl,
   );
 };
 
-Modal.propTypes = {
-  handleClose: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
-};
 export default Modal;
