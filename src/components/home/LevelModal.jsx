@@ -60,7 +60,7 @@ const RadioFieldContainer = styled.div`
 `;
 
 const LevelModal = () => {
-  const { handleModalSubmit, handleModalClose, isLevelModalOpened } = useContext(ModalContext);
+  const { handleModalSubmit, handleModalClose, isModalOpened } = useContext(ModalContext);
   const [level, setLevel] = useState(4);
 
   const handleLevelChange = useCallback(
@@ -68,11 +68,11 @@ const LevelModal = () => {
       const lv = parseInt(value, 10);
       setLevel(lv);
     },
-    []
+    [],
   );
   return (
     <>
-      {isLevelModalOpened && (
+      {isModalOpened && (
         <Modal handleModalSubmit={handleModalSubmit} handleClose={handleModalClose}>
           <ContentWrapper>
             <Heading>
@@ -84,12 +84,32 @@ const LevelModal = () => {
             <Content>
               <RadioFieldContainer>
                 {[4, 8, 16, 32, 64].map((v, i) => (
-                  <RadioField key={v} id={i} name="level" checked={level === v} onChange={handleLevelChange(v)} label={`${v}강`} value={v} />
+                  <RadioField
+                    key={v}
+                    id={i}
+                    name="level"
+                    checked={level === v}
+                    onChange={handleLevelChange(v)}
+                    label={`${v}강`}
+                    value={v}
+                  />
                 ))}
               </RadioFieldContainer>
               <BtnContainer>
-                <Button size="medium" color={theme.colors.white} backgroundColor={theme.colors.secondary} onClick={handleModalSubmit(level)} label="시작" />
-                <Button size="medium" color={theme.colors.white} backgroundColor={theme.colors.gray} onClick={handleModalClose} label="취소" />
+                <Button
+                  size="medium"
+                  color={theme.colors.white}
+                  backgroundColor={theme.colors.secondary}
+                  onClick={handleModalSubmit(level)}
+                  label="시작"
+                />
+                <Button
+                  size="medium"
+                  color={theme.colors.white}
+                  backgroundColor={theme.colors.gray}
+                  onClick={handleModalClose}
+                  label="취소"
+                />
               </BtnContainer>
             </Content>
           </ContentWrapper>

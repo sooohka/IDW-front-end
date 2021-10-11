@@ -11,6 +11,7 @@ import { readAsDataUrl } from "../../utils/lib/file";
 import { ReactComponent as UploadIcon } from "../../assets/icons/cloud-upload-alt-solid.svg";
 import { ReactComponent as Sort } from "../../assets/icons/sort-up-solid.svg";
 import FileUploadWithProgress from "./FileUploadWithProgress";
+import api from "../../api/api";
 
 const Container = styled.div`
   min-height: 150%;
@@ -114,9 +115,7 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
         return { hasError: false, message: "env=local", file: copiedFile, url: "" };
       }
 
-      const response = await axios.post("https://dogemdas2c.execute-api.ap-northeast-2.amazonaws.com/v1", request, {
-        onUploadProgress: (prog) => setProgress(Math.round(prog.loaded * 100) / prog.total),
-      });
+      const response = await api.postImgToResizingServer(request, setProgress);
 
       // TODO:파일 안보내질때 에러처리
       console.log(response);

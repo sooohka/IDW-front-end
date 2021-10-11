@@ -21,13 +21,19 @@ const StyledText = styled.p<StyledText>`
 `;
 
 interface IProps {
-  fontSize: string;
-  color: string;
-  bold: boolean;
+  fontSize?: string;
+  color?: string;
+  bold?: boolean;
   text: string;
   margin?: string;
 }
-const Text: React.FC<IProps> = ({ fontSize, color=theme.colors.primary, bold, text, margin = "0px" }) => {
+const Text: React.FC<IProps> = ({
+  fontSize = theme.fonts.body,
+  color = theme.colors.primary,
+  bold = false,
+  text,
+  margin = "0px",
+}) => {
   return (
     <StyledText margin={margin} fontSize={fontSize} color={color} bold={bold}>
       {text || "no text"}

@@ -27,7 +27,7 @@ const uploadFile = async (file: any, setProgress: any, handleError: any) => {
       .upload(params)
       .on("httpUploadProgress", (evt: AWS.S3.ManagedUpload.Progress) => {
         setProgress(Math.round((evt.loaded / evt.total) * 100));
-        //TODO: 맞나이게
+        // TODO: 맞나이게
         // return res;
       })
       .promise();

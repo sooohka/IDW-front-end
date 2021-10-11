@@ -1,18 +1,20 @@
 import React, { forwardRef } from "react";
 import styled from "styled-components";
 
+interface StyledImage {
+  width: number;
+  height: number;
+}
 const StyledImage = styled.img`
+  width: ${({ width }) => width || "100%"};
+  height: ${({ height }) => height || "100%"};
   border-radius: 5px;
   font-size: 10px;
   overflow: hidden;
 `;
 
-interface IProps {
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
-}
-const Img = forwardRef<HTMLImageElement, IProps>(({ ...restProps }, ref) => <StyledImage {...restProps} ref={ref} />);
+const Img = forwardRef<HTMLImageElement, Omit<JSX.IntrinsicElements["img"], "ref">>(
+  ({ ...restProps }, ref = null) => <StyledImage {...restProps} ref={ref} />,
+);
 
 export default Img;

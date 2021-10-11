@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import worldCupsContext from "../../utils/contexts/WorldCupsContext";
 import Card from "./Card";
@@ -11,8 +10,10 @@ const StyledCards = styled.div`
     margin: 0 2rem 2rem 2rem;
   }
 `;
-
-const Cards = ({ handlePlayBtnClick }) => {
+interface IProps {
+  handlePlayBtnClick: (id: number) => (e: React.MouseEvent) => void;
+}
+const Cards: React.FC<IProps> = ({ handlePlayBtnClick }) => {
   const { worldCups } = useContext(worldCupsContext);
 
   return (
@@ -22,10 +23,6 @@ const Cards = ({ handlePlayBtnClick }) => {
       ))}
     </StyledCards>
   );
-};
-
-Cards.propTypes = {
-  handlePlayBtnClick: PropTypes.func.isRequired,
 };
 
 export default Cards;

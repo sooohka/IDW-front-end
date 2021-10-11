@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { lchown } from "fs";
 
 /*
  ********************************************************************************************
@@ -19,10 +20,13 @@ interface GetCategories {
   (): Promise<AxiosResponse<Category[]>>;
 }
 interface PostWorldCup {
-  (data: { category: string; desc: string; files: string; title: string }): Promise<AxiosResponse<any>>;
+  (data: { category: string; desc: string; files: string; title: string }): Promise<
+    AxiosResponse<any>
+  >;
 }
 const getWorldCups: GetWorldCups = () => webServerInstance.get("/worldcups");
-const getWorldCupById: GetWorldCupByID = (worldCupId, level) => webServerInstance.get(`/worldcups/${worldCupId}?level=${level}`);
+const getWorldCupById: GetWorldCupByID = (worldCupId, level) =>
+  webServerInstance.get(`/worldcups/${worldCupId}?level=${level}`);
 const getCategories: GetCategories = () => webServerInstance.get("/categories");
 const postWorldCup: PostWorldCup = (data) => webServerInstance.post("/worldcups", data);
 /*
@@ -31,23 +35,35 @@ const postWorldCup: PostWorldCup = (data) => webServerInstance.post("/worldcups"
  ********************************************************************************************
  */
 
-const awsInstance = axios.create({ baseURL: "https://dogemdas2c.execute-api.ap-northeast-2.amazonaws.com/v1" });
+const awsInstance = axios.create({
+  baseURL: "https://dogemdas2c.execute-api.ap-northeast-2.amazonaws.com/v1",
+});
 
 interface PostImgToResizingServer {
   (
-    param: {
-      file: {
-        name: string;
-        contentType: string;
-        dataUri: string;
-      };
-    },
+    param: { file: { name: string; contentType: string; dataUri: string } },
     setProgress: React.Dispatch<React.SetStateAction<number>>,
-  ): Promise<AxiosResponse<any>>;
+  ): Promise<
+    AxiosResponse<{
+      message: string;
+      result: {
+        ContentType: string;
+        bucketUrl: string;
+        locations: { big: string; low: string; original: string; small: string };
+      };
+    }>
+  >;
 }
+
 const postImgToResizingServer: PostImgToResizingServer = (param, setProgress) =>
   awsInstance.post("/", param, {
     onUploadProgress: (prog) => setProgress(Math.round(prog.loaded * 100) / prog.total),
   });
 
-export default { getWorldCupById, getWorldCups, getCategories,postWorldCup, postImgToResizingServer };
+export default {
+  getWorldCupById,
+  getWorldCups,
+  getCategories,
+  postWorldCup,
+  postImgToResizingServer,
+};

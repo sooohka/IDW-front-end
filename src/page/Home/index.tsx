@@ -35,7 +35,8 @@ const Home: React.FC = () => {
   const handleModalSubmit = useCallback(
     (level: number) => () => {
       if (!currentWorldCup) throw new Error("Home: currentWorldCup이 null입니다");
-      else if (level <= currentWorldCup.targetCounts) history.push(`/play/${currentWorldCup.id}`, { level, worldCupId: currentWorldCup.id });
+      else if (level <= currentWorldCup.targetCounts)
+        history.push(`/play/${currentWorldCup.id}`, { level, worldCupId: currentWorldCup.id });
       else alert(`선택할 수 있는 강수는 최대 ${currentWorldCup.targetCounts}입니다`);
     },
     [currentWorldCup, history],
@@ -45,7 +46,9 @@ const Home: React.FC = () => {
 
   return (
     <WorldCupsContext.Provider value={{ worldCups }}>
-      <ModalContext.Provider value={{ handleModalClose, handleModalSubmit, isLevelModalOpened }}>
+      <ModalContext.Provider
+        value={{ handleModalClose, handleModalSubmit, isModalOpened: isLevelModalOpened }}
+      >
         {isLoading || <Template handlePlayBtnClick={handlePlayBtnClick} />}
       </ModalContext.Provider>
     </WorldCupsContext.Provider>

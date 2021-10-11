@@ -8,7 +8,7 @@ import categoryJson from "./assets/temp/categories.json";
 import api from "./api/api";
 
 const promise = () => {
-  if (process.env.REACT_APP_ENV === "local") return Promise.resolve(categoryJson)
+  if (process.env.REACT_APP_ENV === "local") return Promise.resolve(categoryJson);
   return api.getCategories();
 };
 
@@ -16,7 +16,10 @@ const App = () => {
   // 앱 시작할때 로드해야되는것들
 
   const { data, isLoading } = useFetch(promise);
-  console.log(`%c${process.env.REACT_APP_ENV}`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
+  console.log(
+    `%c${process.env.REACT_APP_ENV}`,
+    "background-color:pink;font-size:15px;font-weight:bold;color:black",
+  );
 
   return (
     <>

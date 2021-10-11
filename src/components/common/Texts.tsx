@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import theme from "../../style/theme";
 import { StyledText } from "./Text";
 
 interface StyledTexts extends StyledText {
@@ -36,15 +37,30 @@ const StyledTexts = styled.div<StyledTexts>`
 interface IProps {
   maxRows: number;
   height: string;
-  fontSize: string;
-  color: string;
-  bold: boolean;
+  fontSize?: string;
+  color?: string;
+  bold?: boolean;
   text: string;
   margin?: string;
 }
-const Texts: React.FC<IProps> = ({ maxRows, height = "", fontSize, color, bold, text, margin = "0px" }) => {
+const Texts: React.FC<IProps> = ({
+  maxRows,
+  height = "",
+  fontSize = theme.fonts.body,
+  color = theme.colors.primary,
+  bold = false,
+  text,
+  margin = "0px",
+}) => {
   return (
-    <StyledTexts margin={margin} fontSize={fontSize} color={color} bold={bold} maxRows={maxRows} height={height}>
+    <StyledTexts
+      margin={margin}
+      fontSize={fontSize}
+      color={color}
+      bold={bold}
+      maxRows={maxRows}
+      height={height}
+    >
       {text || "no text"}
     </StyledTexts>
   );
