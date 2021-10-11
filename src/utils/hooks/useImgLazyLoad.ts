@@ -1,17 +1,16 @@
-/* eslint-disable no-param-reassign */
 import { useEffect, useState } from "react";
 import spinner2 from "../../assets/spinner2.svg";
 
-const useImgLazyLoad = (imageRef, originalImage, lowQualityImage) => {
+const useImgLazyLoad = (imageRef: React.MutableRefObject<null | HTMLImageElement>, originalImage: string, lowQualityImage: string) => {
   const [imgSrc, setImgSrc] = useState(lowQualityImage || spinner2);
   const [isObserved, setIsObserved] = useState(false);
 
   useEffect(() => {}, [imageRef]);
 
   useEffect(() => {
-    let observer;
+    let observer: IntersectionObserver;
 
-    const callback = (v) => {
+    const callback: IntersectionObserverCallback = (v) => {
       if (v[0].isIntersecting) {
         setIsObserved(true);
         setImgSrc(originalImage);
@@ -28,9 +27,7 @@ const useImgLazyLoad = (imageRef, originalImage, lowQualityImage) => {
     };
   }, [imageRef, isObserved, originalImage]);
 
-  return {
-    imgSrc,
-  };
+  return { imgSrc };
 };
 
 export default useImgLazyLoad;
