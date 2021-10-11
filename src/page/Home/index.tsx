@@ -1,7 +1,8 @@
+import axios, { AxiosResponse } from "axios";
 import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import api from "../../api/api";
-import axios from "../../api/axios";
+import worldcupJSON from "../../assets/temp/worldCups.json";
 import ModalContext from "../../utils/contexts/ModalContext";
 import WorldCupsContext from "../../utils/contexts/WorldCupsContext";
 import useFetch from "../../utils/hooks/useFetch";
@@ -9,7 +10,8 @@ import Template from "./template";
 
 const promise = () => {
   if (process.env.REACT_APP_ENV === "local") {
-    const func = () => axios.get<WorldCup[]>("../../assets/temp/worldCups.json");
+    const func = () => Promise.resolve(worldcupJSON) as Promise<AxiosResponse<WorldCup[]>>;
+    // const func = () => axios.get<WorldCup[]>("../../assets/temp/worldCups.json");
     return func;
   }
   return api.getWorldCups;

@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useCallback, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import api from "../../api/api";
-import gameExample from "../../assets/temp/gameExample.json";
 import GameContext from "../../utils/contexts/GameContext";
 import useFetch from "../../utils/hooks/useFetch";
 import Template from "./template";
@@ -26,7 +25,6 @@ const Play = () => {
 
   useEffect(() => {
     if (data) {
-      data.targets
       setRemainingTargets(data.targets);
       setCurrentTargets([data.targets[0], data.targets[1]]);
     }

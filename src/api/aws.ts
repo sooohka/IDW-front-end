@@ -11,7 +11,7 @@ const bucketRegion = "ap-northeast-2";
 
 const myBucket = new AWS.S3({ region: bucketRegion, params: { bucketName } });
 
-const uploadFile = async (file, setProgress, handleError) => {
+const uploadFile = async (file: any, setProgress: any, handleError: any) => {
   // TODO: 카테고리도 받아서 업로드 해야함
   const key = `${uuid.v4()}${file.name}`;
   const params = {
@@ -25,9 +25,10 @@ const uploadFile = async (file, setProgress, handleError) => {
   try {
     const data = await myBucket
       .upload(params)
-      .on("httpUploadProgress", (evt, res) => {
+      .on("httpUploadProgress", (evt: AWS.S3.ManagedUpload.Progress) => {
         setProgress(Math.round((evt.loaded / evt.total) * 100));
-        return res;
+        //TODO: 맞나이게
+        // return res;
       })
       .promise();
     console.log(data);

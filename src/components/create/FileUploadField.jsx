@@ -3,7 +3,7 @@ import { useField } from "formik";
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import uuid from "uuid";
+import * as uuid from "uuid";
 import styled, { css } from "styled-components";
 import theme from "../../style/theme";
 import useMount from "../../utils/hooks/useMount";
@@ -181,7 +181,7 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
     const formedAcceptedFiles = acceptedFiles.map((file) => ({
       file,
       isSubmitted: false,
-      id: uuid(),
+      id: uuid.v4(),
       url: "",
       fullUrl: "",
       error: { status: false, message: "" },

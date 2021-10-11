@@ -1,4 +1,4 @@
-const readAsDataUrl = (file) =>
+const readAsDataUrl = (file: File) =>
   new Promise((res, rej) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);

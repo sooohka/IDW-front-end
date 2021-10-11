@@ -32,3 +32,8 @@ interface Target {
     id: number;
   };
 }
+
+interface Category {
+  id: number;
+  name: string;
+}

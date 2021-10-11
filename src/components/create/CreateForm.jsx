@@ -1,7 +1,6 @@
 import { Form, Formik } from "formik";
 import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import axios from "../../api/axios";
 import Button from "../common/Button";
 import HelperText from "../common/HelperText";
 import PageSpinner from "../common/PageSpinner";
@@ -10,6 +9,7 @@ import Text from "../common/Text";
 import FileUploadField from "./FileUploadField";
 import theme from "../../style/theme";
 import CategoryContext from "../../utils/contexts/CategoryContext";
+import api from "../../api/api";
 
 const Input = styled.input`
   border: 3px solid;
@@ -94,7 +94,7 @@ const CreateForm = () => {
       };
       if (process.env.REACT_APP_ENV !== "local") {
         // TODO:데이터 file에 bad 400 800 url모두 보내주자
-        const res = await axios.post("worldcups", data);
+        const res = await api.postWorldCup(data);
         alert("업로드 성공!");
         console.log(res);
       } else {

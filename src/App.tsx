@@ -1,20 +1,15 @@
 import React from "react";
-import axios from "./api/axios";
+import axios from "axios";
 import MainRouter from "./page/MainRouter";
 import CategoryContext from "./utils/contexts/CategoryContext";
 import PageSpinner from "./components/common/PageSpinner";
 import useFetch from "./utils/hooks/useFetch";
 import categoryJson from "./assets/temp/categories.json";
+import api from "./api/api";
 
 const promise = () => {
-  if (process.env.REACT_APP_ENV === "local") {
-    return new Promise((res) => {
-      setTimeout(() => {
-        res(categoryJson);
-      }, 100);
-    });
-  }
-  return axios.get("categories");
+  if (process.env.REACT_APP_ENV === "local") return Promise.resolve(categoryJson)
+  return api.getCategories();
 };
 
 const App = () => {

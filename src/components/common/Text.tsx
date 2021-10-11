@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import theme from "../../style/theme";
 
 export interface StyledText {
   fontSize: string;
@@ -26,7 +27,7 @@ interface IProps {
   text: string;
   margin?: string;
 }
-const Text: React.FC<IProps> = ({ fontSize, color, bold, text, margin = "0px" }) => {
+const Text: React.FC<IProps> = ({ fontSize, color=theme.colors.primary, bold, text, margin = "0px" }) => {
   return (
     <StyledText margin={margin} fontSize={fontSize} color={color} bold={bold}>
       {text || "no text"}

@@ -1,11 +1,13 @@
 import React, { forwardRef } from "react";
 import styled, { css } from "styled-components";
+import theme from "../../style/theme";
 
 interface StyledButton {
   size: "small" | "medium" | "large";
   color: string;
   backgroundColor: string;
 }
+
 const StyledButton = styled.button<StyledButton>`
   border: none;
   border-radius: 5rem;
@@ -57,10 +59,12 @@ interface IProps {
   onClick: () => void;
 }
 
-const Button = forwardRef<HTMLButtonElement, IProps>(({ onClick, label, backgroundColor, color, children, type, disabled, size }, ref) => (
-  <StyledButton onClick={onClick} backgroundColor={backgroundColor} color={color} size={size} ref={ref} tabIndex={0} type={type} disabled={disabled}>
-    {label || children}
-  </StyledButton>
-));
+const Button = forwardRef<HTMLButtonElement, IProps>(
+  ({ onClick, label, backgroundColor = theme.colors.secondary, color = theme.colors.white, children, type, disabled, size = "large" }, ref) => (
+    <StyledButton onClick={onClick} backgroundColor={backgroundColor} color={color} size={size} ref={ref} tabIndex={0} type={type} disabled={disabled}>
+      {label || children}
+    </StyledButton>
+  ),
+);
 
 export default Button;
