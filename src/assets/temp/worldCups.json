@@ -1,5 +1,4 @@
 {
-  "status": 200,
   "data": [
     {
       "id": 1,
@@ -231,5 +230,9 @@
         }
       ]
     }
-  ]
+  ],
+  "status": 200,
+  "statusText": "200",
+  "headers": null,
+  "config": {}
 }
