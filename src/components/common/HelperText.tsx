@@ -22,9 +22,9 @@ interface IProps {
   always: boolean;
 }
 
-const HelperText: React.FC<IProps> = ({ hasError, children, text, always }) => (
+const HelperText: React.FC<IProps> = ({ hasError, text, always }) => (
   <StyledHelperText always={always} hasError={hasError}>
-    {children || text}
+    {text}
   </StyledHelperText>
 );
 
