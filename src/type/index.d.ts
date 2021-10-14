@@ -37,3 +37,12 @@ interface Category {
   id: number;
   name: string;
 }
+
+interface ImgResizingResponse {
+  message: string;
+  result: {
+    ContentType: string;
+    bucketUrl: string;
+    locations: { big: string; low: string; original: string; small: string };
+  };
+}
