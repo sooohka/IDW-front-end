@@ -6,5 +6,19 @@ import "@testing-library/jest-dom";
 import server from "./mocks/server";
 
 beforeAll(() => server.listen());
-beforeEach(() => server.resetHandlers());
+beforeEach(() => {
+  class MockedIntersectionObserver {
+    observe() {
+      return null;
+    }
+
+    disconnect() {
+      return null;
+    }
+  }
+
+  global.console = { ...global.console, log: () => {} };
+  global.IntersectionObserver = MockedIntersectionObserver;
+  server.resetHandlers();
+});
 afterAll(() => server.close());

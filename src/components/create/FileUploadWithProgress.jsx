@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { memo, useEffect, useState } from "react";
 import styled from "styled-components";
 import HelperText from "../common/HelperText";
@@ -44,12 +43,17 @@ const FileUploadWithProgress = ({ handleDelete, handleUpload, file }) => {
       const res = await handleUpload(file, setProgress);
     }
     upload();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleUpload]);
   console.log(isSubmitted);
 
   return (
     <Container onClick={(e) => e.preventDefault()}>
-      {isSubmitted ? <Img width="50px" height="50px" src={fullUrl} alt={name} /> : <FileImage width={50} height={50} />}
+      {isSubmitted ? (
+        <Img width='50px' height='50px' src={fullUrl} alt={name} />
+      ) : (
+        <FileImage width={50} height={50} />
+      )}
       <Wrapper>
         <ProgressWrapper>
           <ProgressBar title={name} hasError={errorStatus} progress={progress} />
@@ -62,23 +66,23 @@ const FileUploadWithProgress = ({ handleDelete, handleUpload, file }) => {
   // <Template file={file} progress={progress} handleDelete={handleDelete(file.id)} />;
 };
 
-FileUploadWithProgress.propTypes = {
-  handleUpload: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired,
-  file: PropTypes.shape({
-    file: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      lastModified: PropTypes.number.isRequired,
-      lastModifiedDate: PropTypes.instanceOf(Date).isRequired,
-      path: PropTypes.string.isRequired,
-      size: PropTypes.number.isRequired,
-      type: PropTypes.string.isRequired,
-    }),
-    isSubmitted: PropTypes.bool.isRequired,
-    id: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-    fullUrl: PropTypes.string.isRequired,
-    error: PropTypes.shape({ status: PropTypes.bool.isRequired, message: PropTypes.string.isRequired }).isRequired,
-  }).isRequired,
-};
+// FileUploadWithProgress.propTypes = {
+//   handleUpload: PropTypes.func.isRequired,
+//   handleDelete: PropTypes.func.isRequired,
+//   file: PropTypes.shape({
+//     file: PropTypes.shape({
+//       name: PropTypes.string.isRequired,
+//       lastModified: PropTypes.number.isRequired,
+//       lastModifiedDate: PropTypes.instanceOf(Date).isRequired,
+//       path: PropTypes.string.isRequired,
+//       size: PropTypes.number.isRequired,
+//       type: PropTypes.string.isRequired,
+//     }),
+//     isSubmitted: PropTypes.bool.isRequired,
+//     id: PropTypes.string.isRequired,
+//     url: PropTypes.string.isRequired,
+//     fullUrl: PropTypes.string.isRequired,
+//     error: PropTypes.shape({ status: PropTypes.bool.isRequired, message: PropTypes.string.isRequired }).isRequired,
+//   }).isRequired,
+// };
 export default FileUploadWithProgress;

@@ -6,7 +6,9 @@ import axios, { AxiosResponse } from "axios";
  ********************************************************************************************
  */
 
-const webServerInstance = axios.create({ baseURL: "http://13.125.23.168:8080" });
+const webServerInstance = axios.create({
+  baseURL: process.env.REACT_APP_SERVER_URL || "http://13.125.23.168:8080",
+});
 
 interface GetWorldCupByID {
   (worldCupId: number, level: number): Promise<AxiosResponse<WorldCup>>;
@@ -35,7 +37,9 @@ const postWorldCup: PostWorldCup = (data) => webServerInstance.post("/worldcups"
  */
 
 const awsInstance = axios.create({
-  baseURL: "https://dogemdas2c.execute-api.ap-northeast-2.amazonaws.com/v1",
+  baseURL:
+    process.env.REACT_APP_AWS_GATEWAY_URL ||
+    "https://dogemdas2c.execute-api.ap-northeast-2.amazonaws.com/v1",
 });
 
 interface PostImgToResizingServer {

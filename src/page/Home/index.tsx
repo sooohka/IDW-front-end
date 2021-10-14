@@ -8,14 +8,8 @@ import WorldCupsContext from "../../utils/contexts/WorldCupsContext";
 import useFetch from "../../utils/hooks/useFetch";
 import Template from "./template";
 
-const promise = () => {
-  if (process.env.REACT_APP_ENV === "local") return Promise.resolve(worldcupJSON);
-
-  return api.getWorldCups();
-};
-
 const Home: React.FC = () => {
-  const { data: worldCups, isLoading } = useFetch(promise);
+  const { data: worldCups, isLoading } = useFetch(api.getWorldCups);
 
   const history = useHistory();
   const [isLevelModalOpened, setIsLevelModalOpened] = useState(false);

@@ -7,9 +7,9 @@ import Create from "./Create";
 
 const MainRouter: React.FC = () => (
   <Switch>
-    <Route exact path="/" component={Home} />
-    <Route path="/play/:id" component={Play} />
-    <Route path="/create" component={Create} />
+    <Route exact path='/' component={Home} />
+    <Route path='/play/:id' component={Play} />
+    <Route path='/create' component={Create} />
     <Route component={PageNotFound} />
   </Switch>
 );

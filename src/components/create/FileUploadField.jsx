@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useField } from "formik";
-import PropTypes from "prop-types";
 import React, { forwardRef, useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import * as uuid from "uuid";
@@ -178,6 +177,8 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
 
     const formattedFormikFile = files.map((v) => ({ name: v.name, url: v.url }));
     helpers.setValue(formattedFormikFile, true);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [files, isMount, setIsFileUploading]);
 
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
@@ -279,11 +280,12 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
     </Container>
   );
 };
-FileUploadField.propTypes = {
-  buttonEl: PropTypes.shape({ current: PropTypes.object }).isRequired,
-  setIsFileUploading: PropTypes.func.isRequired,
-  formikName: PropTypes.string.isRequired,
-};
-FileUploadField.defaultProps = {};
+
+// FileUploadField.propTypes = {
+//   buttonEl: PropTypes.shape({ current: PropTypes.object }).isRequired,
+//   setIsFileUploading: PropTypes.func.isRequired,
+//   formikName: PropTypes.string.isRequired,
+// };
+// FileUploadField.defaultProps = {};
 
 export default FileUploadField;
