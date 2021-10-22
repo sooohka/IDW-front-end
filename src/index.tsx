@@ -10,10 +10,10 @@ import GlobalStyle from "./style/GlobalStyle";
 import theme from "./style/theme";
 
 const prepare = async () => {
-  if (process.env.NODE_ENV === "development") {
-    console.log("start mock server");
-    await import("./mocks/browser").then(({ worker }) => worker.start());
-  }
+  // if (process.env.NODE_ENV === "development") {
+  //   console.log("start mock server");
+  //   await import("./mocks/browser").then(({ worker }) => worker.start());
+  // }
   return Promise.resolve();
 };
 

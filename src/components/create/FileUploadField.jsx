@@ -142,11 +142,13 @@ const FileUploadField = ({ formikName, setIsFileUploading, buttonEl }) => {
       // TODO: fileUploadWithProgress error handling
       const message =
         err.response?.data?.error?.message || err.message || "something went wrong😅 ";
+
       const setFile = (v) => {
         if (v.id === currentFileId)
           return { ...v, isSubmitted: true, error: { status: true, message } };
         return { ...v };
       };
+
       setFiles((prev) => prev.map(setFile));
       return {
         hasError: true,

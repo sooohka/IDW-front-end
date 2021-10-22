@@ -1,3 +1,6 @@
+import axios from "axios";
+import api from "../../api/api";
+
 const readAsDataUrl = (file: File) =>
   new Promise((res, rej) => {
     const reader = new FileReader();
@@ -6,4 +9,64 @@ const readAsDataUrl = (file: File) =>
     reader.onabort = (e) => rej(e);
   });
 
-export { readAsDataUrl };
+interface HandleUpload {
+  (
+    imageFile: AwsImageFile,
+    setProgress: React.Dispatch<React.SetStateAction<number>>,
+    setImageFiles: React.Dispatch<React.SetStateAction<AwsImageFile[]>>,
+  ): void;
+}
+
+const handleCloudinaryUpload: HandleUpload = async (imageFile, setProgress, setImageFiles) => {
+  const formData = new FormData();
+  formData.append("file", imageFile.file);
+  formData.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET!);
+
+  const res = await axios.post(process.env.REACT_APP_CLOUDINARY_URL!, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+    onUploadProgress: ({ loaded, total }) => {
+      setProgress((loaded / total) * 100);
+    },
+  });
+  const { url } = res.data;
+  if (res.status === 200) {
+    setImageFiles((prev) =>
+      prev.map((image) =>
+        image.id === imageFile.id ? { ...image, isSubmitted: true, url } : { ...image },
+      ),
+    );
+  }
+};
+
+const handleAwsUpload: HandleUpload = async (imageFile, setProgress, setImageFiles) => {
+  const fileDataUrl = (await readAsDataUrl(imageFile.file)) as string;
+  const file = {
+    name: imageFile.file.name,
+    contentType: imageFile.file.type,
+    dataUri: fileDataUrl,
+  };
+
+  try {
+    const res = await api.postImgToResizingServer({ file }, setProgress);
+    const {
+      message,
+      result: { locations },
+    } = res.data;
+    const fullUrl = `${process.env.REACT_APP_AWS_BUCKET_URL}/${locations.small}`;
+
+    if (res.status === 200) {
+      setImageFiles((prev) =>
+        prev.map((image) =>
+          image.id === imageFile.id ? { ...image, isSubmitted: true, url: fullUrl } : { ...image },
+        ),
+      );
+    }
+  } catch (err: any) {
+    console.error(err.message);
+    // TODO: fileUploadWithProgress error handling
+    const message = err.response?.data?.error?.message || err.message || "something went wrong😅 ";
+    alert(message);
+  }
+};
+
+export { readAsDataUrl, handleCloudinaryUpload, handleAwsUpload };

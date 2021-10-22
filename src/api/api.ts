@@ -8,6 +8,7 @@ import axios, { AxiosResponse } from "axios";
 
 const webServerInstance = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL || "http://13.125.23.168:8080",
+  timeout: 1000,
 });
 
 interface GetWorldCupByID {
@@ -37,14 +38,15 @@ const postWorldCup: PostWorldCup = (data) => webServerInstance.post("/worldcups"
  */
 
 const awsInstance = axios.create({
-  baseURL:
-    process.env.REACT_APP_AWS_GATEWAY_URL ||
-    "https://dogemdas2c.execute-api.ap-northeast-2.amazonaws.com/v1",
+  baseURL: process.env.REACT_APP_AWS_GATEWAY_URL,
+  // "https://dogemdas2c.execute-api.ap-northeast-2.amazonaws.com/v1",
 });
 
 interface PostImgToResizingServer {
   (
-    param: { file: { name: string; contentType: string; dataUri: string } },
+    param: {
+      file: { name: string; contentType: string; dataUri: string };
+    },
     setProgress: React.Dispatch<React.SetStateAction<number>>,
   ): Promise<
     AxiosResponse<{
@@ -52,6 +54,7 @@ interface PostImgToResizingServer {
       result: {
         ContentType: string;
         bucketUrl: string;
+        url: string;
         locations: { big: string; low: string; original: string; small: string };
       };
     }>
@@ -60,7 +63,9 @@ interface PostImgToResizingServer {
 
 const postImgToResizingServer: PostImgToResizingServer = (param, setProgress) =>
   awsInstance.post("/", param, {
-    onUploadProgress: (prog) => setProgress(Math.round(prog.loaded * 100) / prog.total),
+    onUploadProgress: (prog) => {
+      setProgress(Math.round(prog.loaded * 100) / prog.total);
+    },
   });
 
 export default {

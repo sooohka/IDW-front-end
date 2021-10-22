@@ -46,3 +46,11 @@ interface ImgResizingResponse {
     locations: { big: string; low: string; original: string; small: string };
   };
 }
+
+interface AwsImageFile {
+  id: string;
+  isSubmitted: boolean;
+  url: string;
+  file: File;
+  errors: { message: string; code: ErrorCode | string }[];
+}

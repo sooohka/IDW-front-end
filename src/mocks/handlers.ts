@@ -24,12 +24,10 @@ const postWorldCup = rest.post(`${process.env.REACT_APP_SERVER_URL}/worldcups`, 
 const postImgToResizingServer = rest.post(
   `${process.env.REACT_APP_AWS_GATEWAY_URL}/`,
   (req, res, ctx) => {
-    const { param, setProgress } = req.body as {
-      param: { file: { name: string; contentType: string; dataUri: string } };
-      setProgress: React.Dispatch<React.SetStateAction<number>>;
+    const { file } = req.body as {
+      file: { name: string; contentType: string; dataUri: string };
     };
 
-    setProgress(100);
     return res(
       ctx.status(200),
       ctx.json({

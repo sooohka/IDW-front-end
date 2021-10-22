@@ -10,6 +10,7 @@ import FileUploadField from "./FileUploadField";
 import theme from "../../style/theme";
 import CategoryContext from "../../utils/contexts/CategoryContext";
 import api from "../../api/api";
+import NewFileUploadField from "./NewFileUploadField";
 
 const Input = styled.input`
   border: 3px solid;
@@ -80,7 +81,10 @@ const CreateForm = () => {
   }, []);
 
   useEffect(() => {
-    console.log(`%c createform rendered`, "background-color:pink;font-size:15px;font-weight:bold;color:black");
+    console.log(
+      `%c createform rendered`,
+      "background-color:pink;font-size:15px;font-weight:bold;color:black",
+    );
   });
 
   const handleSubmit = useCallback(async (v) => {
@@ -140,35 +144,57 @@ const CreateForm = () => {
       ) : (
         <Formik initialValues={initialValues} onSubmit={handleSubmit} validate={validate}>
           {/* TODO: 1.style FieldContainer, RadioContainer, Form */}
-          {({ values, errors, touched, handleBlur, handleChange, setFieldValue, isSubmitting: isFileSubmitting, isValid }) => (
+          {({
+            values,
+            errors,
+            touched,
+            handleBlur,
+            handleChange,
+            setFieldValue,
+            isSubmitting: isFileSubmitting,
+            isValid,
+          }) => (
             <Form style={{ display: "flex", flexDirection: "column", flex: "1" }}>
-              <Text bold fontSize={theme.fonts.heading} text="IDW Creation" margin="0 0 3rem 0" />
+              <Text bold fontSize={theme.fonts.heading} text='IDW Creation' margin='0 0 3rem 0' />
 
               {/* title */}
               <FieldContainer>
-                <Field label="제목">
-                  <Input tabIndex={0} name="title" type="text" onChange={handleChange} onBlur={handleBlur} value={values.title} />
+                <Field label='제목'>
+                  <Input
+                    tabIndex={0}
+                    name='title'
+                    type='text'
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.title}
+                  />
                 </Field>
                 <HelperText hasError={Boolean(touched.title && errors.title)} text={errors.title} />
               </FieldContainer>
 
               {/* desc */}
               <FieldContainer>
-                <Field label="설명">
-                  <TextArea tabIndex={0} name="desc" onChange={handleChange} onBlur={handleBlur} value={values.desc} />
+                <Field label='설명'>
+                  <TextArea
+                    tabIndex={0}
+                    name='desc'
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.desc}
+                  />
                 </Field>
                 <HelperText hasError={Boolean(touched.desc && errors.desc)} text={errors.desc} />
               </FieldContainer>
 
               {/* radio */}
               <FieldContainer>
-                <Field label="카테고리">
+                <Field label='카테고리'>
                   <RadioFieldContainer>
                     {categories.map((v) => (
                       <RadioField
                         key={v.id}
                         id={v.id}
-                        name="category"
+                        name='category'
                         checked={values.category === v.id}
                         onChange={() => setFieldValue("category", v.id)}
                         value={v.name}
@@ -180,15 +206,36 @@ const CreateForm = () => {
 
               {/* files */}
               <FieldContainer>
-                <Field label="파일">
-                  <FileUploadField buttonEl={buttonEl} setIsFileUploading={setIsFileUploading} formikName="files" />
+                <Field label='파일'>
+                  {/* <FileUploadField
+                    buttonEl={buttonEl}
+                    setIsFileUploading={setIsFileUploading}
+                    formikName='files'
+                  /> */}
+                  <NewFileUploadField
+                    buttonEl={buttonEl}
+                    setIsFileUploading={setIsFileUploading}
+                    formikName='files'
+                  />
                 </Field>
                 <HelperText hasError={Boolean(errors.files)} text={errors.files} />
               </FieldContainer>
 
               <FieldContainer>
-                <div ref={buttonEl} style={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-                  <Button label="submit" disabled={isFileUploading || !touched.title || isFileSubmitting || !isValid} type="submit" />
+                <div
+                  ref={buttonEl}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Button
+                    label='submit'
+                    disabled={isFileUploading || !touched.title || isFileSubmitting || !isValid}
+                    type='submit'
+                  />
                   {/* <HelperText hasError={Boolean(errors.title || errors.desc || errors.files)} text={errors.title || errors.desc || errors.files}></HelperText> */}
                 </div>
               </FieldContainer>

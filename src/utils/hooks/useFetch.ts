@@ -20,7 +20,6 @@ const useFetch = <T>(promise: () => Promise<AxiosResponse<T>>) => {
         console.log(e.response);
         setError(e.message);
         setIsLoading(false);
-        throw new Error(e.message);
       }
     }
     getData();

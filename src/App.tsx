@@ -8,7 +8,6 @@ import useFetch from "./utils/hooks/useFetch";
 const App = () => {
   // 앱 시작할때 로드해야되는것들
   const { data, isLoading } = useFetch(api.getCategories);
-
   return (
     <>
       {isLoading ? (
