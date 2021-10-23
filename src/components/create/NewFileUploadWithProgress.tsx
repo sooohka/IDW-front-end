@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as FileImage } from "../../assets/icons/file-image-regular.svg";
 import { ReactComponent as Spinner } from "../../assets/icons/spinner.svg";
+import { ReactComponent as UploadFail } from "../../assets/icons/file-excel-regular.svg";
 import useMount from "../../utils/hooks/useMount";
 import { handleAwsUpload, handleCloudinaryUpload } from "../../utils/lib/file";
 import HelperText from "../common/HelperText";
@@ -29,9 +30,9 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const handleUpload =
-  process.env.NODE_ENV === "development" ? handleCloudinaryUpload : handleAwsUpload;
-
+// const handleUpload =
+//   process.env.NODE_ENV === "development" ? handleCloudinaryUpload : handleAwsUpload;
+const handleUpload = handleAwsUpload;
 interface IProps {
   handleDelete: (id: string) => (e: React.MouseEvent) => void;
   imageFile: AwsImageFile;
@@ -52,10 +53,17 @@ const NewFileUploadWithProgress: React.FC<IProps> = ({
   useEffect(() => {
     if (isMount) handleUpload(imageFile, setProgress, setImageFiles);
   }, [setImageFiles, imageFile, isMount]);
+
   return (
     <Container>
       {isSubmitted ? (
-        <Img width='50px' height='50px' src={fullUrl} alt={file.name} />
+        <>
+          {errors.length === 0 ? (
+            <Img width='50px' height='50px' src={fullUrl} alt={file.name} />
+          ) : (
+            <UploadFail width={50} height={50} color='red' />
+          )}
+        </>
       ) : (
         <FileImage width={50} height={50} />
       )}
@@ -64,7 +72,7 @@ const NewFileUploadWithProgress: React.FC<IProps> = ({
           <ProgressBar title={file.name} hasError={errors.length > 0} progress={progress} />
           {isSubmitted ? <XButton onClick={handleDelete(id)} /> : <Spinner />}
         </ProgressWrapper>
-        <HelperText hasError={errors.length > 0} text={errors[0] && "submitted"} />
+        <HelperText hasError={errors.length > 0} text={"submitted" && errors[0]?.message} />
       </Wrapper>
     </Container>
   );

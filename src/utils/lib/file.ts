@@ -49,7 +49,8 @@ const handleAwsUpload: HandleUpload = async (imageFile, setProgress, setImageFil
   };
 
   try {
-    const res = await api.postImgToResizingServer({ file }, setProgress);
+    // const res = await api.postImgToResizingServer({ file }, setProgress);
+    const res = await api.putImgToResizingServer({ file }, setProgress);
     const {
       message,
       result: { locations },
@@ -66,8 +67,21 @@ const handleAwsUpload: HandleUpload = async (imageFile, setProgress, setImageFil
   } catch (err: any) {
     console.error(err.message);
     // TODO: fileUploadWithProgress error handling
-    const message = err.response?.data?.error?.message || err.message || "something went wrong😅 ";
-    alert(message);
+    const message = err.response?.data?.message || err.message || "something went wrong😅 ";
+    console.log(err.response);
+
+    setImageFiles((prev) =>
+      prev.map((image) =>
+        image.id === imageFile.id
+          ? {
+              ...image,
+              errors: [...imageFile.errors, { code: 413, message }],
+              isSubmitted: true,
+              url: "",
+            }
+          : { ...image },
+      ),
+    );
   }
 };
 

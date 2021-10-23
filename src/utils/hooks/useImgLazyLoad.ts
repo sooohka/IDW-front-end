@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import spinner2 from "../../assets/spinner2.svg";
 
-const useImgLazyLoad = (imageRef: React.MutableRefObject<null | HTMLImageElement>, originalImage: string, lowQualityImage: string) => {
+const useImgLazyLoad = (
+  imageRef: React.MutableRefObject<null | HTMLImageElement>,
+  originalImage: string,
+  lowQualityImage: string,
+) => {
   const [imgSrc, setImgSrc] = useState(lowQualityImage || spinner2);
   const [isObserved, setIsObserved] = useState(false);
 

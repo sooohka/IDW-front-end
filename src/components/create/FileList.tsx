@@ -66,10 +66,12 @@ const FileList: React.FC<IProps> = ({ children }) => {
   const handleFoldBtnClick = () => {
     setIsFolded((prev) => !prev);
   };
+
   useEffect(() => {
     if (isFolded) window.scrollTo({ behavior: "smooth", top: 0 });
     else bottomEl.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [isFolded]);
+
   return (
     <StyledFileList>
       <FileListHeader onClick={handleFoldBtnClick}>

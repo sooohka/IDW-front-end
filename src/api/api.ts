@@ -68,10 +68,19 @@ const postImgToResizingServer: PostImgToResizingServer = (param, setProgress) =>
     },
   });
 
+const putImgToResizingServer: PostImgToResizingServer = (param, setProgress) =>
+  awsInstance.put("/", param, {
+    headers: {},
+    onUploadProgress: (prog) => {
+      setProgress(Math.round(prog.loaded * 100) / prog.total);
+    },
+  });
+
 export default {
   getWorldCupById,
   getWorldCups,
   getCategories,
   postWorldCup,
   postImgToResizingServer,
+  putImgToResizingServer,
 };

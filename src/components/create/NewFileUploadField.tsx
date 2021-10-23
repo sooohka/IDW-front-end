@@ -77,7 +77,7 @@ const NewFileUploadField: React.FC<IProps> = ({ formikName, setIsFileUploading }
   };
 
   useEffect(() => {
-    if (imageFiles.every((imageFile) => imageFile.isSubmitted)) {
+    if (imageFiles.every((imageFile) => imageFile.isSubmitted && !imageFile.errors.length)) {
       const formedFiles = imageFiles.map((imageFile) => ({
         name: imageFile.file.name,
         url: imageFile.url,
@@ -89,7 +89,18 @@ const NewFileUploadField: React.FC<IProps> = ({ formikName, setIsFileUploading }
     }
   }, [formikName, imageFiles, setFieldValue, setIsFileUploading]);
 
-  const handleValidation = () => {
+  const handleValidation = (file: File) => {
+    if (imageFiles.find((imageFile) => imageFile.file.name === file.name)) {
+      return {
+        code: "duplicate-file",
+        message: "중복된 파일은 허용이 안됩니다.",
+      };
+    }
+    if (file.size / 1024 / 1024 > 5)
+      return {
+        code: "file-too-large",
+        message: `파일은 5mb를 넘을 수 없습니다`,
+      };
     return null;
   };
 
