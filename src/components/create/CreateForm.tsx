@@ -180,7 +180,7 @@ const CreateForm = () => {
                 </Field>
                 <HelperText
                   hasError={Boolean(touched.title && errors.title)}
-                  text={String(touched.title ? errors.title : "")}
+                  text={(touched.title && errors.title) as string}
                 />
               </FieldContainer>
 
@@ -197,7 +197,7 @@ const CreateForm = () => {
                 </Field>
                 <HelperText
                   hasError={Boolean(touched.desc && errors.desc)}
-                  text={String(touched.desc ? errors.desc : "")}
+                  text={(touched.desc && errors.desc) as string}
                 />
               </FieldContainer>
 
@@ -225,8 +225,8 @@ const CreateForm = () => {
                   <NewFileUploadField setIsFileUploading={setIsFileUploading} formikName='files' />
                 </Field>
                 <HelperText
-                  hasError={Boolean(errors.files)}
-                  text={String(touched.files ? errors.files : "")}
+                  hasError={Boolean(touched.files && errors.files)}
+                  text={(touched.files && errors.files) as string}
                 />
               </FieldContainer>
 

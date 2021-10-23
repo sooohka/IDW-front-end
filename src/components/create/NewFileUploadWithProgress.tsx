@@ -30,9 +30,8 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-// const handleUpload =
-//   process.env.NODE_ENV === "development" ? handleCloudinaryUpload : handleAwsUpload;
-const handleUpload = handleAwsUpload;
+const handleUpload =
+  process.env.NODE_ENV === "development" ? handleCloudinaryUpload : handleAwsUpload;
 interface IProps {
   handleDelete: (id: string) => (e: React.MouseEvent) => void;
   imageFile: AwsImageFile;
@@ -51,7 +50,9 @@ const NewFileUploadWithProgress: React.FC<IProps> = ({
   const fullUrl = url;
 
   useEffect(() => {
-    if (isMount) handleUpload(imageFile, setProgress, setImageFiles);
+    if (!isMount) return;
+    if (!imageFile.errors.length) handleUpload(imageFile, setProgress, setImageFiles);
+    else setImageFiles((prev) => prev.map((f) => ({ ...f, isSubmitted: true })));
   }, [setImageFiles, imageFile, isMount]);
 
   return (
