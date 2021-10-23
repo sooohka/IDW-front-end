@@ -55,7 +55,7 @@ interface IProps {
   size?: "small" | "medium" | "large";
   backgroundColor?: string;
   color?: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const Button = forwardRef<HTMLButtonElement, IProps>(

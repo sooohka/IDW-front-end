@@ -23,7 +23,7 @@ interface GetCategories {
 }
 interface PostWorldCup {
   (data: { category: string; desc: string; files: string; title: string }): Promise<
-    AxiosResponse<any>
+    AxiosResponse<string>
   >;
 }
 const getWorldCups: GetWorldCups = () => webServerInstance.get("/worldcups");

@@ -14,7 +14,7 @@ const StyledImage = styled.img`
 `;
 
 const ImgWithRef = forwardRef<HTMLImageElement, Omit<JSX.IntrinsicElements["img"], "ref">>(
-  ({ ...restProps }, ref ) => <StyledImage {...restProps} ref={ref} />,
+  ({ ...restProps }, ref) => <StyledImage {...restProps} ref={ref} />,
 );
 
 export default ImgWithRef;

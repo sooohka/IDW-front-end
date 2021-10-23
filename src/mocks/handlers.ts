@@ -27,15 +27,22 @@ const postImgToResizingServer = rest.post(
     const { file } = req.body as {
       file: { name: string; contentType: string; dataUri: string };
     };
-
     return res(
       ctx.status(200),
       ctx.json({
         message: "success",
         result: {
+          url: "photo-1534148206-f085ba17015a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80",
           ContentType: "img/jpg",
-          bucketUrl: "모름",
-          locations: { big: "", low: "", original: "", small: "" },
+          bucketUrl: "https://images.unsplash.com",
+          locations: {
+            big: "photo-1534148206-f085ba17015a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80",
+            low: "photo-1534148206-f085ba17015a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80",
+            original:
+              "photo-1534148206-f085ba17015a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80",
+            small:
+              "photo-1534148206-f085ba17015a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80",
+          },
         },
       } as ImgResizingResponse),
     );

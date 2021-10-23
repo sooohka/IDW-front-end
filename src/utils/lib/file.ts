@@ -20,9 +20,11 @@ interface HandleUpload {
 const handleCloudinaryUpload: HandleUpload = async (imageFile, setProgress, setImageFiles) => {
   const formData = new FormData();
   formData.append("file", imageFile.file);
-  formData.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET!);
+  if (!process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET || !process.env.REACT_APP_CLOUDINARY_URL)
+    throw new Error("upload_preset없음");
 
-  const res = await axios.post(process.env.REACT_APP_CLOUDINARY_URL!, formData, {
+  formData.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
+  const res = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, formData, {
     headers: { "Content-Type": "multipart/form-data" },
     onUploadProgress: ({ loaded, total }) => {
       setProgress((loaded / total) * 100);

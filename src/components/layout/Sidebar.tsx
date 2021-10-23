@@ -53,8 +53,8 @@ const Sidebar = () => {
   ];
   return (
     <StyledSidebar>
-      <Ul title="카테고리" list={categories} />
-      <Ul title="정렬" list={sortList} />
+      <Ul title='카테고리' list={categories} />
+      <Ul title='정렬' list={sortList} />
     </StyledSidebar>
   );
 };

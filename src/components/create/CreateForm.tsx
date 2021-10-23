@@ -1,4 +1,4 @@
-import { Form, Formik } from "formik";
+import { Form, Formik, FormikErrors } from "formik";
 import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Button from "../common/Button";
@@ -6,7 +6,6 @@ import HelperText from "../common/HelperText";
 import PageSpinner from "../common/PageSpinner";
 import RadioField from "../common/RadioField";
 import Text from "../common/Text";
-import FileUploadField from "./FileUploadField";
 import theme from "../../style/theme";
 import CategoryContext from "../../utils/contexts/CategoryContext";
 import api from "../../api/api";
@@ -32,12 +31,13 @@ const TextArea = styled.textarea`
   font-weight: bold;
 `;
 
-const FieldContainer = styled.div`
+const FieldContainer = styled.div<{ width?: string }>`
   margin: 0 0 1rem 0;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: ${({ width }) => width || "100%"};
 `;
 
 const StyledField = styled.div`
@@ -52,8 +52,12 @@ const FieldTitle = styled.span`
   letter-spacing: 1px;
   font-size: ${() => theme.fonts.label};
 `;
+interface MyFieldProps {
+  label: string;
+  children: React.ReactNode;
+}
 
-const Field = ({ label, children }) => (
+const Field: React.FC<MyFieldProps> = ({ label, children }) => (
   <StyledField>
     <FieldTitle>{label}</FieldTitle>
     {children}
@@ -71,21 +75,20 @@ const RadioFieldContainer = styled.div`
     padding: 0 3rem 0 0;
   }
 `;
+interface FormValue {
+  title: string;
+  desc: string;
+  category: number;
+  files: { url: string; name: string }[];
+}
 const CreateForm = () => {
   const [isFileUploading, setIsFileUploading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const buttonEl = useRef(null);
+  const titleEl = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    if (buttonEl.current) buttonEl.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    if (titleEl.current) titleEl.current.focus();
   }, []);
-
-  useEffect(() => {
-    console.log(
-      `%c createform rendered`,
-      "background-color:pink;font-size:15px;font-weight:bold;color:black",
-    );
-  });
 
   const handleSubmit = useCallback(async (v) => {
     console.log(v);
@@ -97,15 +100,14 @@ const CreateForm = () => {
         files: v.files,
         title: v.title,
       };
-      if (process.env.REACT_APP_ENV !== "local") {
-        // TODO:데이터 file에 bad 400 800 url모두 보내주자
+      if (process.env.NODE_ENV !== "development") {
         const res = await api.postWorldCup(data);
         alert("업로드 성공!");
         console.log(res);
       } else {
         alert(JSON.stringify(data, null, 2));
       }
-    } catch (e) {
+    } catch (e: any) {
       console.log(e);
       throw new Error(e.message);
     } finally {
@@ -114,7 +116,7 @@ const CreateForm = () => {
   }, []);
 
   const validate = useCallback((v) => {
-    const errors = {};
+    const errors: FormikErrors<FormValue> = {};
     if (!v.title) {
       errors.title = "제목을 입력해주세요.";
     }
@@ -129,7 +131,7 @@ const CreateForm = () => {
     return errors;
   }, []);
 
-  const initialValues = {
+  const initialValues: FormValue = {
     title: "",
     desc: "",
     category: 0,
@@ -143,7 +145,6 @@ const CreateForm = () => {
         <PageSpinner />
       ) : (
         <Formik initialValues={initialValues} onSubmit={handleSubmit} validate={validate}>
-          {/* TODO: 1.style FieldContainer, RadioContainer, Form */}
           {({
             values,
             errors,
@@ -154,13 +155,21 @@ const CreateForm = () => {
             isSubmitting: isFileSubmitting,
             isValid,
           }) => (
-            <Form style={{ display: "flex", flexDirection: "column", flex: "1" }}>
+            <Form
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                flex: "1",
+                alignItems: "center",
+              }}
+            >
               <Text bold fontSize={theme.fonts.heading} text='IDW Creation' margin='0 0 3rem 0' />
 
               {/* title */}
               <FieldContainer>
                 <Field label='제목'>
                   <Input
+                    ref={titleEl}
                     tabIndex={0}
                     name='title'
                     type='text'
@@ -169,7 +178,10 @@ const CreateForm = () => {
                     value={values.title}
                   />
                 </Field>
-                <HelperText hasError={Boolean(touched.title && errors.title)} text={errors.title} />
+                <HelperText
+                  hasError={Boolean(touched.title && errors.title)}
+                  text={String(touched.title ? errors.title : "")}
+                />
               </FieldContainer>
 
               {/* desc */}
@@ -183,7 +195,10 @@ const CreateForm = () => {
                     value={values.desc}
                   />
                 </Field>
-                <HelperText hasError={Boolean(touched.desc && errors.desc)} text={errors.desc} />
+                <HelperText
+                  hasError={Boolean(touched.desc && errors.desc)}
+                  text={String(touched.desc ? errors.desc : "")}
+                />
               </FieldContainer>
 
               {/* radio */}
@@ -193,7 +208,7 @@ const CreateForm = () => {
                     {categories.map((v) => (
                       <RadioField
                         key={v.id}
-                        id={v.id}
+                        id={v.id.toString()}
                         name='category'
                         checked={values.category === v.id}
                         onChange={() => setFieldValue("category", v.id)}
@@ -207,37 +222,21 @@ const CreateForm = () => {
               {/* files */}
               <FieldContainer>
                 <Field label='파일'>
-                  {/* <FileUploadField
-                    buttonEl={buttonEl}
-                    setIsFileUploading={setIsFileUploading}
-                    formikName='files'
-                  /> */}
-                  <NewFileUploadField
-                    buttonEl={buttonEl}
-                    setIsFileUploading={setIsFileUploading}
-                    formikName='files'
-                  />
+                  <NewFileUploadField setIsFileUploading={setIsFileUploading} formikName='files' />
                 </Field>
-                <HelperText hasError={Boolean(errors.files)} text={errors.files} />
+                <HelperText
+                  hasError={Boolean(errors.files)}
+                  text={String(touched.files ? errors.files : "")}
+                />
               </FieldContainer>
 
-              <FieldContainer>
-                <div
-                  ref={buttonEl}
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  <Button
-                    label='submit'
-                    disabled={isFileUploading || !touched.title || isFileSubmitting || !isValid}
-                    type='submit'
-                  />
-                  {/* <HelperText hasError={Boolean(errors.title || errors.desc || errors.files)} text={errors.title || errors.desc || errors.files}></HelperText> */}
-                </div>
+              <FieldContainer width='10%'>
+                <Button
+                  label='submit'
+                  disabled={isFileUploading || !touched.title || isFileSubmitting || !isValid}
+                  type='submit'
+                />
+                {/* <HelperText hasError={Boolean(errors.title || errors.desc || errors.files)} text={errors.title || errors.desc || errors.files}></HelperText> */}
               </FieldContainer>
             </Form>
           )}
@@ -246,6 +245,5 @@ const CreateForm = () => {
     </>
   );
 };
-CreateForm.propTypes = {};
 
 export default CreateForm;

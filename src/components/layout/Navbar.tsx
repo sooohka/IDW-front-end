@@ -53,20 +53,20 @@ const Navbar: React.FC = () => (
   <StyledNavbar>
     <LeftContainer>
       <LogoContainer>
-        <Link to="/">
+        <Link to='/'>
           <Logo />
-          <Text bold fontSize={theme.fonts.heading} text="Logo" />
+          <Text bold fontSize={theme.fonts.heading} text='Logo' />
         </Link>
       </LogoContainer>
       <Nav>
-        <Link to="/create">
-          <Text color={theme.colors.secondary} bold text="만들기" />
+        <Link to='/create'>
+          <Text color={theme.colors.secondary} bold text='만들기' />
         </Link>
-        <Link to="/">
-          <Text color={theme.colors.secondary} bold text="후원하기" />
+        <Link to='/'>
+          <Text color={theme.colors.secondary} bold text='후원하기' />
         </Link>
-        <Link to="/">
-          <Text color={theme.colors.secondary} bold text="커뮤니티" />
+        <Link to='/'>
+          <Text color={theme.colors.secondary} bold text='커뮤니티' />
         </Link>
       </Nav>
     </LeftContainer>

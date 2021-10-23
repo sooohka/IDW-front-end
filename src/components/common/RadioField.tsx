@@ -47,7 +47,7 @@ const Radio = styled.span<Radio>`
 
 interface IProps {
   id: string;
-  label: string;
+  label?: string;
   name: string;
   checked: boolean;
   onChange: (e: React.KeyboardEvent | React.ChangeEvent) => void;
@@ -56,7 +56,15 @@ interface IProps {
 const RadioField: React.FC<IProps> = ({ id, label, name, checked, onChange, value }) => (
   <Container>
     <Label htmlFor={id}>
-      <input id={id} name={name} type="radio" checked={checked} onChange={onChange} value={value} hidden />
+      <input
+        id={id}
+        name={name}
+        type='radio'
+        checked={checked}
+        onChange={onChange}
+        value={value}
+        hidden
+      />
       <Radio
         onKeyDown={(e) => {
           if (e.key === " ") {

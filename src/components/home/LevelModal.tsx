@@ -81,7 +81,7 @@ const LevelModal = () => {
                   <RadioField
                     key={v}
                     id={`level${i}`}
-                    name="level"
+                    name='level'
                     checked={level === v}
                     onChange={handleLevelChange(v)}
                     label={`${v}강`}
@@ -91,20 +91,20 @@ const LevelModal = () => {
               </RadioFieldContainer>
               <BtnContainer>
                 <Button
-                  type="button"
-                  size="medium"
+                  type='button'
+                  size='medium'
                   color={theme.colors.white}
                   backgroundColor={theme.colors.secondary}
                   onClick={handleModalSubmit(level)}
-                  label="시작"
+                  label='시작'
                 />
                 <Button
-                  type="button"
-                  size="medium"
+                  type='button'
+                  size='medium'
                   color={theme.colors.white}
                   backgroundColor={theme.colors.gray}
                   onClick={handleModalClose}
-                  label="취소"
+                  label='취소'
                 />
               </BtnContainer>
             </Content>

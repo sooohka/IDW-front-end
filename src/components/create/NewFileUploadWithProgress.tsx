@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FileRejection } from "react-dropzone";
 import styled from "styled-components";
 import { ReactComponent as FileImage } from "../../assets/icons/file-image-regular.svg";
 import { ReactComponent as Spinner } from "../../assets/icons/spinner.svg";
@@ -31,7 +30,7 @@ const Wrapper = styled.div`
 `;
 
 const handleUpload =
-  process.env.NODE_ENV === "production" ? handleCloudinaryUpload : handleAwsUpload;
+  process.env.NODE_ENV === "development" ? handleCloudinaryUpload : handleAwsUpload;
 
 interface IProps {
   handleDelete: (id: string) => (e: React.MouseEvent) => void;
@@ -54,9 +53,7 @@ const NewFileUploadWithProgress: React.FC<IProps> = ({
     if (isMount) handleUpload(imageFile, setProgress, setImageFiles);
   }, [setImageFiles, imageFile, isMount]);
   return (
-    <Container
-    // onClick={(e) => e.preventDefault()}
-    >
+    <Container>
       {isSubmitted ? (
         <Img width='50px' height='50px' src={fullUrl} alt={file.name} />
       ) : (
