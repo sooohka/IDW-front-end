@@ -11,7 +11,15 @@ import theme from "./style/theme";
 const prepare = async () => {
   if (process.env.NODE_ENV === "development") {
     console.log("start mock server");
-    await import("./mocks/browser").then(({ worker }) => worker.start());
+    await import("./mocks/browser").then(({ worker }) =>
+      worker.start({
+        onUnhandledRequest: ({ method, url }) => {
+          if (!url.origin.includes("unsplash.com")) {
+            throw new Error(`Unhandled ${method} request to ${url}`);
+          }
+        },
+      }),
+    );
   }
   return Promise.resolve();
 };
