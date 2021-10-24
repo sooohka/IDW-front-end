@@ -38,7 +38,7 @@ interface IProps {
 
 const NewFileUploadField: React.FC<IProps> = ({ formikName, setIsFileUploading }) => {
   const { setFieldValue } = useFormikContext();
-  const [imageFiles, setImageFiles] = useState<AwsImageFile[]>([]);
+  const [imageFiles, setImageFiles] = useState<TargetFile[]>([]);
 
   /* drag and drop필드에 접근했을때 */
   const [isAccepting, setIsAccepting] = useState(false);

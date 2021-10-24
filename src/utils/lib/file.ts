@@ -11,9 +11,9 @@ const readAsDataUrl = (file: File) =>
 
 interface HandleUpload {
   (
-    imageFile: AwsImageFile,
+    imageFile: TargetFile,
     setProgress: React.Dispatch<React.SetStateAction<number>>,
-    setImageFiles: React.Dispatch<React.SetStateAction<AwsImageFile[]>>,
+    setImageFiles: React.Dispatch<React.SetStateAction<TargetFile[]>>,
   ): void;
 }
 

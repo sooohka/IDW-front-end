@@ -34,8 +34,8 @@ const handleUpload =
   process.env.NODE_ENV === "development" ? handleCloudinaryUpload : handleAwsUpload;
 interface IProps {
   handleDelete: (id: string) => (e: React.MouseEvent) => void;
-  imageFile: AwsImageFile;
-  setImageFiles: React.Dispatch<React.SetStateAction<AwsImageFile[]>>;
+  imageFile: TargetFile;
+  setImageFiles: React.Dispatch<React.SetStateAction<TargetFile[]>>;
 }
 
 const NewFileUploadWithProgress: React.FC<IProps> = ({

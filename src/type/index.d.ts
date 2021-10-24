@@ -47,7 +47,7 @@ interface ImgResizingResponse {
   };
 }
 
-interface AwsImageFile {
+interface TargetFile {
   id: string;
   isSubmitted: boolean;
   url: string;
