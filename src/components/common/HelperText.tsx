@@ -7,7 +7,7 @@ interface StyledHelperText {
 
 const StyledHelperText = styled.p<StyledHelperText>`
   display: block;
-  height: 5px;
+  /* height: 5px; */
   color: ${({ hasError }) => (hasError ? "red" : "green")};
   font-size: ${({ theme }) => theme.fonts.helperText};
   line-height: 1.6rem;

@@ -4,13 +4,7 @@ import Navbar from "../../../components/layout/Navbar";
 import Target from "../../../components/play/Target";
 import theme from "../../../style/theme";
 import Text from "../../../components/common/Text";
-
-const Container = styled.div`
-  height: 100%;
-  min-width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
+import PageContainer from "../../../components/layout/PageContainer";
 
 const Wrapper = styled.div`
   flex: 1;
@@ -31,7 +25,7 @@ interface IProps {
 }
 
 const Template: React.FC<IProps> = ({ currentTargets, title }) => (
-  <Container>
+  <PageContainer>
     <Navbar />
     <Wrapper>
       <TextContainer>
@@ -40,7 +34,7 @@ const Template: React.FC<IProps> = ({ currentTargets, title }) => (
       <Target target={currentTargets[0]} />
       <Target target={currentTargets[1]} />
     </Wrapper>
-  </Container>
+  </PageContainer>
 );
 
 export default Template;

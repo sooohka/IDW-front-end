@@ -6,7 +6,7 @@ import HelperText from "../common/HelperText";
 import PageSpinner from "../common/PageSpinner";
 import RadioField from "../common/RadioField";
 import Text from "../common/Text";
-import theme from "../../style/theme";
+import globalTheme from "../../style/theme";
 import CategoryContext from "../../utils/contexts/CategoryContext";
 import api from "../../api/api";
 import NewFileUploadField from "./FileUploadField";
@@ -14,9 +14,9 @@ import NewFileUploadField from "./FileUploadField";
 const Input = styled.input`
   border: 3px solid;
   border-radius: 5px;
-  border-color: ${() => theme.colors.primary};
+  border-color: ${({ theme }) => theme.colors.primary};
   padding: 1rem;
-  font-size: ${() => theme.fonts.strongBody};
+  font-size: ${({ theme }) => theme.fonts.strongBody};
   letter-spacing: 0.5px;
   font-weight: bold;
 `;
@@ -24,9 +24,9 @@ const Input = styled.input`
 const TextArea = styled.textarea`
   border: 3px solid;
   border-radius: 5px;
-  border-color: ${() => theme.colors.primary};
+  border-color: ${({ theme }) => theme.colors.primary};
   padding: 1rem;
-  font-size: ${() => theme.fonts.strongBody};
+  font-size: ${({ theme }) => theme.fonts.strongBody};
   letter-spacing: 0.5px;
   font-weight: bold;
 `;
@@ -50,7 +50,7 @@ const FieldTitle = styled.span`
   flex-direction: column;
   font-weight: bold;
   letter-spacing: 1px;
-  font-size: ${() => theme.fonts.label};
+  font-size: ${({ theme }) => theme.fonts.label};
 `;
 interface MyFieldProps {
   label: string;
@@ -75,12 +75,27 @@ const RadioFieldContainer = styled.div`
     padding: 0 3rem 0 0;
   }
 `;
+
+const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+`;
 interface FormValue {
   title: string;
   desc: string;
   category: number;
   files: { url: string; name: string }[];
 }
+
+const initialValues: FormValue = {
+  title: "",
+  desc: "",
+  category: 1,
+  files: [],
+};
+
 const CreateForm = () => {
   const [isFileUploading, setIsFileUploading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -131,12 +146,6 @@ const CreateForm = () => {
     return errors;
   }, []);
 
-  const initialValues: FormValue = {
-    title: "",
-    desc: "",
-    category: 0,
-    files: [],
-  };
   const { categories } = useContext(CategoryContext);
 
   return (
@@ -155,15 +164,13 @@ const CreateForm = () => {
             isSubmitting: isFileSubmitting,
             isValid,
           }) => (
-            <Form
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                flex: "1",
-                alignItems: "center",
-              }}
-            >
-              <Text bold fontSize={theme.fonts.heading} text='IDW Creation' margin='0 0 3rem 0' />
+            <StyledForm>
+              <Text
+                bold
+                fontSize={globalTheme.fonts.heading}
+                text='IDW Creation'
+                margin='0 0 3rem 0'
+              />
 
               {/* title */}
               <FieldContainer>
@@ -212,7 +219,8 @@ const CreateForm = () => {
                         name='category'
                         checked={values.category === v.id}
                         onChange={() => setFieldValue("category", v.id)}
-                        value={v.name}
+                        value={v.id}
+                        label={v.name}
                       />
                     ))}
                   </RadioFieldContainer>
@@ -238,7 +246,7 @@ const CreateForm = () => {
                 />
                 {/* <HelperText hasError={Boolean(errors.title || errors.desc || errors.files)} text={errors.title || errors.desc || errors.files}></HelperText> */}
               </FieldContainer>
-            </Form>
+            </StyledForm>
           )}
         </Formik>
       )}

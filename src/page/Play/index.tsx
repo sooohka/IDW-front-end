@@ -7,7 +7,7 @@ import useFetch from "../../utils/hooks/useFetch";
 import Template from "./template";
 import gameExample from "../../assets/temp/gameExample.json";
 
-const Play = () => {
+const Play: React.FC = () => {
   const {
     location: {
       state: { level, worldCupId },
