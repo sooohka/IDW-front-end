@@ -9,7 +9,7 @@ import Text from "../common/Text";
 import theme from "../../style/theme";
 import CategoryContext from "../../utils/contexts/CategoryContext";
 import api from "../../api/api";
-import NewFileUploadField from "./NewFileUploadField";
+import NewFileUploadField from "./FileUploadField";
 
 const Input = styled.input`
   border: 3px solid;

@@ -6,7 +6,7 @@ import * as uuid from "uuid";
 import { ReactComponent as UploadIcon } from "../../assets/icons/cloud-upload-alt-solid.svg";
 import globalTheme from "../../style/theme";
 import FileList from "./FileList";
-import NewFileUploadWithProgress from "./NewFileUploadWithProgress";
+import NewFileUploadWithProgress from "./FileUploadWithProgress";
 
 const Container = styled.div`
   min-height: 150%;
