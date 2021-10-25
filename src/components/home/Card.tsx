@@ -4,7 +4,6 @@ import { ReactComponent as CommentReg } from "../../assets/icons/comment-regular
 import { ReactComponent as PlaySolid } from "../../assets/icons/play-solid.svg";
 import { ReactComponent as Share } from "../../assets/icons/share-square-solid.svg";
 import { ReactComponent as ThumbUpReg } from "../../assets/icons/thumbs-up-regular.svg";
-import theme from "../../style/theme";
 import useImgLazyLoad from "../../utils/hooks/useImgLazyLoad";
 import ImgWithRef from "../common/ImgWithRef";
 import Text from "../common/Text";
@@ -117,21 +116,21 @@ const Card: React.FC<IProps> = ({ worldCup, handlePlayBtnClick }) => {
         </PlayWrapper>
       </ImgBox>
       <Box>
-        <Text bold fontSize={theme.fonts.strongBody} text={title} />
-        <Texts maxRows={3} height='5rem' fontSize={theme.fonts.subBody} text={desc} />
+        <Text bold fontSize='strongBody' text={title} />
+        <Texts maxRows={3} height='5rem' fontSize='subBody' text={desc} />
         <ExtraBox>
           <ToolBox>
             <IconWrapper>
               <SvgWrapper>
                 <CommentReg width={15} height={15} />
               </SvgWrapper>
-              <Text fontSize={theme.fonts.subBody} text={commentCounts?.toString()} />
+              <Text fontSize='subBody' text={commentCounts?.toString()} />
             </IconWrapper>
             <IconWrapper>
               <SvgWrapper>
                 <ThumbUpReg width={15} height={15} />
               </SvgWrapper>
-              <Text fontSize={theme.fonts.subBody} text={likeCounts?.toString()} />
+              <Text fontSize='subBody' text={likeCounts?.toString()} />
             </IconWrapper>
           </ToolBox>
           <SvgWrapper>

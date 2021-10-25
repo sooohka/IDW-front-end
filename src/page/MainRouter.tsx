@@ -11,7 +11,7 @@ const MainRouter: React.FC = () => (
     <Route exact path='/' component={Home} />
     <Route path='/play/:id' component={Play} />
     <Route path='/create' component={Create} />
-    <Route path='/signin' component={SignIn} />
+    <Route path='/signup' component={SignIn} />
     <Route component={PageNotFound} />
   </Switch>
 );

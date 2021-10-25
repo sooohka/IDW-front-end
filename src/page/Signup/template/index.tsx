@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Navbar from "../../../components/layout/Navbar";
 import PageContainer from "../../../components/layout/PageContainer";
 import SignInForm from "../../../components/signup/SignUpForm";
 

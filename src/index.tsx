@@ -16,6 +16,7 @@ const prepare = async () => {
         onUnhandledRequest: ({ method, url }) => {
           if (url.origin.includes("unsplash.com")) return;
           if (url.origin.includes("cloudinary.com")) return;
+          if (url.origin.includes("gstatic.com")) return;
           throw new Error(`Unhandled ${method} request to ${url}`);
         },
       }),

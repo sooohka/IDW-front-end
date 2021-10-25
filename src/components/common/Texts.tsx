@@ -1,15 +1,15 @@
 import React from "react";
-import styled from "styled-components";
-import theme from "../../style/theme";
+import styled, { DefaultTheme } from "styled-components";
 import { StyledText } from "./Text";
 
 interface StyledTexts extends StyledText {
   height: string;
   maxRows: number;
 }
+
 const StyledTexts = styled.div<StyledTexts>`
   width: 100%;
-  font-size: ${({ fontSize }) => fontSize};
+  font-size: ${({ fontSize, theme }) => theme.fonts[fontSize]};
   font-weight: ${({ bold }) => bold && "bold"};
   color: ${({ color }) => color};
   margin: ${({ margin }) => margin};
@@ -37,8 +37,8 @@ const StyledTexts = styled.div<StyledTexts>`
 interface IProps {
   maxRows: number;
   height: string;
-  fontSize?: string;
-  color?: string;
+  fontSize?: keyof DefaultTheme["fonts"];
+  color?: keyof DefaultTheme["colors"];
   bold?: boolean;
   text: string;
   margin?: string;
@@ -46,8 +46,8 @@ interface IProps {
 const Texts: React.FC<IProps> = ({
   maxRows,
   height = "",
-  fontSize = theme.fonts.body,
-  color = theme.colors.primary,
+  fontSize = "body",
+  color = "primary",
   bold = false,
   text,
   margin = "0px",

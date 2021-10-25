@@ -18,7 +18,7 @@ const Title = styled.p`
   display: inline-block;
   width: 100%;
   padding: 0 0 0 1rem;
-  color: white;
+  color: ${({ theme }) => theme.colors.white};
   position: absolute;
   top: "50%";
   font-size: ${({ theme }) => theme.fonts.subBody};

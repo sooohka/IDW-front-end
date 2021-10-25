@@ -67,9 +67,7 @@ const RadioField: React.FC<IProps> = ({ id, label, name, checked, onChange, valu
       />
       <Radio
         onKeyDown={(e) => {
-          if (e.key === " ") {
-            onChange(e);
-          }
+          if (e.key === " ") onChange(e);
         }}
         tabIndex={0}
         checked={checked}

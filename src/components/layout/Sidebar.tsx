@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import Text from "../common/Text";
-import theme from "../../style/theme";
 import CategoryContext from "../../utils/contexts/CategoryContext";
+import Text from "../common/Text";
 
 const sidebarWidth = "20rem";
 
@@ -35,11 +34,11 @@ interface UlType {
 }
 const Ul: React.FC<UlType> = ({ title, list }) => (
   <StyledUl>
-    <Text bold fontSize={theme.fonts.heading} text={title} />
+    <Text bold fontSize='heading' text={title} />
     <Divider />
     {list.map((li) => (
       <StyledList key={li.id}>
-        <Text text={li.name} fontSize={theme.fonts.strongBody} />
+        <Text text={li.name} fontSize='strongBody' />
       </StyledList>
     ))}
   </StyledUl>
