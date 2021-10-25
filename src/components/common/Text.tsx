@@ -1,18 +1,18 @@
 import React from "react";
-import styled from "styled-components";
-import theme from "../../style/theme";
+import styled, { DefaultTheme } from "styled-components";
 
 export interface StyledText {
-  fontSize: string;
+  fontSize: keyof DefaultTheme["fonts"];
   bold: boolean;
-  color: string;
+  color: keyof DefaultTheme["colors"];
   margin: string;
 }
+
 const StyledText = styled.p<StyledText>`
   display: inline;
-  font-size: ${({ fontSize }) => fontSize};
+  font-size: ${({ fontSize, theme }) => theme.fonts[fontSize]};
   font-weight: ${({ bold }) => bold && "bold"};
-  color: ${({ color }) => color};
+  color: ${({ color, theme }) => theme.colors[color]};
   margin: ${({ margin }) => margin};
   text-overflow: ellipsis;
   overflow-wrap: break-word;
@@ -21,15 +21,15 @@ const StyledText = styled.p<StyledText>`
 `;
 
 interface IProps {
-  fontSize?: string;
-  color?: string;
+  fontSize?: keyof DefaultTheme["fonts"];
+  color?: keyof DefaultTheme["colors"];
   bold?: boolean;
   text: string;
   margin?: string;
 }
 const Text: React.FC<IProps> = ({
-  fontSize = theme.fonts.body,
-  color = theme.colors.primary,
+  fontSize = "body",
+  color = "primary",
   bold = false,
   text,
   margin = "0px",

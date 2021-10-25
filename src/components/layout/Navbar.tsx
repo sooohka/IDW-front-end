@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import theme from "../../style/theme";
 import Text from "../common/Text";
 
 const StyledNavbar = styled.div`
@@ -55,18 +54,18 @@ const Navbar: React.FC = () => (
       <LogoContainer>
         <Link to='/'>
           <Logo />
-          <Text bold fontSize={theme.fonts.heading} text='Logo' />
+          <Text bold fontSize='heading' text='Logo' />
         </Link>
       </LogoContainer>
       <Nav>
         <Link to='/create'>
-          <Text color={theme.colors.secondary} bold text='만들기' />
+          <Text color='secondary' bold text='만들기' />
         </Link>
         <Link to='/'>
-          <Text color={theme.colors.secondary} bold text='후원하기' />
+          <Text color='secondary' bold text='후원하기' />
         </Link>
         <Link to='/'>
-          <Text color={theme.colors.secondary} bold text='커뮤니티' />
+          <Text color='secondary' bold text='커뮤니티' />
         </Link>
       </Nav>
     </LeftContainer>

@@ -1,35 +1,14 @@
 import { Form, Formik, FormikErrors } from "formik";
-import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
-import Button from "../common/Button";
-import HelperText from "../common/HelperText";
-import PageSpinner from "../common/PageSpinner";
-import RadioField from "../common/RadioField";
-import Text from "../common/Text";
-import theme from "../../style/theme";
-import CategoryContext from "../../utils/contexts/CategoryContext";
 import api from "../../api/api";
-import NewFileUploadField from "./FileUploadField";
-
-const Input = styled.input`
-  border: 3px solid;
-  border-radius: 5px;
-  border-color: ${() => theme.colors.primary};
-  padding: 1rem;
-  font-size: ${() => theme.fonts.strongBody};
-  letter-spacing: 0.5px;
-  font-weight: bold;
-`;
-
-const TextArea = styled.textarea`
-  border: 3px solid;
-  border-radius: 5px;
-  border-color: ${() => theme.colors.primary};
-  padding: 1rem;
-  font-size: ${() => theme.fonts.strongBody};
-  letter-spacing: 0.5px;
-  font-weight: bold;
-`;
+import Button from "../common/Button";
+import PageSpinner from "../common/PageSpinner";
+import Text from "../common/Text";
+import CategoryField from "./formFields/CategoryField";
+import DescField from "./formFields/DescField";
+import FilesField from "./formFields/FilesField";
+import TitleField from "./formFields/TitleField";
 
 const FieldContainer = styled.div<{ width?: string }>`
   margin: 0 0 1rem 0;
@@ -40,83 +19,45 @@ const FieldContainer = styled.div<{ width?: string }>`
   width: ${({ width }) => width || "100%"};
 `;
 
-const StyledField = styled.div`
+const StyledForm = styled(Form)`
   display: flex;
   flex-direction: column;
+  flex: 1;
+  align-items: center;
 `;
 
-const FieldTitle = styled.span`
-  display: flex;
-  flex-direction: column;
-  font-weight: bold;
-  letter-spacing: 1px;
-  font-size: ${() => theme.fonts.label};
-`;
-interface MyFieldProps {
-  label: string;
-  children: React.ReactNode;
-}
+const initialValues: CreateFormValues = {
+  title: "",
+  desc: "",
+  category: 1,
+  files: [],
+};
 
-const Field: React.FC<MyFieldProps> = ({ label, children }) => (
-  <StyledField>
-    <FieldTitle>{label}</FieldTitle>
-    {children}
-  </StyledField>
-);
-
-const RadioFieldContainer = styled.div`
-  display: flex;
-  height: 5rem;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-content: start;
-  & > * {
-    padding: 0 3rem 0 0;
-  }
-`;
-interface FormValue {
-  title: string;
-  desc: string;
-  category: number;
-  files: { url: string; name: string }[];
-}
 const CreateForm = () => {
   const [isFileUploading, setIsFileUploading] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const titleEl = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    if (titleEl.current) titleEl.current.focus();
-  }, []);
 
   const handleSubmit = useCallback(async (v) => {
-    console.log(v);
-    setIsSubmitting(true);
     try {
       const data = {
-        category: v.category, // TODO:카테고리 변경
+        category: v.category,
         desc: v.desc,
         files: v.files,
         title: v.title,
       };
       if (process.env.NODE_ENV !== "development") {
         const res = await api.postWorldCup(data);
-        alert("업로드 성공!");
-        console.log(res);
+        if (res.data) alert("업로드 성공!");
+        else throw new Error("무언가 잘못됨");
       } else {
         alert(JSON.stringify(data, null, 2));
       }
     } catch (e: any) {
-      console.log(e);
       throw new Error(e.message);
-    } finally {
-      setIsSubmitting(false);
     }
   }, []);
 
   const validate = useCallback((v) => {
-    const errors: FormikErrors<FormValue> = {};
+    const errors: FormikErrors<CreateFormValues> = {};
     if (!v.title) {
       errors.title = "제목을 입력해주세요.";
     }
@@ -125,124 +66,44 @@ const CreateForm = () => {
     } else if (v.files.length > 50) {
       errors.files = "이미지는 최대 50장 까지 업로드 가능합니다.";
     }
-    // alert(errors.title || errors.desc || errors.files);
-    // console.log("errors");
-    console.log(errors);
     return errors;
   }, []);
 
-  const initialValues: FormValue = {
-    title: "",
-    desc: "",
-    category: 0,
-    files: [],
-  };
-  const { categories } = useContext(CategoryContext);
-
   return (
-    <>
-      {isSubmitting ? (
-        <PageSpinner />
-      ) : (
-        <Formik initialValues={initialValues} onSubmit={handleSubmit} validate={validate}>
-          {({
-            values,
-            errors,
-            touched,
-            handleBlur,
-            handleChange,
-            setFieldValue,
-            isSubmitting: isFileSubmitting,
-            isValid,
-          }) => (
-            <Form
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                flex: "1",
-                alignItems: "center",
-              }}
-            >
-              <Text bold fontSize={theme.fonts.heading} text='IDW Creation' margin='0 0 3rem 0' />
-
+    <Formik initialValues={initialValues} onSubmit={handleSubmit} validate={validate}>
+      {({ isSubmitting, isValid }) => (
+        <>
+          {isSubmitting ? (
+            <PageSpinner />
+          ) : (
+            <StyledForm>
+              <Text bold fontSize='heading' text='IDW Creation' margin='0 0 3rem 0' />
               {/* title */}
               <FieldContainer>
-                <Field label='제목'>
-                  <Input
-                    ref={titleEl}
-                    tabIndex={0}
-                    name='title'
-                    type='text'
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.title}
-                  />
-                </Field>
-                <HelperText
-                  hasError={Boolean(touched.title && errors.title)}
-                  text={(touched.title && errors.title) as string}
-                />
+                <TitleField name='title' />
               </FieldContainer>
-
               {/* desc */}
               <FieldContainer>
-                <Field label='설명'>
-                  <TextArea
-                    tabIndex={0}
-                    name='desc'
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.desc}
-                  />
-                </Field>
-                <HelperText
-                  hasError={Boolean(touched.desc && errors.desc)}
-                  text={(touched.desc && errors.desc) as string}
-                />
+                <DescField name='desc' />
               </FieldContainer>
-
               {/* radio */}
               <FieldContainer>
-                <Field label='카테고리'>
-                  <RadioFieldContainer>
-                    {categories.map((v) => (
-                      <RadioField
-                        key={v.id}
-                        id={v.id.toString()}
-                        name='category'
-                        checked={values.category === v.id}
-                        onChange={() => setFieldValue("category", v.id)}
-                        value={v.name}
-                      />
-                    ))}
-                  </RadioFieldContainer>
-                </Field>
+                <CategoryField name='category' />
               </FieldContainer>
-
               {/* files */}
               <FieldContainer>
-                <Field label='파일'>
-                  <NewFileUploadField setIsFileUploading={setIsFileUploading} formikName='files' />
-                </Field>
-                <HelperText
-                  hasError={Boolean(touched.files && errors.files)}
-                  text={(touched.files && errors.files) as string}
-                />
+                <FilesField name='files' setIsFileUploading={setIsFileUploading} />
               </FieldContainer>
 
               <FieldContainer width='10%'>
-                <Button
-                  label='submit'
-                  disabled={isFileUploading || !touched.title || isFileSubmitting || !isValid}
-                  type='submit'
-                />
+                <Button label='submit' disabled={isFileUploading || !isValid} type='submit' />
                 {/* <HelperText hasError={Boolean(errors.title || errors.desc || errors.files)} text={errors.title || errors.desc || errors.files}></HelperText> */}
               </FieldContainer>
-            </Form>
+            </StyledForm>
           )}
-        </Formik>
+        </>
       )}
-    </>
+    </Formik>
   );
 };
 

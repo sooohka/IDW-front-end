@@ -4,7 +4,7 @@ import { FileRejection, useDropzone } from "react-dropzone";
 import styled from "styled-components";
 import * as uuid from "uuid";
 import { ReactComponent as UploadIcon } from "../../assets/icons/cloud-upload-alt-solid.svg";
-import globalTheme from "../../style/theme";
+import defaultTheme from "../../style/theme";
 import FileList from "./FileList";
 import NewFileUploadWithProgress from "./FileUploadWithProgress";
 
@@ -117,7 +117,7 @@ const NewFileUploadField: React.FC<IProps> = ({ formikName, setIsFileUploading }
     <Container>
       <DropZone {...getRootProps()} isAccepting={isAccepting}>
         <input {...getInputProps()} />
-        <UploadIcon fill={globalTheme.colors.primary} width={50} height={50} />
+        <UploadIcon fill={defaultTheme.colors.primary} width={50} height={50} />
         <p>Drag and Drop or click here to upload</p>
       </DropZone>
 

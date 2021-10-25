@@ -1,8 +1,6 @@
-import axios, { AxiosResponse } from "axios";
 import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import api from "../../api/api";
-import worldcupJSON from "../../assets/temp/worldCups.json";
 import ModalContext from "../../utils/contexts/ModalContext";
 import WorldCupsContext from "../../utils/contexts/WorldCupsContext";
 import useFetch from "../../utils/hooks/useFetch";
@@ -23,7 +21,6 @@ const Home: React.FC = () => {
     [worldCups],
   );
 
-  // TODO:data의 id에 몇개의 타겟이 있는지 미리 검사하고 id와 비교해서 modalSubmit block
   const handleModalSubmit = useCallback(
     (level: number) => () => {
       if (!currentWorldCup) throw new Error("Home: currentWorldCup이 null입니다");

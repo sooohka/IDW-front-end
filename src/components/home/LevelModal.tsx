@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import theme from "../../style/theme";
 import ModalContext from "../../utils/contexts/ModalContext";
 import Button from "../common/Button";
 import RadioField from "../common/RadioField";
@@ -9,7 +8,7 @@ import Modal from "../layout/Modal";
 
 const ContentWrapper = styled.div`
   padding: 2rem;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.white};
   display: flex;
   flex-direction: column;
   border-radius: 2rem;
@@ -26,7 +25,7 @@ const Heading = styled.div`
 const HeadingTitle = styled.h1`
   flex-basis: 100%;
   text-align: center;
-  font-size: ${() => theme.fonts.subHeading};
+  font-size: ${({ theme }) => theme.fonts.subHeading};
 `;
 
 const XContainer = styled.div`
@@ -37,7 +36,7 @@ const XContainer = styled.div`
 
 const Content = styled.div`
   flex: 1;
-  font-size: ${() => theme.fonts.body};
+  font-size: ${({ theme }) => theme.fonts.body};
   padding: 1rem 0;
   & > * {
     &:not(:last-child) {
@@ -93,16 +92,16 @@ const LevelModal = () => {
                 <Button
                   type='button'
                   size='medium'
-                  color={theme.colors.white}
-                  backgroundColor={theme.colors.secondary}
+                  color='white'
+                  backgroundColor='secondary'
                   onClick={handleModalSubmit(level)}
                   label='시작'
                 />
                 <Button
                   type='button'
                   size='medium'
-                  color={theme.colors.white}
-                  backgroundColor={theme.colors.gray}
+                  color='white'
+                  backgroundColor='gray'
                   onClick={handleModalClose}
                   label='취소'
                 />

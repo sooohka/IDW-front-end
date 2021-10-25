@@ -1,11 +1,10 @@
 import React, { forwardRef } from "react";
-import styled, { css } from "styled-components";
-import defaultTheme from "../../style/theme";
+import styled, { css, DefaultTheme } from "styled-components";
 
 interface StyledButton {
   size: "small" | "medium" | "large";
-  color: string;
-  backgroundColor: string;
+  color: keyof DefaultTheme["colors"];
+  backgroundColor: keyof DefaultTheme["colors"];
 }
 
 const StyledButton = styled.button<StyledButton>`
@@ -13,36 +12,36 @@ const StyledButton = styled.button<StyledButton>`
   border-radius: 5rem;
   text-transform: capitalize;
   min-width: 7rem;
-  ${({ size, theme }) => {
+  ${({ size }) => {
     switch (size) {
       case "small":
         return css`
           padding: 0.7rem 1.4rem;
-          font-size: ${() => theme.fonts.helperText};
+          font-size: ${({ theme }) => theme.fonts.helperText};
         `;
       case "medium":
         return css`
           padding: 0.7rem 1.4rem;
-          font-size: ${() => theme.fonts.body};
+          font-size: ${({ theme }) => theme.fonts.body};
         `;
       case "large":
         return css`
-          font-size: ${() => theme.fonts.label};
+          font-size: ${({ theme }) => theme.fonts.label};
           padding: 1rem 2rem;
         `;
       default:
         return css``;
     }
   }}
-  color: ${({ color }) => color};
+  color: ${({ color, theme }) => theme.colors[color]};
   font-weight: bold;
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: ${({ backgroundColor, theme }) => theme.colors[backgroundColor]};
   cursor: pointer;
   &:hover {
     opacity: 0.8;
   }
   &:disabled {
-    background-color: ${() => "gray"};
+    background-color: ${({ theme }) => theme.colors.gray};
     opacity: 1;
     cursor: default;
   }
@@ -53,8 +52,8 @@ interface IProps {
   type: "button" | "submit" | "reset";
   disabled?: boolean;
   size?: "small" | "medium" | "large";
-  backgroundColor?: string;
-  color?: string;
+  backgroundColor?: keyof DefaultTheme["colors"];
+  color?: keyof DefaultTheme["colors"];
   onClick?: () => void;
 }
 
@@ -63,8 +62,8 @@ const Button = forwardRef<HTMLButtonElement, IProps>(
     {
       onClick,
       label,
-      backgroundColor = defaultTheme.colors.secondary,
-      color = defaultTheme.colors.white,
+      backgroundColor = "secondary",
+      color = "white",
       type,
       disabled = false,
       size = "large",

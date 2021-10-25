@@ -65,11 +65,7 @@ const handleAwsUpload: HandleUpload = async (imageFile, setProgress, setImageFil
       );
     }
   } catch (err: any) {
-    console.error(err.message);
-    // TODO: fileUploadWithProgress error handling
     const message = err.response?.data?.message || err.message || "something went wrong😅 ";
-    console.log(err.response);
-
     setImageFiles((prev) =>
       prev.map((image) =>
         image.id === imageFile.id
