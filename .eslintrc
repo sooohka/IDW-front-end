@@ -10,6 +10,6 @@
     "import/prefer-default-export": "warn",
     "react/react-in-jsx-scope": "off",
     "class-methods-use-this": "off"
-  }
-  // "ignorePatterns": ["src/**/*"]
+  },
+  "ignorePatterns": ["public/**/*"]
 }

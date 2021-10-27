@@ -11,16 +11,17 @@ import theme from "./style/theme";
 const prepare = async () => {
   if (process.env.NODE_ENV === "development") {
     console.log("start mock server");
-    await import("./mocks/browser").then(({ worker }) =>
-      worker.start({
-        onUnhandledRequest: ({ method, url }) => {
-          if (url.origin.includes("unsplash.com")) return;
-          if (url.origin.includes("cloudinary.com")) return;
-          if (url.origin.includes("gstatic.com")) return;
-          throw new Error(`Unhandled ${method} request to ${url}`);
-        },
-      }),
-    );
+
+    const { worker } = await import("./mocks/browser");
+
+    return worker.start({
+      onUnhandledRequest: ({ method, url }) => {
+        if (url.origin.includes("unsplash.com")) return;
+        if (url.origin.includes("cloudinary.com")) return;
+        if (url.origin.includes("gstatic.com")) return;
+        throw new Error(`Unhandled ${method} request to ${url}`);
+      },
+    });
   }
   return Promise.resolve();
 };
