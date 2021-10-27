@@ -1,6 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import { ReactComponent as Sort } from "../../assets/icons/sort-up-solid.svg";
+import useMount from "../../utils/hooks/useMount";
+import useWindowResize from "../../utils/hooks/useWindowResize";
+import Text from "../common/Text";
+import NewFileUploadWithProgress from "./FileUploadWithProgress";
 
 const StyledFileList = styled.div`
   margin: 1rem 0 0 0;
@@ -55,22 +59,35 @@ const IconWrapper = styled.div<{ isFolded: boolean }>`
   }
 `;
 
+const FileNotFoundText = styled.p`
+  text-align: center;
+`;
+
 interface IProps {
-  children: React.ReactNode;
+  imageFiles: TargetFile[];
+  handleDelete: (id: string) => () => void;
+  setImageFiles: React.Dispatch<React.SetStateAction<TargetFile[]>>;
 }
 
-const FileList: React.FC<IProps> = ({ children }) => {
-  const [isFolded, setIsFolded] = useState(false);
+const FileList: React.FC<IProps> = ({ imageFiles, handleDelete, setImageFiles }) => {
+  const [isFolded, setIsFolded] = useState(true);
+  const { isMount } = useMount();
   const bottomEl = useRef<HTMLDivElement>(null);
 
   const handleFoldBtnClick = () => {
     setIsFolded((prev) => !prev);
   };
 
-  useEffect(() => {
-    if (isFolded) window.scrollTo({ behavior: "smooth", top: 0 });
+  useLayoutEffect(() => {
+    if (isMount) return;
+    if (isFolded) bottomEl.current?.scrollIntoView({ behavior: "smooth", block: "end" });
     else bottomEl.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFolded]);
+
+  useLayoutEffect(() => {
+    if (imageFiles.length > 0) setIsFolded(false);
+  }, [imageFiles]);
 
   return (
     <StyledFileList>
@@ -80,12 +97,29 @@ const FileList: React.FC<IProps> = ({ children }) => {
           <Sort width={30} height={30} />
         </IconWrapper>
       </FileListHeader>
-      <Files isFolded={isFolded}>{children}</Files>
+      <Files isFolded={isFolded}>
+        {imageFiles.length !== 0 ? (
+          imageFiles.map((imageFile) => (
+            <NewFileUploadWithProgress
+              imageFile={imageFile}
+              key={imageFile.id}
+              handleDelete={handleDelete}
+              setImageFiles={setImageFiles}
+            />
+          ))
+        ) : (
+          <div style={{ textAlign: "center" }}>
+            <Text bold fontSize='strongBody' text='파일이 없습니다' />
+          </div>
+        )}
+      </Files>
       <div ref={bottomEl} style={{ display: "flex", justifyContent: "flex-end" }}>
-        <IconWrapper onClick={handleFoldBtnClick} isFolded={isFolded}>
-          go Top
-          <Sort width={30} height={30} />
-        </IconWrapper>
+        {imageFiles.length > 5 ? (
+          <IconWrapper onClick={handleFoldBtnClick} isFolded={isFolded}>
+            go Top
+            <Sort width={30} height={30} />
+          </IconWrapper>
+        ) : null}
       </div>
     </StyledFileList>
   );

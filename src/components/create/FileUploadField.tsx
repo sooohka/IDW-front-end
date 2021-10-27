@@ -120,19 +120,8 @@ const NewFileUploadField: React.FC<IProps> = ({ formikName, setIsFileUploading }
         <UploadIcon fill={defaultTheme.colors.primary} width={50} height={50} />
         <p>Drag and Drop or click here to upload</p>
       </DropZone>
-
       {/* ListFiles */}
-
-      <FileList>
-        {imageFiles.map((imageFile) => (
-          <NewFileUploadWithProgress
-            imageFile={imageFile}
-            key={imageFile.id}
-            handleDelete={handleDelete}
-            setImageFiles={setImageFiles}
-          />
-        ))}
-      </FileList>
+      <FileList imageFiles={imageFiles} handleDelete={handleDelete} setImageFiles={setImageFiles} />
     </Container>
   );
 };

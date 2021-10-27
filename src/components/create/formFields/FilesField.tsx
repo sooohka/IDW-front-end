@@ -2,7 +2,7 @@ import { useFormikContext } from "formik";
 import React from "react";
 import styled from "styled-components";
 import HelperText from "../../common/HelperText";
-import NewFileUploadField from "../FileUploadField";
+import FileUploadField from "../FileUploadField";
 
 const StyledField = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ const FilesField: React.FC<IProps> = ({ name, setIsFileUploading }) => {
     <>
       <StyledField>
         <FieldTitle>파일</FieldTitle>
-        <NewFileUploadField setIsFileUploading={setIsFileUploading} formikName='files' />
+        <FileUploadField setIsFileUploading={setIsFileUploading} formikName='files' />
       </StyledField>
       <HelperText hasError={Boolean(errors[name])} text={errors[name] as string} />
     </>

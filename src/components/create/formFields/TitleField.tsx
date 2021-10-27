@@ -4,16 +4,6 @@ import styled from "styled-components";
 import HelperText from "../../common/HelperText";
 import Input from "../../common/Input";
 
-// const Input = styled.input`
-//   border: 3px solid;
-//   border-radius: 5px;
-//   border-color: ${({ theme }) => theme.colors.primary};
-//   padding: 1rem;
-//   font-size: ${({ theme }) => theme.fonts.strongBody};
-//   letter-spacing: 0.5px;
-//   font-weight: bold;
-// `;
-
 const StyledField = styled.div`
   display: flex;
   flex-direction: column;
