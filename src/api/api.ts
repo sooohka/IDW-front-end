@@ -7,7 +7,7 @@ import axios, { AxiosResponse } from "axios";
  */
 
 const webServerInstance = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_URL || "http://13.125.23.168:8080",
+  baseURL: process.env.REACT_APP_SERVER_URL,
   timeout: 1000,
 });
 
