@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Text from "../../../components/common/Text";
 import Navbar from "../../../components/layout/Navbar";
 import PageContainer from "../../../components/layout/PageContainer";
 import Target from "../../../components/play/Target";
+import GameContext from "../../../utils/contexts/GameContext";
 
 const Wrapper = styled.div`
   flex: 1;
   display: flex;
   flex-wrap: wrap;
-  padding: 0 5rem;
+  padding: 5rem 5rem 0;
   background-color: ${({ theme }) => theme.colors.primary};
 `;
 
@@ -20,20 +21,25 @@ const TextContainer = styled.div`
 `;
 interface IProps {
   title: string;
-  currentTargets: Target[];
 }
 
-const Template: React.FC<IProps> = ({ currentTargets, title }) => (
-  <PageContainer>
-    <Navbar />
-    <Wrapper>
-      <TextContainer>
-        <Text bold text={title} color='white' fontSize='heading' />
-      </TextContainer>
-      <Target target={currentTargets[0]} />
-      <Target target={currentTargets[1]} />
-    </Wrapper>
-  </PageContainer>
-);
+const Template: React.FC<IProps> = ({ title }) => {
+  const { targets, currentTargetsId } = useContext(GameContext);
+  return (
+    <>
+      <Navbar />
+      <Wrapper>
+        <TextContainer>
+          <Text bold text={title} color='white' fontSize='heading' />
+        </TextContainer>
+        {currentTargetsId.map((id) =>
+          targets.map((target) =>
+            target.id === id ? <Target key={target.id} target={target} /> : null,
+          ),
+        )}
+      </Wrapper>
+    </>
+  );
+};
 
 export default Template;

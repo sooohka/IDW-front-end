@@ -47,7 +47,7 @@ const initialValues: SignUpFormValues = {
 };
 
 const SignUpForm = () => {
-  const handleSubmit = (
+  const handleSubmit = async (
     values: SignUpFormValues,
     formikHelpers: FormikHelpers<SignUpFormValues>,
   ) => {
@@ -107,7 +107,7 @@ const SignUpForm = () => {
               <FieldContainer>
                 <GenderField name='gender' />
               </FieldContainer>
-              <Button disabled={isValid} type='submit' label='제출' size='medium' />
+              <Button disabled={!isValid} type='submit' label='제출' size='medium' />
             </Form>
           )}
         </>

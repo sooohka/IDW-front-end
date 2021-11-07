@@ -9,7 +9,7 @@ import GlobalStyle from "./style/GlobalStyle";
 import theme from "./style/theme";
 
 const prepare = async () => {
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.NODE_ENV !== "development") {
     console.log("start mock server");
 
     const { worker } = await import("./mocks/browser");
@@ -19,6 +19,7 @@ const prepare = async () => {
         if (url.origin.includes("unsplash.com")) return;
         if (url.origin.includes("cloudinary.com")) return;
         if (url.origin.includes("gstatic.com")) return;
+        if (url.origin.includes("localhost")) return;
         throw new Error(`Unhandled ${method} request to ${url}`);
       },
     });

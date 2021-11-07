@@ -9,7 +9,12 @@
     "@typescript-eslint/no-unused-vars": "warn",
     "import/prefer-default-export": "warn",
     "react/react-in-jsx-scope": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "react/require-default-props":"off",
+
+    //나중에 지우자
+    "no-alert":"off",
+    "no-console":"off"
   },
   "ignorePatterns": ["public/**/*"]
 }

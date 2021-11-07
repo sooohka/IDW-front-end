@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext, useRef } from "react";
 import styled from "styled-components";
+import GameContext from "../../utils/contexts/GameContext";
+import useImgLazyLoad from "../../utils/hooks/useImgLazyLoad";
 import Img from "../common/Img";
+import ImgWithRef from "../common/ImgWithRef";
 
 const Container = styled.div`
   width: 50%;
@@ -18,14 +21,16 @@ interface IProps {
 }
 const Target: React.FC<IProps> = ({ target }) => {
   const {
+    id,
     name,
-    image: { big },
+    image: { big, lowQuality },
   } = target;
-
+  const { handleTargetClick } = useContext(GameContext);
   return (
     <Container>
-      <Img width={600} height={750} src={big} alt={name} />
+      <Img onClick={handleTargetClick(id)} width={600} height={750} src={big} alt={name} />
       <InfoContainer />
+      <div>{target.id}</div>
     </Container>
   );
 };
