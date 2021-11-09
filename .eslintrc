@@ -3,6 +3,7 @@
   "rules": {
     "prettier/prettier": "warn",
     "react/jsx-props-no-spreading": "off",
+    "react/require-default-props":"off",
     "react/jsx-filename-extension": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
