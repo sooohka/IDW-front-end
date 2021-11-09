@@ -94,7 +94,6 @@ const CreateForm = () => {
               <FieldContainer>
                 <FilesField name='files' setIsFileUploading={setIsFileUploading} />
               </FieldContainer>
-
               <FieldContainer width='10%'>
                 <Button label='submit' disabled={isFileUploading || !isValid} type='submit' />
                 {/* <HelperText hasError={Boolean(errors.title || errors.desc || errors.files)} text={errors.title || errors.desc || errors.files}></HelperText> */}

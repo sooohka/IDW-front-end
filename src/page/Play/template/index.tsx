@@ -25,6 +25,10 @@ interface IProps {
 
 const Template: React.FC<IProps> = ({ title }) => {
   const { targets, currentTargetsId } = useContext(GameContext);
+
+  const currentTargets = targets.filter((target) => {
+    return Boolean(currentTargetsId.find((id) => target.id === id));
+  });
   return (
     <>
       <Navbar />
@@ -32,11 +36,9 @@ const Template: React.FC<IProps> = ({ title }) => {
         <TextContainer>
           <Text bold text={title} color='white' fontSize='heading' />
         </TextContainer>
-        {currentTargetsId.map((id) =>
-          targets.map((target) =>
-            target.id === id ? <Target key={target.id} target={target} /> : null,
-          ),
-        )}
+        {currentTargets.map((target) => (
+          <Target key={target.id} target={target} />
+        ))}
       </Wrapper>
     </>
   );

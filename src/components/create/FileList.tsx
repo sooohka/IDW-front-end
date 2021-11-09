@@ -1,8 +1,7 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import { ReactComponent as Sort } from "../../assets/icons/sort-up-solid.svg";
 import useMount from "../../utils/hooks/useMount";
-import useWindowResize from "../../utils/hooks/useWindowResize";
 import Text from "../common/Text";
 import NewFileUploadWithProgress from "./FileUploadWithProgress";
 

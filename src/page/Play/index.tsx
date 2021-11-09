@@ -1,20 +1,19 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useHistory } from "react-router-dom";
 import api from "../../api/api";
 import GameContext from "../../utils/contexts/GameContext";
 import useFetch from "../../utils/hooks/useFetch";
-import useMount from "../../utils/hooks/useMount";
-import { getRandomValues } from "../../utils/lib/array";
 import Template from "./template";
-
-/**
- * 1. Mount시 서버로부터 게임정보(타겟들)를 받아온다. (16개)
- * 2. 첫번째 게임사이클 돌린다. (현재 선택된 타겟들 8개)
- * 3. 두번째 게임 사이클 돌린다.(현재 선택된 타겟들 4개)
- * 4. 세번쨰 게임 사이클 돌린다. (현재 선택된 타겟들 2개)
- * 5. 결과가 나온다
- * 6. 서버에 결과 보낸다
- * */
+import playReducer, {
+  initialState,
+  clearCurrentTargets,
+  clearSelectedTargets,
+  initializeState,
+  selectTarget,
+  setCurrentTargetsIds,
+  setLevel,
+  setRemainingTargetIds,
+} from "./PlayReducer";
 
 const Play: React.FC = () => {
   const {
@@ -22,51 +21,61 @@ const Play: React.FC = () => {
       state: { level, worldCupId },
     },
   } = useHistory<{ level: number; worldCupId: number }>();
+
   const promise = useCallback(() => api.getWorldCupById(worldCupId, level), [level, worldCupId]);
+
   const { data, isLoading } = useFetch(promise);
-  const { isMount } = useMount();
+  const [state, dispatch] = useReducer(playReducer, initialState);
+  const [winner, setWinner] = useState<Target>();
+  const history = useHistory();
 
-  const [targets, setTargets] = useState<Target[]>([]);
-  const [remainingTargetsId, setRemainingTargetsId] = useState<number[]>([]);
-  const [currentTargetsId, setCurrentTargetsId] = useState<number[]>([]);
-  const [selectedTargetsId, setSelectedTargetsId] = useState<number[]>([]);
-
-  // mount시에 렌더링
+  // 마운트시 실행
   useEffect(() => {
     if (data) {
-      setTargets(data.targets);
-      setRemainingTargetsId(data.targets.map((target) => target.id));
+      dispatch(initializeState(data.targets, data.targets.length));
     }
-  }, [data, setTargets]);
+  }, [data]);
+
+  // 타겟이 클릭됬을때만 실행
+  useEffect(() => {
+    if (state.selectedTargetIds.length === 0) return;
+    if (state.level / 2 === state.selectedTargetIds.length) {
+      if (state.selectedTargetIds.length === 1) {
+        setWinner(state.targets.find((target) => target.id === state.selectedTargetIds[0]));
+        return;
+      }
+      dispatch(setLevel(state.level / 2));
+      dispatch(setRemainingTargetIds(state.selectedTargetIds));
+      dispatch(clearSelectedTargets());
+      dispatch(setCurrentTargetsIds());
+    } else {
+      dispatch(clearCurrentTargets());
+      dispatch(setCurrentTargetsIds());
+    }
+  }, [state.level, state.selectedTargetIds, state.targets]);
 
   useEffect(() => {
-    if (!targets.length) return;
-    currentTargetsId.forEach((id) => {
-      setRemainingTargetsId((prev) => prev.filter((v) => v !== id));
-    });
-    const ids = getRandomValues(remainingTargetsId, 2);
-    setCurrentTargetsId(ids);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedTargetsId, targets.length]);
-
-  useEffect(() => {
-    if (
-      currentTargetsId.length === 0 &&
-      remainingTargetsId.length === 0 &&
-      selectedTargetsId.length !== 0
-    ) {
-      setRemainingTargetsId(selectedTargetsId);
-      setSelectedTargetsId([]);
+    if (winner) {
+      alert(`winner is ${winner.name}`);
+      history.push("/");
     }
-  }, [currentTargetsId.length, remainingTargetsId.length, selectedTargetsId, targets.length]);
+  }, [history, winner]);
+
   const handleTargetClick = (targetId: number) => () => {
-    setSelectedTargetsId((prev) => [...prev, targetId]);
+    dispatch(selectTarget(targetId));
   };
+  console.log(state);
 
   return (
     <>
       {!isLoading && data && (
-        <GameContext.Provider value={{ targets, currentTargetsId, handleTargetClick }}>
+        <GameContext.Provider
+          value={{
+            targets: state.targets,
+            currentTargetsId: state.currentTargetIds,
+            handleTargetClick,
+          }}
+        >
           <Template title={data.title} />
         </GameContext.Provider>
       )}
