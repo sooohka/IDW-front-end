@@ -54,3 +54,5 @@ interface TargetFile {
   file: File;
   errors: { message: string; code: ErrorCode | string }[];
 }
+
+type RequestStatus = "idel" | "loading" | "failed";

@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import Text from "../../../components/common/Text";
 import Navbar from "../../../components/layout/Navbar";
-import PageContainer from "../../../components/layout/PageContainer";
 import Target from "../../../components/play/Target";
-import GameContext from "../../../utils/contexts/GameContext";
+import usePlayReducer from "../../../utils/hooks/usePlayReducer";
 
 const Wrapper = styled.div`
   flex: 1;
@@ -24,10 +23,11 @@ interface IProps {
 }
 
 const Template: React.FC<IProps> = ({ title }) => {
-  const { targets, currentTargetsId } = useContext(GameContext);
-
+  const {
+    worldCupState: { targets, currentTargetIds },
+  } = usePlayReducer();
   const currentTargets = targets.filter((target) => {
-    return Boolean(currentTargetsId.find((id) => target.id === id));
+    return Boolean(currentTargetIds.find((id) => target.id === id));
   });
   return (
     <>

@@ -1,9 +1,7 @@
-import React, { useContext, useRef } from "react";
+import React from "react";
 import styled from "styled-components";
-import GameContext from "../../utils/contexts/GameContext";
-import useImgLazyLoad from "../../utils/hooks/useImgLazyLoad";
+import usePlayReducer from "../../utils/hooks/usePlayReducer";
 import Img from "../common/Img";
-import ImgWithRef from "../common/ImgWithRef";
 
 const Container = styled.div`
   width: 50%;
@@ -25,7 +23,10 @@ const Target: React.FC<IProps> = ({ target }) => {
     name,
     image: { big, lowQuality },
   } = target;
-  const { handleTargetClick } = useContext(GameContext);
+  const { selectTarget } = usePlayReducer();
+  const handleTargetClick = (targetId: number) => (e: React.MouseEvent) => {
+    selectTarget({ targetId });
+  };
   return (
     <Container>
       <Img onClick={handleTargetClick(id)} width={600} height={750} src={big} alt={name} />

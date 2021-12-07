@@ -1,19 +1,9 @@
-import React, { useCallback, useEffect, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import GameContext from "../../utils/contexts/GameContext";
+import { WorldCupApi } from "../../api";
+import worldCupThunks from "../../store/worldCup/worldCupThunks";
 import useFetch from "../../utils/hooks/useFetch";
 import Template from "./template";
-import playReducer, {
-  initialState,
-  clearCurrentTargets,
-  clearSelectedTargets,
-  initializeState,
-  selectTarget,
-  setCurrentTargetsIds,
-  setLevel,
-  setRemainingTargetIds,
-} from "./PlayReducer";
-import { WorldCupApi } from "../../api";
 
 const Play: React.FC = () => {
   const {
@@ -28,34 +18,16 @@ const Play: React.FC = () => {
   );
 
   const { data, isLoading } = useFetch(promise);
-  const [state, dispatch] = useReducer(playReducer, initialState);
   const [winner, setWinner] = useState<Target>();
   const history = useHistory();
 
   // 마운트시 실행
   useEffect(() => {
-    if (data) {
-      dispatch(initializeState(data.targets, data.targets.length));
-    }
+    if (data)
+      worldCupThunks.initializeWorldCup({ level: data.targetCounts, targets: data.targets });
   }, [data]);
-
   // 타겟이 클릭됬을때만 실행
-  useEffect(() => {
-    if (state.selectedTargetIds.length === 0) return;
-    if (state.level / 2 === state.selectedTargetIds.length) {
-      if (state.selectedTargetIds.length === 1) {
-        setWinner(state.targets.find((target) => target.id === state.selectedTargetIds[0]));
-        return;
-      }
-      dispatch(setLevel(state.level / 2));
-      dispatch(setRemainingTargetIds(state.selectedTargetIds));
-      dispatch(clearSelectedTargets());
-      dispatch(setCurrentTargetsIds());
-    } else {
-      dispatch(clearCurrentTargets());
-      dispatch(setCurrentTargetsIds());
-    }
-  }, [state.level, state.selectedTargetIds, state.targets]);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     if (winner) {
@@ -64,26 +36,7 @@ const Play: React.FC = () => {
     }
   }, [history, winner]);
 
-  const handleTargetClick = (targetId: number) => () => {
-    dispatch(selectTarget(targetId));
-  };
-  console.log(state);
-
-  return (
-    <>
-      {!isLoading && data && (
-        <GameContext.Provider
-          value={{
-            targets: state.targets,
-            currentTargetsId: state.currentTargetIds,
-            handleTargetClick,
-          }}
-        >
-          <Template title={data.title} />
-        </GameContext.Provider>
-      )}
-    </>
-  );
+  return <>{!isLoading && data && <Template title={data.title} />}</>;
 };
 
 export default Play;
