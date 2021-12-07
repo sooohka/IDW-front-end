@@ -13,6 +13,7 @@ interface RequestReducer {
 const initialState: RequestReducer = {
   requests: [],
 };
+
 const requestReducer = (state = initialState, action: RequestActions): RequestReducer => {
   switch (action.type) {
     case getType(actions.startRequest): {

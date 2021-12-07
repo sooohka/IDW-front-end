@@ -1,32 +1,35 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import ApiUtils from "./ApiUtils";
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_URL,
   timeout: 1000,
 });
 
 class AppApi {
+  static baseUrl = process.env.REACT_APP_SERVER_URL;
   static get<T = unknown>(
     url: string,
-    queryParams: Record<string, unknown> = {},
+    queryParams: Record<string, string> = {},
     config?: AxiosRequestConfig,
   ) {
-    return instance.get<T>(url + ApiUtils.convertObjToQueryParams(queryParams), {
-      ...instance.defaults,
-      ...config,
-    });
+    return instance.get<T>(
+      `${AppApi.baseUrl}${url}${ApiUtils.convertObjToQueryParams(queryParams)}`,
+      {
+        ...instance.defaults,
+        ...config,
+      },
+    );
   }
 
   static post<T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig) {
-    return instance.post<T>(url, data, {
+    return instance.post<T>(`${AppApi.baseUrl}${url}`, data, {
       ...instance.defaults,
       ...config,
     });
   }
 
   static put<T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig) {
-    return instance.put<T>(url, data, {
+    return instance.put<T>(`${AppApi.baseUrl}${url}`, data, {
       ...instance.defaults,
       ...config,
     });

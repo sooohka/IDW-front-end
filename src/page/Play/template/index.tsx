@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Text from "../../../components/common/Text";
 import Navbar from "../../../components/layout/Navbar";
 import Target from "../../../components/play/Target";
-import usePlayReducer from "../../../utils/hooks/usePlayReducer";
+import usePlayReducer from "../../../utils/hooks/useWorldCupReducer";
 
 const Wrapper = styled.div`
   flex: 1;

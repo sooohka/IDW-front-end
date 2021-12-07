@@ -1,5 +1,5 @@
 class ApiUtils {
-  static convertObjToQueryParams(obj: Record<string, any>) {
+  static convertObjToQueryParams(obj: Record<string, string>) {
     const keys = Object.keys(obj);
     const params = keys.map((key) => {
       return `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`;

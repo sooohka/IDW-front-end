@@ -25,7 +25,7 @@ class WorldCupApi {
   static getWorldCupById(param: GetWorldCupsByIdReq) {
     // TODO: 재선한테 말해서 전부 파라미터로 받게
     return AppApi.get<WorldCup>(`${WorldCupApi.baseUrl}/${param.worldCupId}`, {
-      level: param.level,
+      level: param.level.toString(),
     });
   }
 }

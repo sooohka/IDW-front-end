@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { WorldCupApi } from "../../api";
 import worldCupThunks from "../../store/worldCup/worldCupThunks";
-import useFetch from "../../utils/hooks/useFetch";
+import useWorldCupReducer from "../../utils/hooks/useWorldCupReducer";
 import Template from "./template";
 
 const Play: React.FC = () => {
@@ -12,22 +11,23 @@ const Play: React.FC = () => {
     },
   } = useHistory<{ level: number; worldCupId: number }>();
 
-  const promise = useCallback(
-    () => WorldCupApi.getWorldCupById({ worldCupId, level }),
-    [level, worldCupId],
-  );
-
-  const { data, isLoading } = useFetch(promise);
+  const {
+    worldCupState: { title, winnerId, targets },
+    initializeWorldCup,
+  } = useWorldCupReducer();
   const [winner, setWinner] = useState<Target>();
   const history = useHistory();
 
   // 마운트시 실행
   useEffect(() => {
-    if (data)
-      worldCupThunks.initializeWorldCup({ level: data.targetCounts, targets: data.targets });
-  }, [data]);
-  // 타겟이 클릭됬을때만 실행
-  useEffect(() => {}, []);
+    console.log(level);
+
+    initializeWorldCup({ level, worldCupId });
+  }, [initializeWorldCup, level, worldCupId]);
+
+  useEffect(() => {
+    if (winnerId) setWinner(targets.find((target) => target.id === winnerId));
+  }, [targets, winnerId]);
 
   useEffect(() => {
     if (winner) {
@@ -36,7 +36,7 @@ const Play: React.FC = () => {
     }
   }, [history, winner]);
 
-  return <>{!isLoading && data && <Template title={data.title} />}</>;
+  return <Template title={title} />;
 };
 
 export default Play;

@@ -1,7 +1,7 @@
 import { createAction, ActionType } from "typesafe-actions";
 
 const START_REQUEST = "request/start_request";
-const END_REQUEST = "request/en_request";
+const END_REQUEST = "request/end_request";
 const FAIL_REQUEST = "request/fail_request";
 
 const startRequest = createAction(START_REQUEST)<{ url: string }>();
@@ -10,5 +10,4 @@ const failRequest = createAction(FAIL_REQUEST)<{ url: string; error: Error | nul
 
 const actions = { startRequest, endRequest, failRequest };
 export type RequestActions = ActionType<typeof actions>;
-
 export default actions;

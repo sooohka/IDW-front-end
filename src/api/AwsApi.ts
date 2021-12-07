@@ -2,7 +2,6 @@ import axios, { AxiosRequestConfig } from "axios";
 import ApiUtils from "./ApiUtils";
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_AWS_GATEWAY_URL,
   // "https://dogemdas2c.execute-api.ap-northeast-2.amazonaws.com/v1",
 });
 
@@ -23,26 +22,27 @@ type PostImgToResizingServerRes = {
 };
 
 class AwsApi {
+  static baseUrl = process.env.REACT_APP_AWS_GATEWAY_URL;
   static get<T = unknown>(
     url: string,
-    queryParams: Record<string, unknown> = {},
+    queryParams: Record<string, string> = {},
     config?: AxiosRequestConfig,
   ) {
-    return instance.get<T>(url + ApiUtils.convertObjToQueryParams(queryParams), {
+    return instance.get<T>(`${AwsApi.baseUrl}${ApiUtils.convertObjToQueryParams(queryParams)}`, {
       ...instance.defaults,
       ...config,
     });
   }
 
   static post<T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig) {
-    return instance.post<T>(url, data, {
+    return instance.post<T>(`${AwsApi.baseUrl}`, data, {
       ...instance.defaults,
       ...config,
     });
   }
 
   static put<T = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig) {
-    return instance.put<T>(url, data, {
+    return instance.put<T>(`${AwsApi.baseUrl}`, data, {
       ...instance.defaults,
       ...config,
     });

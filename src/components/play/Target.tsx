@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import usePlayReducer from "../../utils/hooks/usePlayReducer";
+import useWorldCupReducer from "../../utils/hooks/useWorldCupReducer";
 import Img from "../common/Img";
 
 const Container = styled.div`
@@ -23,7 +23,9 @@ const Target: React.FC<IProps> = ({ target }) => {
     name,
     image: { big, lowQuality },
   } = target;
-  const { selectTarget } = usePlayReducer();
+
+  const { selectTarget } = useWorldCupReducer();
+
   const handleTargetClick = (targetId: number) => (e: React.MouseEvent) => {
     selectTarget({ targetId });
   };
