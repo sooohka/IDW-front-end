@@ -1,7 +1,7 @@
 import { Form, Formik, FormikErrors } from "formik";
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
-import api from "../../api/api";
+import { WorldCupApi } from "../../api";
 import Button from "../common/Button";
 import PageSpinner from "../common/PageSpinner";
 import Text from "../common/Text";
@@ -45,7 +45,7 @@ const CreateForm = () => {
         title: v.title,
       };
       if (process.env.NODE_ENV !== "development") {
-        const res = await api.postWorldCup(data);
+        const res = await WorldCupApi.postWorldCup(data);
         if (res.data) alert("업로드 성공!");
         else throw new Error("무언가 잘못됨");
       } else {

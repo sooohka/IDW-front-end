@@ -1,5 +1,5 @@
 import axios from "axios";
-import api from "../../api/api";
+import { AwsApi } from "../../api";
 
 const readAsDataUrl = (file: File) =>
   new Promise((res, rej) => {
@@ -50,7 +50,7 @@ const handleAwsUpload: HandleUpload = async (imageFile, setProgress, setImageFil
 
   try {
     // const res = await api.postImgToResizingServer({ file }, setProgress);
-    const res = await api.putImgToResizingServer({ file }, setProgress);
+    const res = await AwsApi.putImgToResizingServer({ param: { file }, setProgress });
     const {
       message,
       result: { locations },

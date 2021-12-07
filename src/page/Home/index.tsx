@@ -1,13 +1,13 @@
 import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
-import api from "../../api/api";
+import { WorldCupApi } from "../../api";
 import ModalContext from "../../utils/contexts/ModalContext";
 import WorldCupsContext from "../../utils/contexts/WorldCupsContext";
 import useFetch from "../../utils/hooks/useFetch";
 import Template from "./template";
 
 const Home: React.FC = () => {
-  const { data: worldCups, isLoading } = useFetch(api.getWorldCups);
+  const { data: worldCups, isLoading } = useFetch(WorldCupApi.getWorldCups);
 
   const history = useHistory();
   const [isLevelModalOpened, setIsLevelModalOpened] = useState(false);

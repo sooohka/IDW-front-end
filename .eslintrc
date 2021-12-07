@@ -3,7 +3,7 @@
   "rules": {
     "prettier/prettier": "warn",
     "react/jsx-props-no-spreading": "off",
-    "react/require-default-props":"off",
+    "react/require-default-props": "off",
     "react/jsx-filename-extension": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
@@ -11,11 +11,11 @@
     "import/prefer-default-export": "warn",
     "react/react-in-jsx-scope": "off",
     "class-methods-use-this": "off",
-    "react/require-default-props":"off",
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
 
     //나중에 지우자
-    "no-alert":"off",
-    "no-console":"off"
+    "no-alert": "off",
+    "no-console": "off"
   },
   "ignorePatterns": ["public/**/*"]
 }

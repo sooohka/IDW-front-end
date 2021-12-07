@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import { useHistory } from "react-router-dom";
-import api from "../../api/api";
 import GameContext from "../../utils/contexts/GameContext";
 import useFetch from "../../utils/hooks/useFetch";
 import Template from "./template";
@@ -14,6 +13,7 @@ import playReducer, {
   setLevel,
   setRemainingTargetIds,
 } from "./PlayReducer";
+import { WorldCupApi } from "../../api";
 
 const Play: React.FC = () => {
   const {
@@ -22,7 +22,10 @@ const Play: React.FC = () => {
     },
   } = useHistory<{ level: number; worldCupId: number }>();
 
-  const promise = useCallback(() => api.getWorldCupById(worldCupId, level), [level, worldCupId]);
+  const promise = useCallback(
+    () => WorldCupApi.getWorldCupById({ worldCupId, level }),
+    [level, worldCupId],
+  );
 
   const { data, isLoading } = useFetch(promise);
   const [state, dispatch] = useReducer(playReducer, initialState);
