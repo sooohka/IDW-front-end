@@ -10,7 +10,7 @@ interface RequestReducer {
   requests: Request[];
 }
 
-const initialState: RequestReducer = {
+export const initialState: RequestReducer = {
   requests: [],
 };
 
@@ -41,7 +41,9 @@ const requestReducer = (state = initialState, action: RequestActions): RequestRe
       const requestExists = state.requests.find((req) => req.url === url);
       if (!requestExists) throw new Error("요청이 존재하지 않습니다");
       const errorRequest: Request = { url, status: "failed", error };
-      const requests = state.requests.map((req) => (req.url === url ? errorRequest : req));
+      const requests = state.requests.map((req) =>
+        req.url === url && req.status === "loading" ? errorRequest : req,
+      );
       return { ...state, requests };
     }
     default: {

@@ -5,8 +5,17 @@ import mockedGames from "../assets/temp/gameExample.json";
 
 const getWorldCupById = rest.get(
   `${process.env.REACT_APP_SERVER_URL}/worldcups/1`,
-  // ?level=4
-  (req, res, ctx) => res(ctx.status(200), ctx.json(mockedGames.data as WorldCup)),
+  (req, res, ctx) => {
+    let level: any = req.url.searchParams.get("level");
+    if (level) level = parseInt(level, 10);
+    if (level === 8) return res(ctx.status(200), ctx.json(mockedGames.data as WorldCup));
+    if (level === 4)
+      return res(
+        ctx.status(200),
+        ctx.json({ ...mockedGames.data, targets: mockedGames.data.targets.slice(0, 4) }),
+      );
+    return res(ctx.status(400), ctx.json({ message: "타겟이 8개까지 있습니다." }));
+  },
 );
 
 const getWorldCups = rest.get(`${process.env.REACT_APP_SERVER_URL}/worldcups`, (req, res, ctx) =>

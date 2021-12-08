@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import worldCupThunks from "../../store/worldCup/worldCupThunks";
 import useWorldCupReducer from "../../utils/hooks/useWorldCupReducer";
 import Template from "./template";
 
