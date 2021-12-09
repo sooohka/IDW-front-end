@@ -21,6 +21,7 @@ const REMOVE_REMAINING_TARGET_IDS = "worldCup/remove_remaining_target_ids";
 const CLEAR_REMAINING_TARGET_IDS = "worldCup/clear_remaining_target_ids";
 const CLEAR_CURRENT_TARGET_IDS = "worldCup/clear_current_target_ids";
 const CLEAR_SELECTED_TARGET_IDS = "worldCup/clear_selected_target";
+const RESET = "worldCup/reset";
 
 // action creators
 const setTitle = createAction(SET_TITLE)<{ title: string }>();
@@ -30,12 +31,10 @@ const setWinnerId = createAction(SET_WINNER_ID)<{ targetId: number }>();
 const setCurrentTargetIds =
   createAction(SET_CURRENT_TARGET_IDS)<{ currentTargetIds: [number, number] }>();
 const setRemainingTargetIds = createAction(SET_REMAINING_TARGET_IDS)<{ targetIds: number[] }>();
-const addRemainingTargetIds = createAction(ADD_REMAINING_TARGET_IDS)<{ targetId: number }>();
 const addSelectedTargetIds = createAction(ADD_SELECTED_TARGET_IDS)<{ targetId: number }>();
 const removeRemainingTargetIds = createAction(REMOVE_REMAINING_TARGET_IDS)<{ targetId: number }>();
-const clearCurrentTargetIds = createAction(CLEAR_CURRENT_TARGET_IDS)();
 const clearSelectedTargetIds = createAction(CLEAR_SELECTED_TARGET_IDS)();
-const clearRemainingTargetIds = createAction(CLEAR_REMAINING_TARGET_IDS)();
+const reset = createAction(RESET)();
 
 const actions = {
   setTitle,
@@ -44,12 +43,10 @@ const actions = {
   setWinnerId,
   setCurrentTargetIds,
   setRemainingTargetIds,
-  addRemainingTargetIds,
   addSelectedTargetIds,
   removeRemainingTargetIds,
-  clearCurrentTargetIds,
   clearSelectedTargetIds,
-  clearRemainingTargetIds,
+  reset,
 };
 export type WorldCupActions = ActionType<typeof actions>;
 

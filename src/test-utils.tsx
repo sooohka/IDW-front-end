@@ -25,7 +25,6 @@ const AllTheProviders: FC = ({ children }) => {
 const customRender = (ui: ReactElement, options?: Omit<RenderOptions, "wrapper">) =>
   render(ui, { wrapper: AllTheProviders, ...options });
 
-/* eslint-disable no-param-reassign */
 const thunk =
   ({ dispatch, getState }: any) =>
   (next: any) =>

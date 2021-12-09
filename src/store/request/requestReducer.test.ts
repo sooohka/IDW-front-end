@@ -12,14 +12,14 @@ describe("Request-reducer", () => {
   });
 
   describe("startRequestAction", () => {
-    test("with normal request", () => {
+    it("with normal request", () => {
       initState = reducer(initState, actions.startRequest({ url: TEST_URL }));
       expect(initState).toStrictEqual({
         requests: [{ status: "loading", url: TEST_URL, error: null }],
       });
     });
 
-    test("with duplicated request", () => {
+    it("with duplicated request", () => {
       initState = reducer(initState, actions.startRequest({ url: TEST_URL }));
       expect(() => {
         reducer(initState, actions.startRequest({ url: TEST_URL }));
@@ -29,7 +29,7 @@ describe("Request-reducer", () => {
       });
     });
 
-    test("with multiple request", () => {
+    it("with multiple request", () => {
       initState = reducer(initState, actions.startRequest({ url: TEST_URL }));
       initState = reducer(initState, actions.startRequest({ url: TEST_URL1 }));
       expect(initState).toStrictEqual({
@@ -42,13 +42,13 @@ describe("Request-reducer", () => {
   });
 
   describe("failRequestAction", () => {
-    test("with none existing request", () => {
+    it("with none existing request", () => {
       expect(() => {
         reducer(initState, actions.failRequest({ error: new Error("에러"), url: TEST_URL }));
       }).toThrowError("요청이 존재하지 않습니다");
     });
 
-    test("with normal fail", () => {
+    it("with normal fail", () => {
       initState = reducer(initState, actions.startRequest({ url: TEST_URL }));
       initState = reducer(initState, actions.failRequest({ error: Error("에러"), url: TEST_URL }));
       expect(initState).toStrictEqual({
@@ -56,7 +56,7 @@ describe("Request-reducer", () => {
       });
     });
 
-    test("with multiple fail", () => {
+    it("with multiple fail", () => {
       initState = reducer(initState, actions.startRequest({ url: TEST_URL }));
       initState = reducer(initState, actions.startRequest({ url: TEST_URL1 }));
       initState = reducer(initState, actions.failRequest({ url: TEST_URL, error: Error("Err") }));
@@ -72,7 +72,7 @@ describe("Request-reducer", () => {
 
   // finish request작성
   describe("endRequestAction", () => {
-    test("with normal end", () => {
+    it("with normal end", () => {
       initState = reducer(initState, actions.startRequest({ url: TEST_URL }));
       initState = reducer(initState, actions.endRequest({ url: TEST_URL }));
       expect(initState).toStrictEqual({
@@ -80,7 +80,7 @@ describe("Request-reducer", () => {
       });
     });
 
-    test("with none existing end", () => {
+    it("with none existing end", () => {
       initState = reducer(initState, actions.startRequest({ url: TEST_URL }));
       expect(() => {
         reducer(initState, actions.endRequest({ url: TEST_URL1 }));

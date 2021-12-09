@@ -40,51 +40,52 @@ const initializeWorldCup =
     return getState().worldCupState;
   };
 
-const goToNextLevel = (): AppThunk => (dispatch, getState) => {
-  const { worldCupState } = getState();
-  const { level, selectedTargetIds } = worldCupState;
-  dispatch(worldCupActions.setRemainingTargetIds({ targetIds: [...selectedTargetIds] }));
-  const currentTargetIds: [number, number] = [
-    worldCupState.selectedTargetIds[0],
-    worldCupState.selectedTargetIds[1],
-  ];
-  dispatch(worldCupActions.setCurrentTargetIds({ currentTargetIds }));
-  dispatch(worldCupActions.clearSelectedTargetIds());
-  dispatch(worldCupActions.setLevel({ level: level / 2 }));
-  return getState().worldCupState;
-};
-
-const finishCurrentLevel = (): AppThunk => (dispatch, getState) => {
-  const { worldCupState: state } = getState();
-  // 우승자 결정의 시간
-  if (state.remainingTargetIds.length === 0 && state.selectedTargetIds.length === 1) {
-    const winnerId = state.selectedTargetIds[0];
-    dispatch(worldCupActions.setWinnerId({ targetId: winnerId }));
-  }
-  // 잔여타겟이 없는 상황 즉 다음 레벨로 넘어가야되는 상황
-  else if (state.remainingTargetIds.length === 0) {
-    dispatch(goToNextLevel());
-  }
-  // 그냥 현재 타겟 고르는 상황
-  else {
-    const { worldCupState } = getState();
-    const currentTargetIds: [number, number] = [
-      worldCupState.remainingTargetIds[0],
-      worldCupState.remainingTargetIds[1],
-    ];
-    dispatch(worldCupActions.setCurrentTargetIds({ currentTargetIds }));
-  }
-  return getState().worldCupState;
-};
-
 const selectTarget =
   ({ targetId }: SelectTargetParam): AppThunk =>
   (dispatch, getState) => {
+    const goToNextLevel = () => {
+      const { worldCupState } = getState();
+      const { level, selectedTargetIds } = worldCupState;
+      dispatch(worldCupActions.setRemainingTargetIds({ targetIds: [...selectedTargetIds] }));
+      const currentTargetIds: [number, number] = [
+        worldCupState.selectedTargetIds[0],
+        worldCupState.selectedTargetIds[1],
+      ];
+      dispatch(worldCupActions.setCurrentTargetIds({ currentTargetIds }));
+      dispatch(worldCupActions.clearSelectedTargetIds());
+      dispatch(worldCupActions.setLevel({ level: level / 2 }));
+      return getState().worldCupState;
+    };
+
+    const finishCurrentLevel = () => {
+      const { worldCupState: state } = getState();
+      // 우승자 결정의 시간
+      if (state.remainingTargetIds.length === 0 && state.selectedTargetIds.length === 1) {
+        const winnerId = state.selectedTargetIds[0];
+        dispatch(worldCupActions.setWinnerId({ targetId: winnerId }));
+      }
+      // 잔여타겟이 없는 상황 즉 다음 레벨로 넘어가야되는 상황
+      else if (state.remainingTargetIds.length === 0) {
+        goToNextLevel();
+      }
+      // 그냥 현재 타겟 고르는 상황
+      else {
+        const { worldCupState } = getState();
+        const currentTargetIds: [number, number] = [
+          worldCupState.remainingTargetIds[0],
+          worldCupState.remainingTargetIds[1],
+        ];
+        dispatch(worldCupActions.setCurrentTargetIds({ currentTargetIds }));
+      }
+      return getState().worldCupState;
+    };
     try {
       const { worldCupState } = getState();
 
       let unselectedId: null | number = null;
       let selectedId: null | number = null;
+      if (worldCupState.currentTargetIds.length < 2)
+        throw new Error("현재 타겟들의 길이가 2 이하입니다.");
       worldCupState.currentTargetIds.forEach((id) => {
         if (id !== targetId) unselectedId = id;
         else selectedId = id;
@@ -94,8 +95,7 @@ const selectTarget =
       dispatch(worldCupActions.addSelectedTargetIds({ targetId }));
       dispatch(worldCupActions.removeRemainingTargetIds({ targetId: unselectedId }));
       dispatch(worldCupActions.removeRemainingTargetIds({ targetId: selectedId }));
-      dispatch(finishCurrentLevel());
-      //
+      finishCurrentLevel();
     } catch (error: any) {
       console.log(error);
       // alert(error.message);
@@ -104,4 +104,4 @@ const selectTarget =
     return getState().worldCupState;
   };
 
-export default { initializeWorldCup, finishCurrentLevel, selectTarget };
+export default { initializeWorldCup, selectTarget };

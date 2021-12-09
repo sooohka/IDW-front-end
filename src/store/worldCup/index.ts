@@ -54,11 +54,6 @@ const worldCupReducer = (state = initialState, action: WorldCupActions): WorldCu
       return { ...state, currentTargetIds };
     }
 
-    case getType(actions.addRemainingTargetIds): {
-      const { targetId } = action.payload;
-      return { ...state, remainingTargetIds: [...state.remainingTargetIds, targetId] };
-    }
-
     case getType(actions.addSelectedTargetIds): {
       const { targetId } = action.payload;
       return { ...state, selectedTargetIds: [...state.selectedTargetIds, targetId] };
@@ -70,18 +65,13 @@ const worldCupReducer = (state = initialState, action: WorldCupActions): WorldCu
       return { ...state, remainingTargetIds };
     }
 
-    case getType(actions.clearCurrentTargetIds): {
-      return { ...state, currentTargetIds: [] };
-    }
-
-    case getType(actions.clearRemainingTargetIds): {
-      return { ...state, remainingTargetIds: [] };
-    }
-
     case getType(actions.clearSelectedTargetIds): {
       return { ...state, selectedTargetIds: [] };
     }
 
+    case getType(actions.reset): {
+      return initialState;
+    }
     default:
       return { ...state };
   }
