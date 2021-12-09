@@ -19,8 +19,9 @@ const requestReducer = (state = initialState, action: RequestActions): RequestRe
     case getType(actions.startRequest): {
       const { url } = action.payload;
       const newRequest: Request = { url, status: "loading", error: null };
-      const requestExists = state.requests.find((req) => req.url === url);
-      if (requestExists) {
+      const existingRequest = state.requests.find((req) => req.url === url);
+      if (existingRequest?.url === url) throw new Error("중복된 요청입니다");
+      if (existingRequest) {
         return {
           ...state,
           requests: state.requests.map((req) => (req.url === url ? newRequest : req)),
@@ -30,8 +31,8 @@ const requestReducer = (state = initialState, action: RequestActions): RequestRe
     }
     case getType(actions.endRequest): {
       const { url } = action.payload;
-      const requestExists = state.requests.find((req) => req.url === url);
-      if (!requestExists) throw new Error("요청이 존재하지 않습니다");
+      const existingRequest = state.requests.find((req) => req.url === url);
+      if (!existingRequest) throw new Error("요청이 존재하지 않습니다");
       const filteredRequests = state.requests.filter((req) => req.url !== url);
       return { ...state, requests: filteredRequests };
     }

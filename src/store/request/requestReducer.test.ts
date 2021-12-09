@@ -1,9 +1,8 @@
-import RequestReducer, { initialState } from "./index";
-import actions, { RequestActions } from "./requestActions";
+import reducer, { initialState } from "./index";
+import actions from "./requestActions";
 
 const TEST_URL = "test-url";
 const TEST_URL1 = "test-url1";
-const TEST_URL2 = "test-url2";
 
 describe("Request-reducer", () => {
   let initState: typeof initialState;
@@ -13,72 +12,92 @@ describe("Request-reducer", () => {
   });
 
   describe("startRequestAction", () => {
-    beforeEach(() => {
-      initState = { requests: [] };
-    });
-    test("normal request", () => {
-      const request = { status: "loading" as RequestStatus, url: TEST_URL, error: null };
-      expect(RequestReducer(initState, actions.startRequest({ url: TEST_URL }))).toStrictEqual({
-        requests: [request],
+    test("with normal request", () => {
+      initState = reducer(initState, actions.startRequest({ url: TEST_URL }));
+      expect(initState).toStrictEqual({
+        requests: [{ status: "loading", url: TEST_URL, error: null }],
       });
     });
 
-    test("duplicated request", () => {
-      const request = { status: "loading" as RequestStatus, url: TEST_URL, error: null };
-      initState.requests.push(request);
-      expect(RequestReducer(initState, actions.startRequest({ url: TEST_URL }))).toStrictEqual({
-        requests: [request],
+    test("with duplicated request", () => {
+      initState = reducer(initState, actions.startRequest({ url: TEST_URL }));
+      expect(() => {
+        reducer(initState, actions.startRequest({ url: TEST_URL }));
+      }).toThrowError("중복된 요청입니다");
+      expect(initState).toStrictEqual({
+        requests: [{ status: "loading", url: TEST_URL, error: null }],
       });
     });
 
-    test("multiple request", () => {
-      const request = { status: "loading" as RequestStatus, url: TEST_URL, error: null };
-      const request2 = { status: "loading" as RequestStatus, url: TEST_URL1, error: null };
-      initState.requests.push(request);
-      expect(RequestReducer(initState, actions.startRequest({ url: TEST_URL1 }))).toStrictEqual({
-        requests: [request, request2],
+    test("with multiple request", () => {
+      initState = reducer(initState, actions.startRequest({ url: TEST_URL }));
+      initState = reducer(initState, actions.startRequest({ url: TEST_URL1 }));
+      expect(initState).toStrictEqual({
+        requests: [
+          { status: "loading" as RequestStatus, url: TEST_URL, error: null },
+          { status: "loading" as RequestStatus, url: TEST_URL1, error: null },
+        ],
       });
     });
   });
 
   describe("failRequestAction", () => {
-    beforeEach(() => {
-      initState = { requests: [] };
-    });
-
-    test("find not existing request", () => {
+    test("with none existing request", () => {
       expect(() => {
-        RequestReducer(initState, actions.failRequest({ error: new Error("에러"), url: TEST_URL }));
+        reducer(initState, actions.failRequest({ error: new Error("에러"), url: TEST_URL }));
       }).toThrowError("요청이 존재하지 않습니다");
     });
 
-    test("normal fail", () => {
-      initState.requests.push({ error: null, url: TEST_URL, status: "loading" });
-      expect(
-        RequestReducer(initState, actions.failRequest({ error: new Error("에러"), url: TEST_URL })),
-      ).toStrictEqual({ requests: [{ url: TEST_URL, status: "failed", error: Error("에러") }] });
-    });
-
-    test("duplicated fail but different message", () => {
-      initState.requests.push({ error: null, url: TEST_URL1, status: "loading" });
-      initState.requests.push({ error: null, url: TEST_URL, status: "loading" });
-      initState.requests.push({ error: new Error("에러"), url: TEST_URL, status: "failed" });
-      expect(
-        RequestReducer(
-          initState,
-          actions.failRequest({ error: new Error("다른 에러"), url: TEST_URL }),
-        ),
-      ).toStrictEqual({
-        requests: [
-          { error: null, url: TEST_URL1, status: "loading" },
-          { error: new Error("다른 에러"), url: TEST_URL, status: "failed" },
-          { error: new Error("에러"), url: TEST_URL, status: "failed" },
-        ],
+    test("with normal fail", () => {
+      initState = reducer(initState, actions.startRequest({ url: TEST_URL }));
+      initState = reducer(initState, actions.failRequest({ error: Error("에러"), url: TEST_URL }));
+      expect(initState).toStrictEqual({
+        requests: [{ url: TEST_URL, status: "failed", error: Error("에러") }],
       });
     });
 
-    test("multiple fail", () => {});
+    test("with multiple fail", () => {
+      initState = reducer(initState, actions.startRequest({ url: TEST_URL }));
+      initState = reducer(initState, actions.startRequest({ url: TEST_URL1 }));
+      initState = reducer(initState, actions.failRequest({ url: TEST_URL, error: Error("Err") }));
+      initState = reducer(initState, actions.failRequest({ url: TEST_URL1, error: Error("Err1") }));
+      expect(initState).toStrictEqual({
+        requests: [
+          { error: Error("Err"), url: TEST_URL, status: "failed" },
+          { error: Error("Err1"), url: TEST_URL1, status: "failed" },
+        ],
+      });
+    });
   });
 
   // finish request작성
+  describe("endRequestAction", () => {
+    test("with normal end", () => {
+      initState = reducer(initState, actions.startRequest({ url: TEST_URL }));
+      initState = reducer(initState, actions.endRequest({ url: TEST_URL }));
+      expect(initState).toStrictEqual({
+        requests: [],
+      });
+    });
+
+    test("with none existing end", () => {
+      initState = reducer(initState, actions.startRequest({ url: TEST_URL }));
+      expect(() => {
+        reducer(initState, actions.endRequest({ url: TEST_URL1 }));
+      }).toThrowError("요청이 존재하지 않습니다");
+      expect(initState).toStrictEqual({
+        requests: [{ url: TEST_URL, status: "loading", error: null }],
+      });
+    });
+
+    test("with multiple end", () => {
+      initState = reducer(initState, actions.startRequest({ url: TEST_URL }));
+      initState = reducer(initState, actions.startRequest({ url: TEST_URL1 }));
+      initState = reducer(initState, actions.endRequest({ url: TEST_URL }));
+      initState = reducer(initState, actions.endRequest({ url: TEST_URL1 }));
+      expect(initState).toStrictEqual({
+        requests: [],
+      });
+    });
+  });
 });
