@@ -1,9 +1,9 @@
 import AppApi from "./AppApi";
 
 interface PostWorldCupReq {
-  category: string;
+  category: number;
   desc: string;
-  files: string;
+  files: { name: string; url: string }[];
   title: string;
 }
 interface GetWorldCupsByIdReq {

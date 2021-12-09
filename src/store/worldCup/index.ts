@@ -11,7 +11,7 @@ export interface WorldCupReducer {
   winnerId: number | null;
 }
 
-const initialState: WorldCupReducer = {
+export const initialState: WorldCupReducer = {
   title: "",
   targets: [],
   remainingTargetIds: [],
@@ -20,6 +20,7 @@ const initialState: WorldCupReducer = {
   level: 0,
   winnerId: null,
 };
+
 const worldCupReducer = (state = initialState, action: WorldCupActions): WorldCupReducer => {
   switch (action.type) {
     case getType(actions.setTitle): {
