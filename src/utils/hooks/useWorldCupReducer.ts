@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import worldCupThunks from "../../store/worldCup/worldCupThunks";
+import worldCupActions from "../../store/worldCup/worldCupActions";
 
 const useWorldCupReducer = () => {
   const dispatch = useDispatch();
@@ -19,10 +20,15 @@ const useWorldCupReducer = () => {
     },
     [dispatch],
   );
+
+  const reset = useCallback(() => {
+    dispatch(worldCupActions.reset());
+  }, [dispatch]);
   return {
     worldCupState,
     initializeWorldCup,
     selectTarget,
+    reset,
   };
 };
 

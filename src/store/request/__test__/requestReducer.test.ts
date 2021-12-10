@@ -1,5 +1,5 @@
-import reducer, { initialState } from "./index";
-import actions from "./requestActions";
+import reducer, { initialState } from "../index";
+import actions from "../requestActions";
 
 const TEST_URL = "test-url";
 const TEST_URL1 = "test-url1";
