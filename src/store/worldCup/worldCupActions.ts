@@ -1,29 +1,32 @@
 import { ActionType, createAction } from "typesafe-actions";
+import { WorldCupReducer } from "./types";
 
-const INITIALIZE = "worldCup/initialize";
-const FINISH_CURRENT_LEVEL = "worldCup/finishCurrentLevel";
-const SELECT_TARGET = "worldCup/selectTarget";
+const INITIALIZE_WORLDCUP = "worldCup/initialize_worldcup";
+const FINISH_CURRENT_LEVEL = "worldCup/finish_current_level";
+const SELECT_TARGET = "worldCup/selectTaraget";
 const SET_WINNER_ID = "worldCup/set_winner_id";
 const SET_CURRENT_TARGET_IDS = "worldCup/set_current_target_ids";
 const RESET = "worldCup/reset";
 
 // action creators
-const initialize = createAction(INITIALIZE)<{ targets: Target[]; title: string; level: number }>();
+const initializeWorldCup =
+  createAction(INITIALIZE_WORLDCUP)<Pick<WorldCupReducer, "level" | "targets" | "title">>();
 const finishCurrentLevel = createAction(FINISH_CURRENT_LEVEL)();
-const selectTarget = createAction(SELECT_TARGET)<{ selectedTargetId: number }>();
+const selectTarget = createAction(SELECT_TARGET)<{ targetId: number }>();
 const setWinnerId = createAction(SET_WINNER_ID)<{ targetId: number }>();
-const setCurrentTargetIds =
-  createAction(SET_CURRENT_TARGET_IDS)<{ currentTargetIds: [number, number] }>();
+const setCurrentTargetIds = createAction(SET_CURRENT_TARGET_IDS)();
+
 const reset = createAction(RESET)();
 
 const actions = {
-  initialize,
+  initializeWorldCup,
   finishCurrentLevel,
   selectTarget,
   setWinnerId,
   setCurrentTargetIds,
   reset,
 };
+
 export type WorldCupActions = ActionType<typeof actions>;
 
 export default actions;
