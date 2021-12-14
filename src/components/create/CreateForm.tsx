@@ -1,7 +1,8 @@
 import { Form, Formik, FormikErrors } from "formik";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import styled from "styled-components";
 import { WorldCupApi } from "../../api";
+import CategoryContext from "../../utils/contexts/CategoryContext";
 import Button from "../common/Button";
 import PageSpinner from "../common/PageSpinner";
 import Text from "../common/Text";
@@ -35,7 +36,13 @@ const initialValues: CreateFormValues = {
 
 const CreateForm = () => {
   const [isFileUploading, setIsFileUploading] = useState(true);
-
+  const { categories } = useContext(CategoryContext);
+  const handleCategoryChange =
+    (setFieldValue: (field: string, value: number, shouldValidate?: boolean | undefined) => void) =>
+    (name: string, value: number) =>
+    () => {
+      setFieldValue(name, value);
+    };
   const handleSubmit = useCallback(async (v) => {
     try {
       const data = {
@@ -58,6 +65,8 @@ const CreateForm = () => {
 
   const validate = useCallback((v) => {
     const errors: FormikErrors<CreateFormValues> = {};
+    console.log(v);
+
     if (!v.title) {
       errors.title = "제목을 입력해주세요.";
     }
@@ -71,7 +80,16 @@ const CreateForm = () => {
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit} validate={validate}>
-      {({ isSubmitting, isValid }) => (
+      {({
+        isSubmitting,
+        isValid,
+        values,
+        setFieldValue,
+        handleBlur,
+        handleChange,
+        errors,
+        touched,
+      }) => (
         <>
           {isSubmitting ? (
             <PageSpinner />
@@ -80,15 +98,34 @@ const CreateForm = () => {
               <Text bold fontSize='heading' text='IDW Creation' margin='0 0 3rem 0' />
               {/* title */}
               <FieldContainer>
-                <TitleField name='title' />
+                <TitleField
+                  error={errors.title}
+                  touched={touched.title}
+                  handleBlur={handleBlur}
+                  handleChange={handleChange}
+                  value={values.title}
+                  name='title'
+                />
               </FieldContainer>
               {/* desc */}
               <FieldContainer>
-                <DescField name='desc' />
+                <DescField
+                  error={errors.desc}
+                  touched={touched.desc}
+                  handleBlur={handleBlur}
+                  handleChange={handleChange}
+                  value={values.desc}
+                  name='desc'
+                />
               </FieldContainer>
               {/* radio */}
               <FieldContainer>
-                <CategoryField name='category' />
+                <CategoryField
+                  handleCategoryChange={handleCategoryChange(setFieldValue)}
+                  categories={categories}
+                  curValue={values.category}
+                  name='category'
+                />
               </FieldContainer>
               {/* files */}
               <FieldContainer>

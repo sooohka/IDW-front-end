@@ -13,8 +13,9 @@ const Label = styled.label`
 `;
 
 interface Radio {
-  checked: boolean;
+  isChecked: boolean;
 }
+
 const Radio = styled.span<Radio>`
   display: inline-block;
   width: 20px;
@@ -36,8 +37,8 @@ const Radio = styled.span<Radio>`
     background-color: ${({ theme }) => theme.colors.primary};
   }
 
-  ${({ checked }) =>
-    checked &&
+  ${({ isChecked }) =>
+    isChecked &&
     css`
       &::after {
         content: "";
@@ -49,18 +50,18 @@ interface IProps {
   id: string;
   label?: string;
   name: string;
-  checked: boolean;
+  isChecked: boolean;
   onChange: (e: React.KeyboardEvent | React.ChangeEvent) => void;
   value: number | string;
 }
-const RadioField: React.FC<IProps> = ({ id, label, name, checked, onChange, value }) => (
+const RadioField: React.FC<IProps> = ({ id, label, name, isChecked, onChange, value }) => (
   <Container>
     <Label htmlFor={id}>
       <input
         id={id}
         name={name}
         type='radio'
-        checked={checked}
+        defaultChecked={isChecked}
         onChange={onChange}
         value={value}
         hidden
@@ -70,7 +71,7 @@ const RadioField: React.FC<IProps> = ({ id, label, name, checked, onChange, valu
           if (e.key === " ") onChange(e);
         }}
         tabIndex={0}
-        checked={checked}
+        isChecked={isChecked}
       />
       {label || value}
     </Label>

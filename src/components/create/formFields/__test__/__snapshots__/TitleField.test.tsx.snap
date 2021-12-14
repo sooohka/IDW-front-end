@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/create/formFields TitleFields renders 1`] = `
+Array [
+  <div
+    className="sc-dkPtRN UxpTq"
+  >
+    <span
+      className="sc-hKwDye gIRQnk"
+    >
+      제목
+    </span>
+    <input
+      className="sc-gsDKAQ HfhXV"
+      name="title"
+      onBlur={[MockFunction]}
+      onChange={[MockFunction]}
+      tabIndex={0}
+      type="text"
+      value=""
+    />
+  </div>,
+  <p
+    className="sc-bdvvtL iDNMqj"
+  />,
+]
+`;

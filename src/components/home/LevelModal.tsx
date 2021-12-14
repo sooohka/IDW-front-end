@@ -81,7 +81,7 @@ const LevelModal = () => {
                     key={v}
                     id={`level${i}`}
                     name='level'
-                    checked={level === v}
+                    isChecked={level === v}
                     onChange={handleLevelChange(v)}
                     label={`${v}강`}
                     value={v}

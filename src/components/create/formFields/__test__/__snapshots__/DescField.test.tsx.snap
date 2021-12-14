@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/create/formFields DescFields renders 1`] = `
+Array [
+  <div
+    className="sc-gsDKAQ gFZcdC"
+  >
+    <span
+      className="sc-dkPtRN jNMDnb"
+    >
+      설명
+    </span>
+    <textarea
+      className="sc-hKwDye PbQHt"
+      name="desc"
+      onBlur={[MockFunction]}
+      onChange={[MockFunction]}
+      tabIndex={0}
+      value=""
+    />
+  </div>,
+  <p
+    className="sc-bdvvtL iDNMqj"
+  />,
+]
+`;

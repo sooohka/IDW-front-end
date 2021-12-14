@@ -5,6 +5,7 @@ import React, { FC, ReactElement } from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+import renderer from "react-test-renderer";
 import store from "./store";
 import GlobalStyle from "./style/GlobalStyle";
 import theme from "./style/theme";
@@ -47,8 +48,16 @@ const useStore = (stateName: string, initState: any, reducer: any) => {
   return { store, next, makeThunk };
 };
 
-export { thunk, useStore };
+const createWithThemeProvider = (EL: ReactElement) => {
+  return renderer.create(
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      {EL}
+    </ThemeProvider>,
+  );
+};
+
+const redux = { thunk, useStore };
+export { redux, customRender as render, createWithThemeProvider };
 
 export * from "@testing-library/react";
-const redux = { thunk, useStore };
-export { redux, customRender as render };

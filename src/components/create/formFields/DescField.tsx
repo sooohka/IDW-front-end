@@ -28,11 +28,14 @@ const TextArea = styled.textarea`
 
 interface IProps {
   name: keyof CreateFormValues;
+  handleBlur: React.FocusEventHandler;
+  handleChange: React.ChangeEventHandler;
+  value: string;
+  error?: string;
+  touched?: boolean;
 }
 
-const DescField: React.FC<IProps> = ({ name }) => {
-  const { values, touched, errors, handleChange, handleBlur } =
-    useFormikContext<CreateFormValues>();
+const DescField: React.FC<IProps> = ({ name, handleChange, handleBlur, value, touched, error }) => {
   return (
     <>
       <StyledField>
@@ -42,13 +45,10 @@ const DescField: React.FC<IProps> = ({ name }) => {
           name={name}
           onChange={handleChange}
           onBlur={handleBlur}
-          value={values.desc}
+          value={value}
         />
       </StyledField>
-      <HelperText
-        hasError={Boolean(touched[name] && errors[name])}
-        text={(touched[name] && errors[name]) as string}
-      />
+      <HelperText hasError={Boolean(touched && error)} text={(touched && error) as string} />
     </>
   );
 };

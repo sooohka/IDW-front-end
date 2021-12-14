@@ -19,11 +19,20 @@ const FieldTitle = styled.span`
 
 interface IProps {
   name: keyof CreateFormValues;
+  handleBlur: React.FocusEventHandler;
+  handleChange: React.ChangeEventHandler;
+  value: string;
+  error?: string;
+  touched?: boolean;
 }
-const TitleField: React.FC<IProps> = ({ name }) => {
-  const { values, touched, errors, handleChange, handleBlur } =
-    useFormikContext<CreateFormValues>();
-
+const TitleField: React.FC<IProps> = ({
+  name,
+  handleChange,
+  handleBlur,
+  value,
+  touched,
+  error,
+}) => {
   const titleEl = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -41,13 +50,10 @@ const TitleField: React.FC<IProps> = ({ name }) => {
           type='text'
           onChange={handleChange}
           onBlur={handleBlur}
-          value={values.title}
+          value={value}
         />
       </StyledField>
-      <HelperText
-        hasError={Boolean(touched[name] && errors[name])}
-        text={(touched[name] && errors[name]) as string}
-      />
+      <HelperText hasError={Boolean(touched && error)} text={(touched && error) as string} />
     </>
   );
 };

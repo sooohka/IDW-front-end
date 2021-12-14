@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/create/formFields CategoryFields renders 1`] = `
+<div
+  className="sc-hKwDye bSWfzB"
+>
+  <span
+    className="sc-eCImPb iUWUTU"
+  >
+    카테고리
+  </span>
+  <div
+    className="sc-jRQBWg jNkpZG"
+  >
+    <div
+      className="sc-bdvvtL"
+    >
+      <label
+        className="sc-gsDKAQ jYKaVw"
+        htmlFor="1"
+      >
+        <input
+          defaultChecked={true}
+          hidden={true}
+          id="1"
+          name="category"
+          onChange={[Function]}
+          type="radio"
+          value={1}
+        />
+        <span
+          className="sc-dkPtRN kgOdjN"
+          onKeyDown={[Function]}
+          tabIndex={0}
+        />
+        배우
+      </label>
+    </div>
+    <div
+      className="sc-bdvvtL"
+    >
+      <label
+        className="sc-gsDKAQ jYKaVw"
+        htmlFor="2"
+      >
+        <input
+          defaultChecked={false}
+          hidden={true}
+          id="2"
+          name="category"
+          onChange={[Function]}
+          type="radio"
+          value={2}
+        />
+        <span
+          className="sc-dkPtRN biWjwF"
+          onKeyDown={[Function]}
+          tabIndex={0}
+        />
+        동물
+      </label>
+    </div>
+    <div
+      className="sc-bdvvtL"
+    >
+      <label
+        className="sc-gsDKAQ jYKaVw"
+        htmlFor="3"
+      >
+        <input
+          defaultChecked={false}
+          hidden={true}
+          id="3"
+          name="category"
+          onChange={[Function]}
+          type="radio"
+          value={3}
+        />
+        <span
+          className="sc-dkPtRN biWjwF"
+          onKeyDown={[Function]}
+          tabIndex={0}
+        />
+        음식
+      </label>
+    </div>
+    <div
+      className="sc-bdvvtL"
+    >
+      <label
+        className="sc-gsDKAQ jYKaVw"
+        htmlFor="4"
+      >
+        <input
+          defaultChecked={false}
+          hidden={true}
+          id="4"
+          name="category"
+          onChange={[Function]}
+          type="radio"
+          value={4}
+        />
+        <span
+          className="sc-dkPtRN biWjwF"
+          onKeyDown={[Function]}
+          tabIndex={0}
+        />
+        음료
+      </label>
+    </div>
+  </div>
+</div>
+`;

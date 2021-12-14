@@ -1,14 +1,8 @@
-import { useFormikContext } from "formik";
-import React, { useContext } from "react";
-
+import React from "react";
 import styled from "styled-components";
-import CategoryContext from "../../../utils/contexts/CategoryContext";
 import RadioField from "../../common/RadioField";
+import GlobalTheme from "../../../style/theme";
 
-interface MyFieldProps {
-  label: string;
-  children: React.ReactNode;
-}
 const StyledField = styled.div`
   display: flex;
   flex-direction: column;
@@ -19,14 +13,8 @@ const FieldTitle = styled.span`
   flex-direction: column;
   font-weight: bold;
   letter-spacing: 1px;
-  font-size: ${({ theme }) => theme.fonts.label};
+  font-size: ${({ theme }) => theme.fonts?.label || GlobalTheme.fonts.label};
 `;
-const Field: React.FC<MyFieldProps> = ({ label, children }) => (
-  <StyledField>
-    <FieldTitle>{label}</FieldTitle>
-    {children}
-  </StyledField>
-);
 
 const RadioFieldContainer = styled.div`
   display: flex;
@@ -41,11 +29,15 @@ const RadioFieldContainer = styled.div`
 `;
 
 interface IProps {
+  categories: Category[];
+  curValue: number;
   name: keyof CreateFormValues;
+  handleCategoryChange: (
+    name: string,
+    value: number,
+  ) => (e: React.ChangeEvent | React.KeyboardEvent) => void;
 }
-const CategoryField: React.FC<IProps> = ({ name }) => {
-  const { categories } = useContext(CategoryContext);
-  const { values, setFieldValue } = useFormikContext<CreateFormValues>();
+const CategoryField: React.FC<IProps> = ({ name, categories, curValue, handleCategoryChange }) => {
   return (
     <StyledField>
       <FieldTitle>카테고리</FieldTitle>
@@ -55,8 +47,8 @@ const CategoryField: React.FC<IProps> = ({ name }) => {
             key={v.id}
             id={v.id.toString()}
             name={name}
-            checked={values[name] === v.id}
-            onChange={() => setFieldValue("name", v.id)}
+            isChecked={curValue === v.id}
+            onChange={handleCategoryChange(name, v.id)}
             value={v.id}
             label={v.name}
           />

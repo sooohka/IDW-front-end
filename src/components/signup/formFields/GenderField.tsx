@@ -36,7 +36,7 @@ const GenderField: React.FC<IProps> = ({ name }) => {
             key={v.text}
             id={v.text}
             name={name}
-            checked={values[name] === v.value}
+            isChecked={values[name] === v.value}
             onChange={() => setFieldValue(name, v.value)}
             value={v.value}
           />
