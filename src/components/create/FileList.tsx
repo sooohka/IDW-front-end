@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { ReactComponent as Sort } from "../../assets/icons/sort-up-solid.svg";
 import useMount from "../../utils/hooks/useMount";
 import Text from "../common/Text";
-import NewFileUploadWithProgress from "./FileUploadWithProgress";
+import FileUploadWithProgress from "./FileUploadWithProgress";
 
 const StyledFileList = styled.div`
   margin: 1rem 0 0 0;
@@ -99,7 +99,7 @@ const FileList: React.FC<IProps> = ({ imageFiles, handleDelete, setImageFiles })
       <Files isFolded={isFolded}>
         {imageFiles.length !== 0 ? (
           imageFiles.map((imageFile) => (
-            <NewFileUploadWithProgress
+            <FileUploadWithProgress
               imageFile={imageFile}
               key={imageFile.id}
               handleDelete={handleDelete}

@@ -1,5 +1,5 @@
-import { useFormikContext } from "formik";
-import React from "react";
+import { FormikErrors } from "formik";
+import React, { memo, useCallback } from "react";
 import styled from "styled-components";
 import HelperText from "../../common/HelperText";
 import FileUploadField from "../FileUploadField";
@@ -19,19 +19,28 @@ const FieldTitle = styled.span`
 
 interface IProps {
   name: keyof CreateFormValues;
-
   setIsFileUploading: React.Dispatch<React.SetStateAction<boolean>>;
+  error?:
+    | string
+    | string[]
+    | FormikErrors<{
+        url: string;
+        name: string;
+      }>[];
+  handleFilesChange: (name: string) => (value: CreateFormValues["files"]) => void;
 }
 
-const FilesField: React.FC<IProps> = ({ name, setIsFileUploading }) => {
-  const { errors } = useFormikContext<CreateFormValues>();
+const FilesField: React.FC<IProps> = ({ handleFilesChange, error, name, setIsFileUploading }) => {
   return (
     <>
       <StyledField>
         <FieldTitle>파일</FieldTitle>
-        <FileUploadField setIsFileUploading={setIsFileUploading} formikName='files' />
+        <FileUploadField
+          handleFilesChange={useCallback(() => handleFilesChange(name), [handleFilesChange, name])}
+          setIsFileUploading={setIsFileUploading}
+        />
       </StyledField>
-      <HelperText hasError={Boolean(errors[name])} text={errors[name] as string} />
+      <HelperText hasError={Boolean(error)} text={error as string} />
     </>
   );
 };

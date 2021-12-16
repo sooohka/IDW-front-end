@@ -2,23 +2,22 @@ import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { WorldCupApi } from "../../api";
 import ModalContext from "../../utils/contexts/ModalContext";
-import WorldCupsContext from "../../utils/contexts/WorldCupsContext";
 import useFetch from "../../utils/hooks/useFetch";
+import useModal from "../../utils/hooks/useModal";
 import Template from "./template";
 
 const Home: React.FC = () => {
   const { data: worldCups, isLoading } = useFetch(WorldCupApi.getWorldCups);
-
+  const { closeModal, openModal, opened } = useModal();
   const history = useHistory();
-  const [isLevelModalOpened, setIsLevelModalOpened] = useState(false);
   const [currentWorldCup, setCurrentWorldCup] = useState<WorldCup | null>(null);
 
   const handlePlayBtnClick = useCallback(
     (id) => () => {
-      setIsLevelModalOpened(true);
+      openModal();
       if (worldCups) setCurrentWorldCup(worldCups.find((v: WorldCup) => v.id === id) || null);
     },
-    [worldCups],
+    [openModal, worldCups],
   );
 
   const handleModalSubmit = useCallback(
@@ -31,16 +30,13 @@ const Home: React.FC = () => {
     [currentWorldCup, history],
   );
 
-  const handleModalClose = useCallback(() => setIsLevelModalOpened(false), []);
+  const handleModalClose = useCallback(() => closeModal(), [closeModal]);
 
   return (
-    <WorldCupsContext.Provider value={{ worldCups: worldCups || [] }}>
-      <ModalContext.Provider
-        value={{ handleModalClose, handleModalSubmit, isModalOpened: isLevelModalOpened }}
-      >
-        {isLoading || <Template handlePlayBtnClick={handlePlayBtnClick} />}
-      </ModalContext.Provider>
-    </WorldCupsContext.Provider>
+    <ModalContext.Provider value={{ handleModalClose, handleModalSubmit, isModalOpened: opened }}>
+      {isLoading ||
+        (worldCups && <Template worldCups={worldCups} handlePlayBtnClick={handlePlayBtnClick} />)}
+    </ModalContext.Provider>
   );
 };
 

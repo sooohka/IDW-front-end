@@ -1,4 +1,3 @@
-import { useFormikContext } from "formik";
 import React, { useEffect, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import styled from "styled-components";
@@ -6,7 +5,6 @@ import * as uuid from "uuid";
 import { ReactComponent as UploadIcon } from "../../assets/icons/cloud-upload-alt-solid.svg";
 import defaultTheme from "../../style/theme";
 import FileList from "./FileList";
-import NewFileUploadWithProgress from "./FileUploadWithProgress";
 
 const Container = styled.div`
   min-height: 150%;
@@ -32,12 +30,11 @@ const DropZone = styled.div<{ isAccepting: boolean }>`
 `;
 
 interface IProps {
-  formikName: string;
   setIsFileUploading: React.Dispatch<React.SetStateAction<boolean>>;
+  handleFilesChange: (value: CreateFormValues["files"]) => void;
 }
 
-const NewFileUploadField: React.FC<IProps> = ({ formikName, setIsFileUploading }) => {
-  const { setFieldValue } = useFormikContext();
+const FileUploadField: React.FC<IProps> = ({ setIsFileUploading, handleFilesChange }) => {
   const [imageFiles, setImageFiles] = useState<TargetFile[]>([]);
 
   /* drag and drop필드에 접근했을때 */
@@ -78,16 +75,16 @@ const NewFileUploadField: React.FC<IProps> = ({ formikName, setIsFileUploading }
 
   useEffect(() => {
     if (imageFiles.every((imageFile) => imageFile.isSubmitted && !imageFile.errors.length)) {
-      const formedFiles = imageFiles.map((imageFile) => ({
+      const formedFiles: CreateFormValues["files"] = imageFiles.map((imageFile) => ({
         name: imageFile.file.name,
         url: imageFile.url,
       }));
-      setFieldValue(formikName, formedFiles);
+      handleFilesChange(formedFiles);
       setIsFileUploading(false);
     } else {
       setIsFileUploading(true);
     }
-  }, [formikName, imageFiles, setFieldValue, setIsFileUploading]);
+  }, [handleFilesChange, imageFiles, setIsFileUploading]);
 
   const handleValidation = (file: File) => {
     if (imageFiles.find((imageFile) => imageFile.file.name === file.name)) {
@@ -126,4 +123,4 @@ const NewFileUploadField: React.FC<IProps> = ({ formikName, setIsFileUploading }
   );
 };
 
-export default NewFileUploadField;
+export default FileUploadField;

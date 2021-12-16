@@ -59,11 +59,8 @@ const NewFileUploadWithProgress: React.FC<IProps> = ({
     <Container>
       {isSubmitted ? (
         <>
-          {errors.length === 0 ? (
-            <Img width='50px' height='50px' src={fullUrl} alt={file.name} />
-          ) : (
-            <UploadFail width={50} height={50} color='red' />
-          )}
+          {errors.length === 0 && <Img width='50px' height='50px' src={fullUrl} alt={file.name} />}
+          {errors.length > 0 && <UploadFail width={50} height={50} color='red' />}
         </>
       ) : (
         <FileImage width={50} height={50} />

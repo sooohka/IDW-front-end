@@ -15,14 +15,15 @@ const Container = styled.div`
 
 interface IProps {
   handlePlayBtnClick: (id: number) => (e: React.MouseEvent) => void;
+  worldCups: WorldCup[];
 }
-const Template: React.FC<IProps> = ({ handlePlayBtnClick }) => (
+const Template: React.FC<IProps> = ({ worldCups, handlePlayBtnClick }) => (
   <Container>
     <Navbar />
     <Sidebar />
     <Content>
       <LevelModal />
-      <Cards handlePlayBtnClick={handlePlayBtnClick} />
+      <Cards worldCups={worldCups} handlePlayBtnClick={handlePlayBtnClick} />
     </Content>
   </Container>
 );

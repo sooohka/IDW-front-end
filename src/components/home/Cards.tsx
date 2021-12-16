@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import worldCupsContext from "../../utils/contexts/WorldCupsContext";
+import useWorldCupReducer from "../../utils/hooks/useWorldCupReducer";
 import Card from "./Card";
 
 const StyledCards = styled.div`
@@ -12,10 +12,9 @@ const StyledCards = styled.div`
 `;
 interface IProps {
   handlePlayBtnClick: (id: number) => (e: React.MouseEvent) => void;
+  worldCups: WorldCup[];
 }
-const Cards: React.FC<IProps> = ({ handlePlayBtnClick }) => {
-  const { worldCups } = useContext(worldCupsContext);
-
+const Cards: React.FC<IProps> = ({ handlePlayBtnClick, worldCups }) => {
   return (
     <StyledCards>
       {worldCups.map((v) => (

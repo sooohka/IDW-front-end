@@ -1,4 +1,4 @@
-import { Form, Formik, FormikErrors } from "formik";
+import { FormikErrors, useFormik } from "formik";
 import React, { useCallback, useContext, useState } from "react";
 import styled from "styled-components";
 import { WorldCupApi } from "../../api";
@@ -20,7 +20,7 @@ const FieldContainer = styled.div<{ width?: string }>`
   width: ${({ width }) => width || "100%"};
 `;
 
-const StyledForm = styled(Form)`
+const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -37,12 +37,7 @@ const initialValues: CreateFormValues = {
 const CreateForm = () => {
   const [isFileUploading, setIsFileUploading] = useState(true);
   const { categories } = useContext(CategoryContext);
-  const handleCategoryChange =
-    (setFieldValue: (field: string, value: number, shouldValidate?: boolean | undefined) => void) =>
-    (name: string, value: number) =>
-    () => {
-      setFieldValue(name, value);
-    };
+
   const handleSubmit = useCallback(async (v) => {
     try {
       const data = {
@@ -77,69 +72,82 @@ const CreateForm = () => {
     }
     return errors;
   }, []);
+  const {
+    isSubmitting,
+    isValid,
+    values,
+    setFieldValue,
+    handleBlur,
+    handleChange,
+    handleReset,
+    errors,
+    touched,
+  } = useFormik({ initialValues, onSubmit: handleSubmit, validate });
+
+  const handleCategoryChange = (name: string, value: number) => () => {
+    setFieldValue(name, value);
+  };
+  const handleFilesChange = useCallback(
+    (name: string) => (value: CreateFormValues["files"]) => {
+      setFieldValue(name, value);
+    },
+    [setFieldValue],
+  );
 
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit} validate={validate}>
-      {({
-        isSubmitting,
-        isValid,
-        values,
-        setFieldValue,
-        handleBlur,
-        handleChange,
-        errors,
-        touched,
-      }) => (
-        <>
-          {isSubmitting ? (
-            <PageSpinner />
-          ) : (
-            <StyledForm>
-              <Text bold fontSize='heading' text='IDW Creation' margin='0 0 3rem 0' />
-              {/* title */}
-              <FieldContainer>
-                <TitleField
-                  error={errors.title}
-                  touched={touched.title}
-                  handleBlur={handleBlur}
-                  handleChange={handleChange}
-                  value={values.title}
-                  name='title'
-                />
-              </FieldContainer>
-              {/* desc */}
-              <FieldContainer>
-                <DescField
-                  error={errors.desc}
-                  touched={touched.desc}
-                  handleBlur={handleBlur}
-                  handleChange={handleChange}
-                  value={values.desc}
-                  name='desc'
-                />
-              </FieldContainer>
-              {/* radio */}
-              <FieldContainer>
-                <CategoryField
-                  handleCategoryChange={handleCategoryChange(setFieldValue)}
-                  categories={categories}
-                  curValue={values.category}
-                  name='category'
-                />
-              </FieldContainer>
-              {/* files */}
-              <FieldContainer>
-                <FilesField name='files' setIsFileUploading={setIsFileUploading} />
-              </FieldContainer>
-              <FieldContainer width='10%'>
-                <Button label='submit' disabled={isFileUploading || !isValid} type='submit' />
-                {/* <HelperText hasError={Boolean(errors.title || errors.desc || errors.files)} text={errors.title || errors.desc || errors.files}></HelperText> */}
-              </FieldContainer>
-            </StyledForm>
-          )}
-        </>
+    <>
+      {isSubmitting ? (
+        <PageSpinner />
+      ) : (
+        <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
+          <Text bold fontSize='heading' text='IDW Creation' margin='0 0 3rem 0' />
+          {/* title */}
+          <FieldContainer>
+            <TitleField
+              error={errors.title}
+              touched={touched.title}
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              value={values.title}
+              name='title'
+            />
+          </FieldContainer>
+          {/* desc */}
+          <FieldContainer>
+            <DescField
+              error={errors.desc}
+              touched={touched.desc}
+              handleBlur={handleBlur}
+              handleChange={handleChange}
+              value={values.desc}
+              name='desc'
+            />
+          </FieldContainer>
+          {/* radio */}
+          <FieldContainer>
+            <CategoryField
+              handleCategoryChange={handleCategoryChange}
+              categories={categories}
+              curValue={values.category}
+              name='category'
+            />
+          </FieldContainer>
+          {/* files */}
+          <FieldContainer>
+            <FilesField
+              handleFilesChange={handleFilesChange}
+              error={errors.files}
+              name='files'
+              setIsFileUploading={setIsFileUploading}
+            />
+          </FieldContainer>
+          <FieldContainer width='10%'>
+            <Button label='submit' disabled={isFileUploading || !isValid} type='submit' />
+            {/* <HelperText hasError={Boolean(errors.title || errors.desc || errors.files)} text={errors.title || errors.desc || errors.files}></HelperText> */}
+          </FieldContainer>
+        </StyledForm>
       )}
-    </Formik>
+    </>
   );
 };
 
