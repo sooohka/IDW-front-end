@@ -14,7 +14,7 @@ interface HandleUpload {
     imageFile: TargetFile,
     setProgress: React.Dispatch<React.SetStateAction<number>>,
     setImageFiles: React.Dispatch<React.SetStateAction<TargetFile[]>>,
-  ): void;
+  ): Promise<TargetFile>;
 }
 
 const handleCloudinaryUpload: HandleUpload = async (imageFile, setProgress, setImageFiles) => {
@@ -31,13 +31,14 @@ const handleCloudinaryUpload: HandleUpload = async (imageFile, setProgress, setI
     },
   });
   const { url } = res.data;
-  if (res.status === 200) {
-    setImageFiles((prev) =>
-      prev.map((image) =>
-        image.id === imageFile.id ? { ...image, isSubmitted: true, url } : { ...image },
-      ),
-    );
-  }
+  // if (res.status === 200) {
+  //   setImageFiles((prev) =>
+  //     prev.map((image) =>
+  //       image.id === imageFile.id ? { ...image, isSubmitted: true, url } : { ...image },
+  //     ),
+  //   );
+  // }
+  return { ...imageFile, url };
 };
 
 const handleAwsUpload: HandleUpload = async (imageFile, setProgress, setImageFiles) => {
@@ -57,27 +58,34 @@ const handleAwsUpload: HandleUpload = async (imageFile, setProgress, setImageFil
     } = res.data;
     const fullUrl = `${process.env.REACT_APP_AWS_BUCKET_URL}/${locations.small}`;
 
-    if (res.status === 200) {
-      setImageFiles((prev) =>
-        prev.map((image) =>
-          image.id === imageFile.id ? { ...image, isSubmitted: true, url: fullUrl } : { ...image },
-        ),
-      );
-    }
+    return { ...imageFile, url: fullUrl };
+    // if (res.status === 200) {
+    //   setImageFiles((prev) =>
+    //     prev.map((image) =>
+    //       image.id === imageFile.id ? { ...image, isSubmitted: true, url: fullUrl } : { ...image },
+    //     ),
+    //   );
+    // }
   } catch (err: any) {
     const message = err.response?.data?.message || err.message || "something went wrong😅 ";
-    setImageFiles((prev) =>
-      prev.map((image) =>
-        image.id === imageFile.id
-          ? {
-              ...image,
-              errors: [...imageFile.errors, { code: 413, message }],
-              isSubmitted: true,
-              url: "",
-            }
-          : { ...image },
-      ),
-    );
+    return {
+      ...imageFile,
+      errors: [...imageFile.errors, { code: 413, message }],
+      url: "",
+      isSubmitted: true,
+    };
+    // setImageFiles((prev) =>
+    //   prev.map((image) =>
+    //     image.id === imageFile.id
+    //       ? {
+    //           ...image,
+    //           errors: [...imageFile.errors, { code: 413, message }],
+    //           isSubmitted: true,
+    //           url: "",
+    //         }
+    //       : { ...image },
+    //   ),
+    // );
   }
 };
 

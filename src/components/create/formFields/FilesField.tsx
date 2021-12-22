@@ -1,8 +1,8 @@
 import { FormikErrors } from "formik";
-import React, { memo, useCallback } from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import HelperText from "../../common/HelperText";
-import FileUploadField from "../FileUploadField";
+import FileUploadField from "./fileUpload/FileUploadField";
 
 const StyledField = styled.div`
   display: flex;

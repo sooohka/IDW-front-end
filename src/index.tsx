@@ -16,10 +16,11 @@ const prepare = async () => {
 
     return worker.start({
       onUnhandledRequest: ({ method, url }) => {
+        if (url.origin.includes("fontawesome")) return;
+        if (url.origin.includes("static")) return;
         if (url.origin.includes("unsplash.com")) return;
-        if (url.origin.includes("cloudinary.com")) return;
-        if (url.origin.includes("gstatic.com")) return;
-        if (url.origin.includes("localhost")) return;
+        if (url.origin.includes("cloudinary")) return;
+
         throw new Error(`Unhandled ${method} request to ${url}`);
       },
     });
@@ -32,6 +33,8 @@ prepare().then(() => {
     <React.StrictMode>
       <ThemeProvider theme={theme}>
         <Provider store={store}>
+          {/*  eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a href='#'>hi</a>
           <BrowserRouter>
             <GlobalStyle />
             <App />

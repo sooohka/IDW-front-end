@@ -1,33 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
-import styled from "styled-components";
 import * as uuid from "uuid";
-import { ReactComponent as UploadIcon } from "../../assets/icons/cloud-upload-alt-solid.svg";
-import defaultTheme from "../../style/theme";
-import FileList from "./FileList";
-
-const Container = styled.div`
-  min-height: 150%;
-`;
-
-const DropZone = styled.div<{ isAccepting: boolean }>`
-  border: 3px dashed;
-  border-color: ${({ theme }) => theme.colors.primary};
-  height: 15rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  flex-direction: column;
-  & > * {
-    transform: ${({ isAccepting }) => isAccepting && "scale(1.5)"};
-    opacity: ${({ isAccepting }) => isAccepting && 0.3};
-  }
-  & > p {
-    font-weight: bold;
-    color: ${({ theme }) => theme.colors.primary};
-  }
-`;
+import { ReactComponent as UploadIcon } from "../../../../../assets/icons/cloud-upload-alt-solid.svg";
+import defaultTheme from "../../../../../style/theme";
+import FileList from "../FileList";
+import * as S from "./Style";
 
 interface IProps {
   setIsFileUploading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -63,7 +40,6 @@ const FileUploadField: React.FC<IProps> = ({ setIsFileUploading, handleFilesChan
       isSubmitted: false,
       url: "",
     }));
-
     setImageFiles((prevFiles) => [
       ...prevFiles.filter((prevFile) => prevFile.errors.length === 0),
       ...accFiles,
@@ -75,7 +51,7 @@ const FileUploadField: React.FC<IProps> = ({ setIsFileUploading, handleFilesChan
 
   useEffect(() => {
     if (imageFiles.every((imageFile) => imageFile.isSubmitted && !imageFile.errors.length)) {
-      const formedFiles: CreateFormValues["files"] = imageFiles.map((imageFile) => ({
+      const formedFiles = imageFiles.map((imageFile) => ({
         name: imageFile.file.name,
         url: imageFile.url,
       }));
@@ -111,15 +87,15 @@ const FileUploadField: React.FC<IProps> = ({ setIsFileUploading, handleFilesChan
   });
 
   return (
-    <Container>
-      <DropZone {...getRootProps()} isAccepting={isAccepting}>
+    <S.FileUploadField>
+      <S.DropZone {...getRootProps()} isAccepting={isAccepting}>
         <input {...getInputProps()} />
         <UploadIcon fill={defaultTheme.colors.primary} width={50} height={50} />
         <p>Drag and Drop or click here to upload</p>
-      </DropZone>
+      </S.DropZone>
       {/* ListFiles */}
       <FileList imageFiles={imageFiles} handleDelete={handleDelete} setImageFiles={setImageFiles} />
-    </Container>
+    </S.FileUploadField>
   );
 };
 

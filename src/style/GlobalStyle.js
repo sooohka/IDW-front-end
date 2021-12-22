@@ -1,7 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-*{
+
+*,*::before,*::after{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -19,26 +20,13 @@ body {
   position: relative;
   min-height: 100%;
   min-width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: flex;
 }
 
-#root {
-  flex: 1;
-  min-height: 100vh;
-  min-width: 100vw;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
 
-#modal-root{
-}
 
 a,a:any-link,a:-webkit-any-link{
   text-decoration: none;
@@ -71,6 +59,17 @@ code {
     monospace;
 }
 
+#root {
+  flex: 1;
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+#modal-root{
+}
 `;
 
 export default GlobalStyle;
