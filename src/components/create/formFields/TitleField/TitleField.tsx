@@ -1,6 +1,8 @@
-import React from "react";
+import { useFormikContext } from "formik";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
-import HelperText from "../../common/HelperText";
+import HelperText from "../../../common/HelperText";
+import Input from "../../../common/Input";
 
 const StyledField = styled.div`
   display: flex;
@@ -15,16 +17,6 @@ const FieldTitle = styled.span`
   font-size: ${({ theme }) => theme.fonts.label};
 `;
 
-const TextArea = styled.textarea`
-  border: 3px solid;
-  border-radius: 5px;
-  border-color: ${({ theme }) => theme.colors.primary};
-  padding: 1rem;
-  font-size: ${({ theme }) => theme.fonts.strongBody};
-  letter-spacing: 0.5px;
-  font-weight: bold;
-`;
-
 interface IProps {
   name: keyof CreateFormValues;
   handleBlur: React.FocusEventHandler;
@@ -33,15 +25,29 @@ interface IProps {
   error?: string;
   touched?: boolean;
 }
+const TitleField: React.FC<IProps> = ({
+  name,
+  handleChange,
+  handleBlur,
+  value,
+  touched,
+  error,
+}) => {
+  const titleEl = useRef<HTMLInputElement | null>(null);
 
-const DescField: React.FC<IProps> = ({ name, handleChange, handleBlur, value, touched, error }) => {
+  useEffect(() => {
+    if (titleEl.current) titleEl.current.focus();
+  }, []);
+
   return (
     <>
       <StyledField>
-        <FieldTitle>설명</FieldTitle>
-        <TextArea
+        <FieldTitle>제목</FieldTitle>
+        <Input
+          ref={titleEl}
           tabIndex={0}
           name={name}
+          type='text'
           onChange={handleChange}
           onBlur={handleBlur}
           value={value}
@@ -52,4 +58,4 @@ const DescField: React.FC<IProps> = ({ name, handleChange, handleBlur, value, to
   );
 };
 
-export default DescField;
+export default TitleField;

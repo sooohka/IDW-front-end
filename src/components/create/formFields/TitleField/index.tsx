@@ -1,21 +1,7 @@
-import { useFormikContext } from "formik";
 import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
-import HelperText from "../../common/HelperText";
-import Input from "../../common/Input";
-
-const StyledField = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const FieldTitle = styled.span`
-  display: flex;
-  flex-direction: column;
-  font-weight: bold;
-  letter-spacing: 1px;
-  font-size: ${({ theme }) => theme.fonts.label};
-`;
+import HelperText from "../../../common/HelperText";
+import Input from "../../../common/Input";
+import * as S from "./Style";
 
 interface IProps {
   name: keyof CreateFormValues;
@@ -41,8 +27,8 @@ const TitleField: React.FC<IProps> = ({
 
   return (
     <>
-      <StyledField>
-        <FieldTitle>제목</FieldTitle>
+      <S.Field>
+        <S.FieldTitle>제목</S.FieldTitle>
         <Input
           ref={titleEl}
           tabIndex={0}
@@ -52,7 +38,7 @@ const TitleField: React.FC<IProps> = ({
           onBlur={handleBlur}
           value={value}
         />
-      </StyledField>
+      </S.Field>
       <HelperText hasError={Boolean(touched && error)} text={(touched && error) as string} />
     </>
   );
