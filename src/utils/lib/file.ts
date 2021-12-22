@@ -13,35 +13,40 @@ interface HandleUpload {
   (
     imageFile: TargetFile,
     setProgress: React.Dispatch<React.SetStateAction<number>>,
-    setImageFiles: React.Dispatch<React.SetStateAction<TargetFile[]>>,
   ): Promise<TargetFile>;
 }
 
-const handleCloudinaryUpload: HandleUpload = async (imageFile, setProgress, setImageFiles) => {
-  const formData = new FormData();
-  formData.append("file", imageFile.file);
-  if (!process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET || !process.env.REACT_APP_CLOUDINARY_URL)
-    throw new Error("upload_preset없음");
+const handleCloudinaryUpload: HandleUpload = async (imageFile, setProgress) => {
+  try {
+    const formData = new FormData();
+    formData.append("file", imageFile.file);
+    if (!process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET || !process.env.REACT_APP_CLOUDINARY_URL)
+      throw new Error("upload_preset없음");
 
-  formData.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
-  const res = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, formData, {
-    headers: { "Content-Type": "multipart/form-data" },
-    onUploadProgress: ({ loaded, total }) => {
-      setProgress((loaded / total) * 100);
-    },
-  });
-  const { url } = res.data;
-  // if (res.status === 200) {
-  //   setImageFiles((prev) =>
-  //     prev.map((image) =>
-  //       image.id === imageFile.id ? { ...image, isSubmitted: true, url } : { ...image },
-  //     ),
-  //   );
-  // }
-  return { ...imageFile, url };
+    formData.append("upload_preset", process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
+    const res = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+      onUploadProgress: ({ loaded, total }) => {
+        setProgress((loaded / total) * 100);
+      },
+    });
+    setProgress(100);
+    const { url } = res.data;
+
+    return { ...imageFile, isSubmitted: true, url };
+  } catch (err: any) {
+    const message = err.response?.data?.message || err.message || "something went wrong😅 ";
+    setProgress(100);
+    return {
+      ...imageFile,
+      errors: [...imageFile.errors, { code: 0, message }],
+      url: "",
+      isSubmitted: false,
+    };
+  }
 };
 
-const handleAwsUpload: HandleUpload = async (imageFile, setProgress, setImageFiles) => {
+const handleAwsUpload: HandleUpload = async (imageFile, setProgress) => {
   const fileDataUrl = (await readAsDataUrl(imageFile.file)) as string;
   const file = {
     name: imageFile.file.name,
@@ -52,40 +57,23 @@ const handleAwsUpload: HandleUpload = async (imageFile, setProgress, setImageFil
   try {
     // const res = await api.postImgToResizingServer({ file }, setProgress);
     const res = await AwsApi.putImgToResizingServer({ param: { file }, setProgress });
+    setProgress(100);
     const {
       message,
       result: { locations },
     } = res.data;
     const fullUrl = `${process.env.REACT_APP_AWS_BUCKET_URL}/${locations.small}`;
 
-    return { ...imageFile, url: fullUrl };
-    // if (res.status === 200) {
-    //   setImageFiles((prev) =>
-    //     prev.map((image) =>
-    //       image.id === imageFile.id ? { ...image, isSubmitted: true, url: fullUrl } : { ...image },
-    //     ),
-    //   );
-    // }
+    return { ...imageFile, isSubmitted: true, url: fullUrl };
   } catch (err: any) {
     const message = err.response?.data?.message || err.message || "something went wrong😅 ";
+    setProgress(100);
     return {
       ...imageFile,
       errors: [...imageFile.errors, { code: 413, message }],
       url: "",
-      isSubmitted: true,
+      isSubmitted: false,
     };
-    // setImageFiles((prev) =>
-    //   prev.map((image) =>
-    //     image.id === imageFile.id
-    //       ? {
-    //           ...image,
-    //           errors: [...imageFile.errors, { code: 413, message }],
-    //           isSubmitted: true,
-    //           url: "",
-    //         }
-    //       : { ...image },
-    //   ),
-    // );
   }
 };
 

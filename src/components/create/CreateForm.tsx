@@ -38,7 +38,7 @@ const CreateForm = () => {
   const [isFileUploading, setIsFileUploading] = useState(true);
   const { categories } = useContext(CategoryContext);
 
-  const handleSubmit = useCallback(async (v) => {
+  const onSubmit = useCallback(async (v) => {
     try {
       const data = {
         category: v.category,
@@ -78,11 +78,12 @@ const CreateForm = () => {
     values,
     setFieldValue,
     handleBlur,
+    handleSubmit,
     handleChange,
     handleReset,
     errors,
     touched,
-  } = useFormik({ initialValues, onSubmit: handleSubmit, validate });
+  } = useFormik({ initialValues, onSubmit, validate });
 
   const handleCategoryChange = (name: string, value: number) => () => {
     setFieldValue(name, value);
@@ -134,6 +135,7 @@ const CreateForm = () => {
           {/* files */}
           <FieldContainer>
             <FilesField
+              isFileUploading={isFileUploading}
               handleFilesChange={handleFilesChange}
               error={errors.files}
               name='files'
