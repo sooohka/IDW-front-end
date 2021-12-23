@@ -60,7 +60,7 @@ const CreateForm = () => {
 
   const validate = useCallback((v) => {
     const errors: FormikErrors<CreateFormValues> = {};
-    console.log(v);
+    // console.log(v);
 
     if (!v.title) {
       errors.title = "제목을 입력해주세요.";

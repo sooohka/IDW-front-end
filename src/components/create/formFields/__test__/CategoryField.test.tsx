@@ -5,7 +5,7 @@ import categories from "../../../../assets/temp/categories.json";
 import { createWithThemeProvider, render, screen } from "../../../../test-utils";
 import CategoryField from "../CategoryField";
 
-describe("components/create/formFields", () => {
+describe("components/create/formFields/categoryField", () => {
   let handleCategoryChange: any;
   let setFieldValue: any;
   let name: keyof CreateFormValues;
@@ -25,32 +25,30 @@ describe("components/create/formFields", () => {
     );
   });
 
-  describe("CategoryFields", () => {
-    it("renders", () => {
-      const component = createWithThemeProvider(EL);
+  it("renders", () => {
+    const component = createWithThemeProvider(EL);
 
-      expect(component.toJSON()).toMatchSnapshot();
-    });
+    expect(component.toJSON()).toMatchSnapshot();
+  });
 
-    it("Radio button click", () => {
-      render(EL);
+  it("Radio button click", () => {
+    render(EL);
 
-      const radioBtn = screen.getByLabelText(categories.data[1].name);
-      userEvent.click(radioBtn);
-      expect(handleCategoryChange).toBeCalledTimes(categories.data.length);
-      expect(setFieldValue).toBeCalledWith(name, categories.data[1].id);
-      expect(setFieldValue).toBeCalledTimes(1);
-    });
+    const radioBtn = screen.getByLabelText(categories.data[1].name);
+    userEvent.click(radioBtn);
+    expect(handleCategoryChange).toBeCalledTimes(categories.data.length);
+    expect(setFieldValue).toBeCalledWith(name, categories.data[1].id);
+    expect(setFieldValue).toBeCalledTimes(1);
+  });
 
-    it("Radio button focus and space", () => {
-      render(EL);
+  it("Radio button focus and space", () => {
+    render(EL);
 
-      const radioBtn = screen.getByLabelText(categories.data[2].name);
-      radioBtn.focus();
-      userEvent.keyboard("{space}");
-      expect(handleCategoryChange).toBeCalledTimes(categories.data.length);
-      expect(setFieldValue).toBeCalledWith(name, categories.data[2].id);
-      expect(setFieldValue).toBeCalledTimes(1);
-    });
+    const radioBtn = screen.getByLabelText(categories.data[2].name);
+    radioBtn.focus();
+    userEvent.keyboard("{space}");
+    expect(handleCategoryChange).toBeCalledTimes(categories.data.length);
+    expect(setFieldValue).toBeCalledWith(name, categories.data[2].id);
+    expect(setFieldValue).toBeCalledTimes(1);
   });
 });

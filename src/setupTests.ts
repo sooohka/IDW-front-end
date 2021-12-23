@@ -7,18 +7,18 @@ import server from "./mocks/server";
 
 beforeAll(() => server.listen());
 beforeEach(() => {
-  class MockedIntersectionObserver {
-    observe() {
-      return null;
-    }
+  // class MockedIntersectionObserver {
+  //   observe() {
+  //     return null;
+  //   }
 
-    disconnect() {
-      return null;
-    }
-  }
+  //   disconnect() {
+  //     return null;
+  //   }
+  // }
+  // // global.IntersectionObserver = MockedIntersectionObserver;
 
-  global.console = { ...global.console, log: () => {} };
-  global.IntersectionObserver = MockedIntersectionObserver;
+  global.console = { ...global.console, debug: () => {} };
   server.resetHandlers();
 });
 afterAll(() => server.close());

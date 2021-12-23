@@ -1,10 +1,9 @@
-import { getByRole, getByText } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ReactElement } from "react";
-import { screen, render, createWithThemeProvider } from "../../../../test-utils";
+import { createWithThemeProvider, render, screen } from "../../../../test-utils";
 import TitleField from "../TitleField";
 
-describe("components/create/formFields", () => {
+describe("components/create/formFields/titleField", () => {
   let EL: ReactElement;
   let name: keyof CreateFormValues;
   let error: string | undefined;
@@ -31,23 +30,21 @@ describe("components/create/formFields", () => {
       />
     );
   });
-  describe("TitleFields", () => {
-    it("renders", () => {
-      const component = createWithThemeProvider(EL);
-      expect(component.toJSON()).toMatchSnapshot();
-    });
+  it("renders", () => {
+    const component = createWithThemeProvider(EL);
+    expect(component.toJSON()).toMatchSnapshot();
+  });
 
-    it("focus on render", () => {
-      render(EL);
-      const title = screen.getByRole("textbox");
-      expect(title).toHaveFocus();
-    });
+  it("focus on render", () => {
+    render(EL);
+    const title = screen.getByRole("textbox");
+    expect(title).toHaveFocus();
+  });
 
-    it("type something", () => {
-      render(EL);
-      const title = screen.getByRole("textbox");
-      userEvent.type(title, "yolo");
-      expect(handleChange).toBeCalledTimes(4);
-    });
+  it("type something", () => {
+    render(EL);
+    const title = screen.getByRole("textbox");
+    userEvent.type(title, "yolo");
+    expect(handleChange).toBeCalledTimes(4);
   });
 });

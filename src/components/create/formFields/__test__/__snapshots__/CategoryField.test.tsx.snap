@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/create/formFields CategoryFields renders 1`] = `
+exports[`components/create/formFields/categoryField renders 1`] = `
 <div
   className="sc-hKwDye bSWfzB"
 >

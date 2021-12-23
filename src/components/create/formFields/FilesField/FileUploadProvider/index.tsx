@@ -92,5 +92,5 @@ const FileUploadProvider: React.FC = ({ children }) => {
 
 const useFileUploadContext = () => useContext(FileUploadContext);
 
-export { useFileUploadContext };
+export { useFileUploadContext, FileUploadContext };
 export default FileUploadProvider;

@@ -24,8 +24,7 @@ const initializeWorldCup =
       dispatch(requestActions.endRequest({ url: RequestUrls.getWorldCupById(worldCupId) }));
     } catch (error: any) {
       dispatch(requestActions.failRequest({ url: RequestUrls.getWorldCupById(worldCupId), error }));
-      console.log(error);
-      // alert(error.message);
+      console.debug();
       throw error;
     }
     return getState().worldCupState;
@@ -52,8 +51,7 @@ const selectTarget =
       }
       //
     } catch (error: any) {
-      console.log(error);
-      // alert(error.message);
+      console.debug(error);
       throw error;
     }
     return getState().worldCupState;

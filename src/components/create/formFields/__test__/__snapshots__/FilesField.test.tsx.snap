@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/create/formFields FilesField renders 1`] = `
+Array [
+  <div
+    className="sc-bkkeKt gzyHCl"
+  >
+    <span
+      className="sc-ieecCq hxrxLM"
+    >
+      파일
+    </span>
+    <div
+      className="sc-gsDKAQ hypcjQ"
+    >
+      <div
+        className="sc-dkPtRN cUA-dwf"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragEnter={[Function]}
+        onDragLeave={[Function]}
+        onDragOver={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        tabIndex={0}
+      >
+        <input
+          accept="image/*"
+          autoComplete="off"
+          data-testid="dropzone-input"
+          multiple={true}
+          onChange={[Function]}
+          onClick={[Function]}
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+          tabIndex={-1}
+          type="file"
+        />
+        <svg
+          fill="#2d3436"
+          height={50}
+          width={50}
+        >
+          cloud-upload-alt-solid.svg
+        </svg>
+        <p>
+          Drag and Drop or click here to upload
+        </p>
+      </div>
+      <div
+        className="sc-eCImPb idENhH"
+      >
+        <div
+          className="sc-gKclnd jYkcZO"
+          onClick={[Function]}
+        >
+          <h3
+            className="sc-jRQBWg cOogGM"
+          >
+            파일들
+          </h3>
+          <div
+            className="sc-furwcr cjAmYh"
+          >
+            <svg
+              height={30}
+              width={30}
+            >
+              sort-up-solid.svg
+            </svg>
+          </div>
+        </div>
+        <div
+          className="sc-iCfMLu blbSfY"
+        >
+          <div
+            style={
+              Object {
+                "textAlign": "center",
+              }
+            }
+          >
+            <p
+              className="sc-hKwDye cenYoF"
+              color="primary"
+              fontSize="strongBody"
+            >
+              파일이 없습니다
+            </p>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "display": "flex",
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <button
+            onClick={[Function]}
+            type="button"
+          >
+            Fold
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <p
+    className="sc-bdvvtL iDNMqj"
+  />,
+]
+`;

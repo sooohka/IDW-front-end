@@ -1,5 +1,6 @@
 import { FileRejection, useDropzone } from "react-dropzone";
 import * as uuid from "uuid";
+import { useEffect } from "react";
 import { useFileUploadContext } from "../FileUploadProvider";
 import * as S from "./Style";
 import { ReactComponent as UploadIcon } from "../../../../../assets/icons/cloud-upload-alt-solid.svg";
@@ -58,10 +59,9 @@ const DropZone: React.FC = () => {
     onDragLeave,
     validator: handleValidation,
   });
-
   return (
     <S.DropZone {...getRootProps()} isAccepting={isAccepting}>
-      <input {...getInputProps()} />
+      <input data-testid='dropzone-input' {...getInputProps()} />
       <UploadIcon fill={defaultTheme.colors.primary} width={50} height={50} />
       <p>Drag and Drop or click here to upload</p>
     </S.DropZone>

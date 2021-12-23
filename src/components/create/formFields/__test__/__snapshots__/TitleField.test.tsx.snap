@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`components/create/formFields TitleFields renders 1`] = `
+exports[`components/create/formFields/titleField renders 1`] = `
 Array [
   <div
     className="sc-dkPtRN UxpTq"
