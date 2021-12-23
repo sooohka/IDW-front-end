@@ -25,7 +25,9 @@ const FileUploadWithProgress: React.FC<IProps> = ({ imageFile, setIsFileUploadin
   const uploadFile = useCallback(async () => {
     setIsFileUploading(true);
     try {
-      const uploadedFile = await handleUpload(imageFile, setProgress);
+      let uploadedFile: TargetFile;
+      if (process.env.NODE_ENV === "test") uploadedFile = { ...imageFile };
+      else uploadedFile = await handleUpload(imageFile, setProgress);
       handleFileUpdate(uploadedFile);
     } catch (e) {
       // retry
@@ -45,19 +47,27 @@ const FileUploadWithProgress: React.FC<IProps> = ({ imageFile, setIsFileUploadin
     ) : (
       <UploadFail width={50} height={50} color='red' />
     );
+
   return (
     <S.FileUploadWithProgress>
-      {progress === 100 ? <FileImage /> : <EmptyFile width={50} height={50} />}
+      {errors.length > 0 || progress !== 100 ? (
+        <EmptyFile data-testid='empty-file-svg' width={50} height={50} />
+      ) : (
+        <FileImage />
+      )}
       <S.ProgressBar>
         <S.ProgressWrapper>
           <ProgressBar title={file.name} hasError={errors.length > 0} progress={progress} />
           {errors.length > 0 || progress === 100 ? (
-            <XButton onClick={() => handleFileDelete(id)} />
+            <XButton data-testid='x-button' onClick={() => handleFileDelete(id)} />
           ) : (
-            <Spinner />
+            <Spinner role='status' />
           )}
         </S.ProgressWrapper>
-        <HelperText hasError={errors.length > 0} text={"submitted" && errors[0]?.message} />
+        {progress === 100 ||
+          (errors.length > 0 && (
+            <HelperText hasError={errors.length > 0} text={"submitted" && errors[0]?.message} />
+          ))}
       </S.ProgressBar>
     </S.FileUploadWithProgress>
   );

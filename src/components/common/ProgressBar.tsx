@@ -43,7 +43,7 @@ interface IProps {
   progress: number;
 }
 const ProgressBar: React.FC<IProps> = ({ hasError, title, progress }) => (
-  <StyledProgressBar>
+  <StyledProgressBar role='progressbar'>
     <Title>{title}</Title>
     {hasError ? (
       <Progress hasError={hasError} progress={100} />

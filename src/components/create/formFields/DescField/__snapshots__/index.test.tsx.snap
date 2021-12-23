@@ -21,6 +21,7 @@ Array [
   </div>,
   <p
     className="sc-bdvvtL iDNMqj"
+    role="note"
   />,
 ]
 `;

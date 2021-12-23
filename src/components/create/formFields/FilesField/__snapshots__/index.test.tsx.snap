@@ -56,6 +56,7 @@ Array [
       >
         <div
           className="sc-gKclnd jYkcZO"
+          data-testid="file-list-header"
           onClick={[Function]}
         >
           <h3
@@ -64,7 +65,7 @@ Array [
             파일들
           </h3>
           <div
-            className="sc-furwcr cjAmYh"
+            className="sc-furwcr efWBEw"
           >
             <svg
               height={30}
@@ -75,7 +76,8 @@ Array [
           </div>
         </div>
         <div
-          className="sc-iCfMLu blbSfY"
+          className="sc-iCfMLu fPpHSm"
+          data-testid="file-list-content"
         >
           <div
             style={
@@ -93,26 +95,12 @@ Array [
             </p>
           </div>
         </div>
-        <div
-          style={
-            Object {
-              "display": "flex",
-              "justifyContent": "flex-end",
-            }
-          }
-        >
-          <button
-            onClick={[Function]}
-            type="button"
-          >
-            Fold
-          </button>
-        </div>
       </div>
     </div>
   </div>,
   <p
     className="sc-bdvvtL iDNMqj"
+    role="note"
   />,
 ]
 `;

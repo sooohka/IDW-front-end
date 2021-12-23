@@ -36,7 +36,6 @@ const handleCloudinaryUpload: HandleUpload = async (imageFile, setProgress) => {
     return { ...imageFile, isSubmitted: true, url };
   } catch (err: any) {
     const message = err.response?.data?.message || err.message || "something went wrong😅 ";
-    setProgress(100);
     return {
       ...imageFile,
       errors: [...imageFile.errors, { code: 0, message }],
@@ -57,17 +56,16 @@ const handleAwsUpload: HandleUpload = async (imageFile, setProgress) => {
   try {
     // const res = await api.postImgToResizingServer({ file }, setProgress);
     const res = await AwsApi.putImgToResizingServer({ param: { file }, setProgress });
-    setProgress(100);
     const {
       message,
       result: { locations },
     } = res.data;
     const fullUrl = `${process.env.REACT_APP_AWS_BUCKET_URL}/${locations.small}`;
 
+    setProgress(100);
     return { ...imageFile, isSubmitted: true, url: fullUrl };
   } catch (err: any) {
     const message = err.response?.data?.message || err.message || "something went wrong😅 ";
-    setProgress(100);
     return {
       ...imageFile,
       errors: [...imageFile.errors, { code: 413, message }],

@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`src/components/create/formFields/FilesField/FileUploadField matches snapshot 1`] = `
+<div
+  className="sc-bdvvtL jWuAIJ"
+>
+  <div
+    className="sc-gsDKAQ bFxvOH"
+    onBlur={[Function]}
+    onClick={[Function]}
+    onDragEnter={[Function]}
+    onDragLeave={[Function]}
+    onDragOver={[Function]}
+    onDrop={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    tabIndex={0}
+  >
+    <input
+      accept="image/*"
+      autoComplete="off"
+      data-testid="dropzone-input"
+      multiple={true}
+      onChange={[Function]}
+      onClick={[Function]}
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+      tabIndex={-1}
+      type="file"
+    />
+    <svg
+      fill="#2d3436"
+      height={50}
+      width={50}
+    >
+      cloud-upload-alt-solid.svg
+    </svg>
+    <p>
+      Drag and Drop or click here to upload
+    </p>
+  </div>
+  <div
+    className="sc-hKwDye gdeTzD"
+  >
+    <div
+      className="sc-jRQBWg cgEMDs"
+      data-testid="file-list-header"
+      onClick={[Function]}
+    >
+      <h3
+        className="sc-eCImPb fLbTcv"
+      >
+        파일들
+      </h3>
+      <div
+        className="sc-iCfMLu cNAmWH"
+      >
+        <svg
+          height={30}
+          width={30}
+        >
+          sort-up-solid.svg
+        </svg>
+      </div>
+    </div>
+    <div
+      className="sc-gKclnd cxPqzP"
+      data-testid="file-list-content"
+    >
+      <div
+        style={
+          Object {
+            "textAlign": "center",
+          }
+        }
+      >
+        <p
+          className="sc-dkPtRN cGclUe"
+          color="primary"
+          fontSize="strongBody"
+        >
+          파일이 없습니다
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

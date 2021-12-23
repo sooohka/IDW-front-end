@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`src/components/create/formFields/FilesField/FileUploadWIthProgress match snapshot 1`] = `
+<div
+  className="sc-furwcr eNAqkI"
+>
+  <svg
+    data-testid="empty-file-svg"
+    height={50}
+    width={50}
+  >
+    file-image-regular.svg
+  </svg>
+  <div
+    className="sc-jrQzAO gJyGiC"
+  >
+    <div
+      className="sc-pVTFL jNsMFQ"
+    >
+      <div
+        className="sc-dkPtRN hVRIED"
+        role="progressbar"
+      >
+        <p
+          className="sc-hKwDye kWpKQh"
+        >
+          file.pdf
+        </p>
+        <div
+          className="sc-eCImPb gdOyeA"
+        />
+      </div>
+      <svg
+        role="status"
+      >
+        spinner.svg
+      </svg>
+    </div>
+  </div>
+</div>
+`;

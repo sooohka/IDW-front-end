@@ -1,11 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`src/components/create/formFields/FilesField renders 1`] = `
+exports[`src/components/create/formFields/FilesField/FileList renders 1`] = `
 <div
   className="sc-gsDKAQ iZkqjs"
 >
   <div
     className="sc-hKwDye hmZybT"
+    data-testid="file-list-header"
     onClick={[Function]}
   >
     <h3
@@ -14,7 +15,7 @@ exports[`src/components/create/formFields/FilesField renders 1`] = `
       파일들
     </h3>
     <div
-      className="sc-jRQBWg ifWyIR"
+      className="sc-jRQBWg ermYcA"
     >
       <svg
         height={30}
@@ -25,7 +26,8 @@ exports[`src/components/create/formFields/FilesField renders 1`] = `
     </div>
   </div>
   <div
-    className="sc-eCImPb jAJHCE"
+    className="sc-eCImPb cMmyzq"
+    data-testid="file-list-content"
   >
     <div
       style={
@@ -42,21 +44,6 @@ exports[`src/components/create/formFields/FilesField renders 1`] = `
         파일이 없습니다
       </p>
     </div>
-  </div>
-  <div
-    style={
-      Object {
-        "display": "flex",
-        "justifyContent": "flex-end",
-      }
-    }
-  >
-    <button
-      onClick={[Function]}
-      type="button"
-    >
-      Fold
-    </button>
   </div>
 </div>
 `;

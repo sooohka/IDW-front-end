@@ -20,7 +20,7 @@ const FileUploadField: React.FC<IProps> = ({
   setIsFileUploading,
   handleFilesChange,
 }) => {
-  const { files, handleFileDelete } = useFileUploadContext();
+  const { files } = useFileUploadContext();
 
   useEffect(() => {
     if (isFileUploading) return;
@@ -31,6 +31,7 @@ const FileUploadField: React.FC<IProps> = ({
     }));
     handleFilesChange(formedFiles);
   }, [files, handleFilesChange, isFileUploading]);
+
   return (
     <S.FileUploadField>
       <DropZone />

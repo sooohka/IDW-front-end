@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/create/formFields/FilesField/DropZone matches snapshot 1`] = `
+<div
+  className="sc-gsDKAQ bFxvOH"
+  onBlur={[Function]}
+  onClick={[Function]}
+  onDragEnter={[Function]}
+  onDragLeave={[Function]}
+  onDragOver={[Function]}
+  onDrop={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  tabIndex={0}
+>
+  <input
+    accept="image/*"
+    autoComplete="off"
+    data-testid="dropzone-input"
+    multiple={true}
+    onChange={[Function]}
+    onClick={[Function]}
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+    tabIndex={-1}
+    type="file"
+  />
+  <svg
+    fill="#2d3436"
+    height={50}
+    width={50}
+  >
+    cloud-upload-alt-solid.svg
+  </svg>
+  <p>
+    Drag and Drop or click here to upload
+  </p>
+</div>
+`;

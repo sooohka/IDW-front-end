@@ -43,7 +43,7 @@ interface IProps {
   onClick: (e: React.MouseEvent) => void;
 }
 const XButton: React.FC<IProps> = ({ onClick }) => (
-  <Container onClick={onClick}>
+  <Container role='button' onClick={onClick}>
     <Left />
     <Right />
   </Container>

@@ -19,7 +19,9 @@ interface IProps {
 }
 
 const HelperText: React.FC<IProps> = ({ hasError, text }) => (
-  <StyledHelperText hasError={hasError}>{text}</StyledHelperText>
+  <StyledHelperText role='note' hasError={hasError}>
+    {text}
+  </StyledHelperText>
 );
 
 export default HelperText;

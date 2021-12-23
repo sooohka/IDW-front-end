@@ -45,7 +45,7 @@ const reducer = (state = initState, action: Action): typeof initState => {
   }
 };
 
-interface FileUploadContextType {
+export interface FileUploadContextType {
   isAccepting: boolean;
   files: TargetFile[];
   handleFilesAppend: (files: TargetFile[]) => void;
