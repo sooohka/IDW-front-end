@@ -1,36 +1,10 @@
-import userEvent from "@testing-library/user-event";
 import { ReactElement } from "react";
-import { act } from "react-dom/test-utils";
-import { createWithThemeProvider, render, screen } from "../../../../test-utils";
-import FilesField from "../FilesField";
-import DropZone from "../FilesField/DropZone";
-import { FileUploadContext } from "../FilesField/FileUploadProvider";
+import userEvent from "@testing-library/user-event";
+import DropZone from "./index";
+import { render, screen, act } from "../../../../../__test__/test-utils";
+import { FileUploadContext } from "../FileUploadProvider";
 
-describe("components/create/formFields", () => {
-  describe("FilesField", () => {
-    let FileFieldEL: ReactElement;
-    const filesFieldProps: any = {
-      handleFilesChange: null,
-      isFileUploading: false,
-      name: "",
-      setIsFileUploading: null,
-      error: null,
-    };
-
-    beforeEach(() => {
-      filesFieldProps.handleFilesChange = jest.fn();
-      filesFieldProps.isFileUploading = jest.fn();
-      filesFieldProps.name = "files";
-      filesFieldProps.setIsFileUploading = jest.fn();
-      filesFieldProps.error = undefined;
-      FileFieldEL = <FilesField {...filesFieldProps} />;
-    });
-    it("renders", () => {
-      const component = createWithThemeProvider(FileFieldEL);
-      expect(component.toJSON()).toMatchSnapshot();
-    });
-  });
-
+describe("components/create/formFields/FilesField", () => {
   describe("DropZone", () => {
     let DropZoneEl: ReactElement;
     let providerValue: {

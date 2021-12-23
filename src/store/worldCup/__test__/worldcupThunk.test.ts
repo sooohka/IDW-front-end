@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import gameExample from "../../../assets/temp/gameExample.json";
-import { redux } from "../../../test-utils";
+import { redux } from "../../../__test__/test-utils";
 import reducer, { initialState } from "../index";
 import { CurrentTargetIds } from "../types";
 import worldCupThunks from "../worldCupThunks";

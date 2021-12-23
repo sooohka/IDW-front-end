@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ReactComponent as Sort } from "../../../../../assets/icons/sort-up-solid.svg";
 import Text from "../../../../common/Text";
 import * as S from "./Style";
@@ -12,8 +12,9 @@ const FileList: React.FC = ({ children }) => {
   };
 
   useLayoutEffect(() => {
-    if (isFolded) bottomEl.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-    else bottomEl.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (!bottomEl.current) return;
+    if (isFolded) bottomEl.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    else bottomEl.current.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [isFolded]);
 
   return (

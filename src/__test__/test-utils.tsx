@@ -6,9 +6,9 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import renderer from "react-test-renderer";
-import store from "./store";
-import GlobalStyle from "./style/GlobalStyle";
-import theme from "./style/theme";
+import store from "../store";
+import GlobalStyle from "../style/GlobalStyle";
+import theme from "../style/theme";
 
 const AllTheProviders: FC = ({ children }) => {
   return (

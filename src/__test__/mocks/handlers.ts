@@ -1,7 +1,7 @@
 import { rest } from "msw";
-import mockedCategories from "../assets/temp/categories.json";
-import mockedWorldCups from "../assets/temp/worldCups.json";
-import mockedGames from "../assets/temp/gameExample.json";
+import mockedCategories from "../../assets/temp/categories.json";
+import mockedWorldCups from "../../assets/temp/worldCups.json";
+import mockedGames from "../../assets/temp/gameExample.json";
 
 const getWorldCupById = rest.get(
   `${process.env.REACT_APP_SERVER_URL}/worldcups/1`,

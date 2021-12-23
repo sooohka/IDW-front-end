@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`src/components/create/formFields/FilesField renders 1`] = `
+<div
+  className="sc-gsDKAQ iZkqjs"
+>
+  <div
+    className="sc-hKwDye hmZybT"
+    onClick={[Function]}
+  >
+    <h3
+      className="sc-dkPtRN dsURgc"
+    >
+      파일들
+    </h3>
+    <div
+      className="sc-jRQBWg ifWyIR"
+    >
+      <svg
+        height={30}
+        width={30}
+      >
+        sort-up-solid.svg
+      </svg>
+    </div>
+  </div>
+  <div
+    className="sc-eCImPb jAJHCE"
+  >
+    <div
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <p
+        className="sc-bdvvtL gWwHhP"
+        color="primary"
+        fontSize="strongBody"
+      >
+        파일이 없습니다
+      </p>
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "justifyContent": "flex-end",
+      }
+    }
+  >
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      Fold
+    </button>
+  </div>
+</div>
+`;
