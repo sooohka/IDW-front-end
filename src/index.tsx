@@ -33,8 +33,6 @@ prepare().then(() => {
     <React.StrictMode>
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          {/*  eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a href='#'>hi</a>
           <BrowserRouter>
             <GlobalStyle />
             <App />
