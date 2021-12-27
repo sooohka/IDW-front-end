@@ -3,10 +3,7 @@ import styled from "styled-components";
 import CategoryContext from "../../utils/contexts/CategoryContext";
 import Text from "../common/Text";
 
-const sidebarWidth = "20rem";
-
 const StyledSidebar = styled.div`
-  width: ${sidebarWidth};
   height: 100%;
 `;
 
@@ -34,11 +31,13 @@ interface UlType {
 }
 const Ul: React.FC<UlType> = ({ title, list }) => (
   <StyledUl>
-    <Text bold fontSize='heading' text={title} />
+    <Text bold fontSize='heading'>
+      {title}
+    </Text>
     <Divider />
     {list.map((li) => (
       <StyledList key={li.id}>
-        <Text text={li.name} fontSize='strongBody' />
+        <Text fontSize='strongBody'>{li.name}</Text>
       </StyledList>
     ))}
   </StyledUl>

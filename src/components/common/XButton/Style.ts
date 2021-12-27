@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-const Container = styled.div`
+const Button = styled.button`
+  all: unset;
   position: relative;
   width: 20px;
   height: 20px;
@@ -39,14 +40,4 @@ const Right = styled.span`
   width: 21px;
   transform: rotate(-45deg);
 `;
-interface IProps {
-  onClick: (e: React.MouseEvent) => void;
-}
-const XButton: React.FC<IProps> = ({ onClick }) => (
-  <Container role='button' onClick={onClick}>
-    <Left />
-    <Right />
-  </Container>
-);
-
-export default XButton;
+export { Button, Left, Right };

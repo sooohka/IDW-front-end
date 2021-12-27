@@ -86,7 +86,10 @@ const SignUpForm = () => {
             <PageSpinner />
           ) : (
             <Form onKeyDown={(e) => e.key === "Enter" && e.stopPropagation()}>
-              <Text bold fontSize='heading' text='IDW SignUp' margin='0 0 3rem 0' />
+              <Text bold fontSize='heading' margin='0 0 3rem 0'>
+                IDW SignUp
+              </Text>
+
               {/* 이메일 */}
               <FieldContainer>
                 <EmailField />
@@ -107,7 +110,9 @@ const SignUpForm = () => {
               <FieldContainer>
                 <GenderField name='gender' />
               </FieldContainer>
-              <Button disabled={!isValid} type='submit' label='제출' size='medium' />
+              <Button disabled={!isValid} type='submit' size='medium'>
+                제출
+              </Button>
             </Form>
           )}
         </>

@@ -1,13 +1,17 @@
 import React from "react";
-import Navbar from "../../../components/layout/Navbar";
 import CreateForm from "../../../components/create/CreateForm";
-import PageContainer from "../../../components/layout/PageContainer";
+import Navbar from "../../../components/layout/Navbar";
+import * as S from "./Style";
 
 const Template: React.FC = () => (
-  <PageContainer>
-    <Navbar />
-    <CreateForm />
-  </PageContainer>
+  <S.Container>
+    <S.Navbar>
+      <Navbar />
+    </S.Navbar>
+    <S.Content>
+      <CreateForm />
+    </S.Content>
+  </S.Container>
 );
 
 export default Template;

@@ -5,13 +5,12 @@ import { ReactComponent as PlaySolid } from "../../assets/icons/play-solid.svg";
 import { ReactComponent as Share } from "../../assets/icons/share-square-solid.svg";
 import { ReactComponent as ThumbUpReg } from "../../assets/icons/thumbs-up-regular.svg";
 import useImgLazyLoad from "../../utils/hooks/useImgLazyLoad";
-import ImgWithRef from "../common/ImgWithRef";
+import Img from "../common/Img";
 import Text from "../common/Text";
 import Texts from "../common/Texts";
 
 const StyledCard = styled.div`
-  width: 20rem;
-  height: 35rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   box-shadow: 0 0.25rem 0.5rem rgba(1, 1, 1, 0.1);
@@ -21,7 +20,7 @@ const StyledCard = styled.div`
 
 const ImgBox = styled.div`
   width: 100%;
-  min-height: 60%;
+  height: 60%;
   display: flex;
   align-items: center;
   position: relative;
@@ -104,33 +103,37 @@ const Card: React.FC<IProps> = ({ worldCup, handlePlayBtnClick }) => {
     image: { lowQuality, originalQuality },
   } = targets[0];
 
-  const imageRef = useRef(null);
+  const imageRef = useRef<HTMLImageElement>(null);
   const { imgSrc } = useImgLazyLoad(imageRef, originalQuality, lowQuality);
   return (
     <StyledCard>
       <ImgBox>
-        <ImgWithRef src={imgSrc} ref={imageRef} alt={title} />
+        <Img src={imgSrc} ref={imageRef} alt={title} />
         <PlayWrapper onClick={handlePlayBtnClick(id)}>
           <PlaySolid width={50} />
-          <Text bold text='월드컵 하러 가기' />
+          <Text bold>월드컵 하러 가기</Text>
         </PlayWrapper>
       </ImgBox>
       <Box>
-        <Text bold fontSize='strongBody' text={title} />
-        <Texts maxRows={3} height='5rem' fontSize='subBody' text={desc} />
+        <Text bold fontSize='strongBody'>
+          {title}
+        </Text>
+        <Texts maxRows={3} height='5rem' fontSize='subBody'>
+          {desc}
+        </Texts>
         <ExtraBox>
           <ToolBox>
             <IconWrapper>
               <SvgWrapper>
                 <CommentReg width={15} height={15} />
               </SvgWrapper>
-              <Text fontSize='subBody' text={commentCounts?.toString()} />
+              <Text fontSize='subBody'>{commentCounts?.toString()}</Text>
             </IconWrapper>
             <IconWrapper>
               <SvgWrapper>
                 <ThumbUpReg width={15} height={15} />
               </SvgWrapper>
-              <Text fontSize='subBody' text={likeCounts?.toString()} />
+              <Text fontSize='subBody'>{likeCounts?.toString()}</Text>
             </IconWrapper>
           </ToolBox>
           <SvgWrapper>

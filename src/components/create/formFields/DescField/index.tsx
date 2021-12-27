@@ -47,7 +47,7 @@ const DescField: React.FC<IProps> = ({ name, handleChange, handleBlur, value, to
           value={value}
         />
       </StyledField>
-      <HelperText hasError={Boolean(touched && error)} text={(touched && error) as string} />
+      <HelperText hasError={Boolean(touched && error)}>{(touched && error) as string}</HelperText>
     </>
   );
 };

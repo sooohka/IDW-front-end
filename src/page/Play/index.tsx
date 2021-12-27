@@ -11,7 +11,7 @@ const Play: React.FC = () => {
   } = useHistory<{ level: number; worldCupId: number }>();
 
   const {
-    worldCupState: { title, winnerId, targets },
+    worldCupState: { title, winnerId, targets, currentTargetIds },
     initializeWorldCup,
   } = useWorldCupReducer();
   const [winner, setWinner] = useState<Target>();
@@ -35,7 +35,10 @@ const Play: React.FC = () => {
     }
   }, [history, winner]);
 
-  return <Template title={title} />;
+  const currentTargets = targets.filter((target) => {
+    return Boolean(currentTargetIds.find((id) => target.id === id));
+  });
+  return <Template title={title} currentTargets={currentTargets} />;
 };
 
 export default Play;

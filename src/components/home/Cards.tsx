@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import useWorldCupReducer from "../../utils/hooks/useWorldCupReducer";
 import Card from "./Card";
 
 const StyledCards = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  & > * {
-    margin: 0 2rem 2rem 2rem;
-  }
+  margin: 0 auto;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, 20rem);
+  grid-auto-rows: 35rem;
+  grid-gap: 2rem 2rem;
 `;
 interface IProps {
   handlePlayBtnClick: (id: number) => (e: React.MouseEvent) => void;

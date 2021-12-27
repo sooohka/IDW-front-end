@@ -39,7 +39,7 @@ const TitleField: React.FC<IProps> = ({
           value={value}
         />
       </S.Field>
-      <HelperText hasError={Boolean(touched && error)} text={(touched && error) as string} />
+      <HelperText hasError={Boolean(touched && error)}>{(touched && error) as string}</HelperText>
     </>
   );
 };

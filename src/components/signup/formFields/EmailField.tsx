@@ -1,6 +1,5 @@
 import { useFormikContext } from "formik";
 import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
 import HelperText from "../../common/HelperText";
 import Input from "../../common/Input";
 import Text from "../../common/Text";
@@ -22,7 +21,9 @@ const EmailField = () => {
   }, []);
   return (
     <>
-      <Text bold fontSize='strongBody' text='이메일' />
+      <Text bold fontSize='strongBody'>
+        이메일
+      </Text>
       <Input
         ref={emailInputEl}
         autoComplete='off'
@@ -34,7 +35,9 @@ const EmailField = () => {
         type='text'
         tabIndex={0}
       />
-      <Text margin='0 .5rem' bold fontSize='strongBody' text='@' />
+      <Text margin='0 .5rem' bold fontSize='strongBody'>
+        @
+      </Text>
       <Input
         autoComplete='off'
         value={values.emailHost}
@@ -45,10 +48,9 @@ const EmailField = () => {
         type='text'
         tabIndex={0}
       />
-      <HelperText
-        hasError={Boolean(touched.email && errors.email)}
-        text={(touched.email && (errors.email || "가능한 이메일입니다")) as string}
-      />
+      <HelperText hasError={Boolean(touched.email && errors.email)}>
+        {(touched.email && (errors.email || "가능한 이메일입니다")) as string}
+      </HelperText>
     </>
   );
 };

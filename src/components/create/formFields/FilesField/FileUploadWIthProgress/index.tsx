@@ -66,7 +66,9 @@ const FileUploadWithProgress: React.FC<IProps> = ({ imageFile, setIsFileUploadin
         </S.ProgressWrapper>
         {progress === 100 ||
           (errors.length > 0 && (
-            <HelperText hasError={errors.length > 0} text={"submitted" && errors[0]?.message} />
+            <HelperText hasError={errors.length > 0}>
+              {"submitted" && errors[0]?.message}
+            </HelperText>
           ))}
       </S.ProgressBar>
     </S.FileUploadWithProgress>

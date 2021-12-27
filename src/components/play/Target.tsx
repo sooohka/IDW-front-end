@@ -4,7 +4,6 @@ import useWorldCupReducer from "../../utils/hooks/useWorldCupReducer";
 import Img from "../common/Img";
 
 const Container = styled.div`
-  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;

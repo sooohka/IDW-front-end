@@ -20,6 +20,7 @@ const prepare = async () => {
         if (url.origin.includes("static")) return;
         if (url.origin.includes("unsplash.com")) return;
         if (url.origin.includes("cloudinary")) return;
+        if (url.origin.includes("localhost")) return;
 
         throw new Error(`Unhandled ${method} request to ${url}`);
       },

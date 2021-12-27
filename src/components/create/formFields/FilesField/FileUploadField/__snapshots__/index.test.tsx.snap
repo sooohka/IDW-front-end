@@ -78,8 +78,7 @@ exports[`src/components/create/formFields/FilesField/FileUploadField matches sna
         }
       >
         <p
-          className="sc-dkPtRN cGclUe"
-          color="primary"
+          className="sc-dkPtRN dsfKLW"
           fontSize="strongBody"
         >
           파일이 없습니다

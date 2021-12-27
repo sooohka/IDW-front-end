@@ -13,7 +13,9 @@ const Password2Field: React.FC<IProps> = ({ name }) => {
     useFormikContext<SignUpFormValues>();
   return (
     <>
-      <Text bold fontSize='strongBody' text='비밀번호 확인' />
+      <Text bold fontSize='strongBody'>
+        비밀번호 확인
+      </Text>
       <Input
         value={values[name]}
         name={name}
@@ -23,10 +25,9 @@ const Password2Field: React.FC<IProps> = ({ name }) => {
         type='password'
         tabIndex={0}
       />
-      <HelperText
-        hasError={Boolean(touched[name] && errors[name])}
-        text={(touched[name] && (errors[name] || "패스워드가 일치합니다")) as string}
-      />
+      <HelperText hasError={Boolean(touched[name] && errors[name])}>
+        {(touched[name] && (errors[name] || "패스워드가 일치합니다")) as string}
+      </HelperText>
     </>
   );
 };

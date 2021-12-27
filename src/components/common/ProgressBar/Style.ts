@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledProgressBar = styled.div`
+const ProgressBar = styled.div`
   position: relative;
   background-color: #ecf0f1;
   flex: 1;
@@ -37,20 +37,4 @@ const Progress = styled.div<Progress>`
   width: ${({ progress }) => (progress ? `${progress}%` : "0%")};
 `;
 
-interface IProps {
-  hasError: boolean;
-  title: string;
-  progress: number;
-}
-const ProgressBar: React.FC<IProps> = ({ hasError, title, progress }) => (
-  <StyledProgressBar role='progressbar'>
-    <Title>{title}</Title>
-    {hasError ? (
-      <Progress hasError={hasError} progress={100} />
-    ) : (
-      <Progress hasError={hasError} progress={progress} />
-    )}
-  </StyledProgressBar>
-);
-
-export default ProgressBar;
+export { ProgressBar, Title, Progress };

@@ -100,7 +100,9 @@ const CreateForm = () => {
         <PageSpinner />
       ) : (
         <StyledForm onSubmit={handleSubmit} onReset={handleReset}>
-          <Text bold fontSize='heading' text='IDW Creation' margin='0 0 3rem 0' />
+          <Text bold fontSize='heading' margin='0 0 3rem 0'>
+            IDW Creation
+          </Text>
           {/* title */}
           <FieldContainer>
             <TitleField
@@ -143,7 +145,9 @@ const CreateForm = () => {
             />
           </FieldContainer>
           <FieldContainer width='10%'>
-            <Button label='submit' disabled={isFileUploading || !isValid} type='submit' />
+            <Button type='submit' disabled={isFileUploading || !isValid}>
+              submit
+            </Button>
             {/* <HelperText hasError={Boolean(errors.title || errors.desc || errors.files)} text={errors.title || errors.desc || errors.files}></HelperText> */}
           </FieldContainer>
         </StyledForm>

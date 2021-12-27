@@ -29,7 +29,9 @@ const GenderField: React.FC<IProps> = ({ name }) => {
   const { values, setFieldValue } = useFormikContext<SignUpFormValues>();
   return (
     <>
-      <Text bold fontSize='strongBody' text='성별' />
+      <Text bold fontSize='strongBody'>
+        성별
+      </Text>
       <RadioFieldContainer>
         {genders.map((v) => (
           <RadioField

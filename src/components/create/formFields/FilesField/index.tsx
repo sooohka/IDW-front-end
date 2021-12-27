@@ -44,7 +44,7 @@ const FilesField: React.FC<IProps> = ({
           />
         </FileUploadProvider>
       </S.Field>
-      <HelperText hasError={Boolean(error)} text={error as string} />
+      <HelperText hasError={Boolean(error)}>{error as string}</HelperText>
     </>
   );
 };

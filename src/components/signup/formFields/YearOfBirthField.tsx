@@ -29,7 +29,9 @@ const YearOfBirthField: React.FC<IProps> = ({ name }) => {
   const { handleChange, handleBlur, values } = useFormikContext<SignUpFormValues>();
   return (
     <>
-      <Text bold fontSize='strongBody' text='출생연도' />
+      <Text bold fontSize='strongBody'>
+        출생연도
+      </Text>
       <Select name={name} value={values[name]} onBlur={handleBlur} onChange={handleChange}>
         {years.map((v) => (
           <option key={v}>{v}</option>

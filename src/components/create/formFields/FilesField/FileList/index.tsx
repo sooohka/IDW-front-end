@@ -22,7 +22,9 @@ const FileList: React.FC = ({ children }) => {
         <S.Files data-testid='file-list-content' isFolded={isFolded}>
           {React.Children.count(children) === 0 ? (
             <div style={{ textAlign: "center" }}>
-              <Text bold fontSize='strongBody' text='파일이 없습니다' />
+              <Text bold fontSize='strongBody'>
+                파일이 없습니다
+              </Text>
             </div>
           ) : (
             children

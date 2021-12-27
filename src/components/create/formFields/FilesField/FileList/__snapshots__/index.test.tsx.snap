@@ -37,8 +37,7 @@ exports[`src/components/create/formFields/FilesField/FileList renders 1`] = `
       }
     >
       <p
-        className="sc-bdvvtL gWwHhP"
-        color="primary"
+        className="sc-bdvvtL hEkgRH"
         fontSize="strongBody"
       >
         파일이 없습니다

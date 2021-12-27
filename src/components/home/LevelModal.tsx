@@ -95,16 +95,18 @@ const LevelModal = () => {
                   color='white'
                   backgroundColor='secondary'
                   onClick={handleModalSubmit(level)}
-                  label='시작'
-                />
+                >
+                  시작
+                </Button>
                 <Button
                   type='button'
                   size='medium'
                   color='white'
                   backgroundColor='gray'
                   onClick={handleModalClose}
-                  label='취소'
-                />
+                >
+                  취소
+                </Button>
               </BtnContainer>
             </Content>
           </ContentWrapper>
