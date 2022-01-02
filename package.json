@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.2.5",
+    "@mui/material": "^5.2.7",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/react-hooks": "^7.0.2",
@@ -34,7 +38,6 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@babel/plugin-transform-modules-commonjs": "^7.16.7",
     "@babel/plugin-transform-runtime": "^7.16.7",
     "@babel/preset-env": "^7.16.7",
     "@babel/preset-react": "^7.16.7",
@@ -78,7 +81,8 @@
   "scripts": {
     "start": "TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack serve",
     "build": "TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack",
-    "test": "jest --env=jsdom",
+    "test": "jest",
+    "sonar": "./sonar.sh",
     "eject": "react-scripts eject",
     "format": "prettier --write src/**/*.{ts,tsx}",
     "lint": "eslint --fix src/**/*.{ts,tsx}"

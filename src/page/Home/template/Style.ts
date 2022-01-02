@@ -24,7 +24,7 @@ const Cards = styled.div`
   margin: 0 auto;
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(4, 20rem);
+  grid-template-columns: repeat(auto-fill, 20rem);
   grid-auto-rows: 35rem;
   grid-gap: 2rem 2rem;
 `;
