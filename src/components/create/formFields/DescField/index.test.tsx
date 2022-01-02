@@ -1,5 +1,5 @@
 import userEvent from "@testing-library/user-event";
-import { createWithThemeProvider, render, screen } from "../../../../__test__/test-utils";
+import { createWithThemeProvider, render, screen } from "../../../../test/test-utils";
 import DescField from ".";
 
 describe("components/create/formFields/DescFields", () => {

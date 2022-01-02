@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { ReactComponent as UploadFail } from "../../../../../assets/icons/file-excel-regular.svg";
-import { ReactComponent as EmptyFile } from "../../../../../assets/icons/file-image-regular.svg";
-import { ReactComponent as Spinner } from "../../../../../assets/icons/spinner.svg";
+import React, { memo, useCallback, useEffect, useState } from "react";
+import UploadFail from "../../../../../assets/icons/file-excel-regular.svg";
+import EmptyFile from "../../../../../assets/icons/file-image-regular.svg";
+import Spinner from "../../../../../assets/icons/spinner.svg";
 import { handleAwsUpload, handleCloudinaryUpload } from "../../../../../utils/lib/file";
 import HelperText from "../../../../common/HelperText";
 import Img from "../../../../common/Img";
@@ -41,12 +41,13 @@ const FileUploadWithProgress: React.FC<IProps> = ({ imageFile, setIsFileUploadin
     uploadFile();
   }, [errors, isSubmitted, uploadFile]);
 
-  const FileImage = () =>
+  const FileImage = memo(() =>
     isSubmitted ? (
       <Img width='50px' height='50px' src={url} alt={file.name} />
     ) : (
       <UploadFail width={50} height={50} color='red' />
-    );
+    ),
+  );
 
   return (
     <S.FileUploadWithProgress>

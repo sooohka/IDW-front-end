@@ -1,6 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import FileList from ".";
-import { act, screen, render, createWithThemeProvider } from "../../../../../__test__/test-utils";
+import { act, screen, render, createWithThemeProvider } from "../../../../../test/test-utils";
 
 describe("src/components/create/formFields/FilesField/FileList", () => {
   it("renders", () => {

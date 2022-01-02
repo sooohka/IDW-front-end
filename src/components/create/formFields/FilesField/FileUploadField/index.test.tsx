@@ -1,5 +1,5 @@
 import FileUploadField from ".";
-import { act, createWithThemeProvider, render } from "../../../../../__test__/test-utils";
+import { act, createWithThemeProvider, render } from "../../../../../test/test-utils";
 import { FileUploadContext, FileUploadContextType } from "../FileUploadProvider";
 
 describe("src/components/create/formFields/FilesField/FileUploadField", () => {

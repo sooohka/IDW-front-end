@@ -1,4 +1,4 @@
-import { act, screen, render, createWithThemeProvider } from "../../../../../__test__/test-utils";
+import { act, screen, render, createWithThemeProvider } from "../../../../../test/test-utils";
 import FileUploadWithProgress from ".";
 import { FileUploadContext, FileUploadContextType } from "../FileUploadProvider";
 

@@ -5,7 +5,7 @@ const instance = axios.create({
   // "https://dogemdas2c.execute-api.ap-northeast-2.amazonaws.com/v1",
 });
 
-interface postImgToResizingServerReq {
+interface PostImgToResizingServerReq {
   param: {
     file: { name: string; contentType: string; dataUri: string };
   };
@@ -23,6 +23,7 @@ type PostImgToResizingServerRes = {
 
 class AwsApi {
   static baseUrl = process.env.REACT_APP_AWS_GATEWAY_URL;
+
   static get<T = unknown>(
     url: string,
     queryParams: Record<string, string> = {},
@@ -48,7 +49,7 @@ class AwsApi {
     });
   }
 
-  static postImgToResizingServer({ param, setProgress }: postImgToResizingServerReq) {
+  static postImgToResizingServer({ param, setProgress }: PostImgToResizingServerReq) {
     return AwsApi.post<PostImgToResizingServerRes>("/", param, {
       onUploadProgress: (prog) => {
         setProgress(Math.round(prog.loaded * 100) / prog.total);
@@ -56,7 +57,7 @@ class AwsApi {
     });
   }
 
-  static putImgToResizingServer({ param, setProgress }: postImgToResizingServerReq) {
+  static putImgToResizingServer({ param, setProgress }: PostImgToResizingServerReq) {
     return AwsApi.put<PostImgToResizingServerRes>("/", param, {
       headers: {},
       onUploadProgress: (prog) => {

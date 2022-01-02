@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ReactComponent as Sort } from "../../../../../assets/icons/sort-up-solid.svg";
+import Sort from "../../../../../assets/icons/sort-up-solid.svg";
 import Text from "../../../../common/Text";
 import * as S from "./Style";
 

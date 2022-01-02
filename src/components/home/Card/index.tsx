@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
-import { ReactComponent as CommentReg } from "../../../assets/icons/comment-regular.svg";
-import { ReactComponent as PlaySolid } from "../../../assets/icons/play-solid.svg";
-import { ReactComponent as Share } from "../../../assets/icons/share-square-solid.svg";
-import { ReactComponent as ThumbUpReg } from "../../../assets/icons/thumbs-up-regular.svg";
+import CommentReg from "../../../assets/icons/comment-regular.svg";
+import PlaySolid from "../../../assets/icons/play-solid.svg";
+import Share from "../../../assets/icons/share-square-solid.svg";
+import ThumbUpReg from "../../../assets/icons/thumbs-up-regular.svg";
 import useImgLazyLoad from "../../../utils/hooks/useImgLazyLoad";
 import Img from "../../common/Img";
 import Text from "../../common/Text";

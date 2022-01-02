@@ -6,7 +6,9 @@ const instance = axios.create({
 });
 
 class AppApi {
+  // TODO:
   static baseUrl = process.env.REACT_APP_SERVER_URL;
+
   static get<T = unknown>(
     url: string,
     queryParams: Record<string, string> = {},

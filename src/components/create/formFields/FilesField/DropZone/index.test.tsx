@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import userEvent from "@testing-library/user-event";
 import DropZone from "./index";
-import { render, screen, act, createWithThemeProvider } from "../../../../../__test__/test-utils";
+import { render, screen, act, createWithThemeProvider } from "../../../../../test/test-utils";
 import { FileUploadContext } from "../FileUploadProvider";
 
 describe("components/create/formFields/FilesField/DropZone", () => {

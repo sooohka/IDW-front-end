@@ -20,9 +20,7 @@ exports[`src/components/create/formFields/FilesField/FileList renders 1`] = `
       <svg
         height={30}
         width={30}
-      >
-        sort-up-solid.svg
-      </svg>
+      />
     </div>
   </div>
   <div

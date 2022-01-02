@@ -10,18 +10,16 @@ import store from "../store";
 import GlobalStyle from "../style/GlobalStyle";
 import theme from "../style/theme";
 
-const AllTheProviders: FC = ({ children }) => {
-  return (
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <BrowserRouter>
-          <GlobalStyle />
-          {children}
-        </BrowserRouter>
-      </Provider>
-    </ThemeProvider>
-  );
-};
+const AllTheProviders: FC = ({ children }) => (
+  <ThemeProvider theme={theme}>
+    <Provider store={store}>
+      <BrowserRouter>
+        <GlobalStyle />
+        {children}
+      </BrowserRouter>
+    </Provider>
+  </ThemeProvider>
+);
 
 const customRender = (ui: ReactElement, options?: Omit<RenderOptions, "wrapper">) =>
   render(ui, { wrapper: AllTheProviders, ...options });
@@ -48,14 +46,13 @@ const useStore = (stateName: string, initState: any, reducer: any) => {
   return { store, next, makeThunk };
 };
 
-const createWithThemeProvider = (EL: ReactElement) => {
-  return renderer.create(
+const createWithThemeProvider = (EL: ReactElement) =>
+  renderer.create(
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       {EL}
     </ThemeProvider>,
   );
-};
 
 const redux = { thunk, useStore };
 export { redux, customRender as render, createWithThemeProvider };

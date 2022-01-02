@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import FilesField from ".";
-import { createWithThemeProvider } from "../../../../__test__/test-utils";
+import { createWithThemeProvider } from "../../../../test/test-utils";
 
 describe("components/create/formFields/FilesField", () => {
   let FileFieldEL: ReactElement;

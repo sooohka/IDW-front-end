@@ -1,6 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import { ReactElement } from "react";
-import { createWithThemeProvider, render, screen } from "../../../../__test__/test-utils";
+import { createWithThemeProvider, render, screen } from "../../../../test/test-utils";
 import TitleField from ".";
 
 describe("components/create/formFields/titleField", () => {

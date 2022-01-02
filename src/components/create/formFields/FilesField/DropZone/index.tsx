@@ -1,6 +1,6 @@
 import { FileRejection, useDropzone } from "react-dropzone";
 import * as uuid from "uuid";
-import { ReactComponent as UploadIcon } from "../../../../../assets/icons/cloud-upload-alt-solid.svg";
+import UploadIcon from "../../../../../assets/icons/cloud-upload-alt-solid.svg";
 import defaultTheme from "../../../../../style/theme";
 import { useFileUploadContext } from "../FileUploadProvider";
 import * as S from "./Style";

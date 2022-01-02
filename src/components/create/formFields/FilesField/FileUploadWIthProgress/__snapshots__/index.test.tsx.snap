@@ -8,9 +8,7 @@ exports[`src/components/create/formFields/FilesField/FileUploadWIthProgress matc
     data-testid="empty-file-svg"
     height={50}
     width={50}
-  >
-    file-image-regular.svg
-  </svg>
+  />
   <div
     className="sc-jrQzAO gJyGiC"
   >
@@ -32,9 +30,7 @@ exports[`src/components/create/formFields/FilesField/FileUploadWIthProgress matc
       </div>
       <svg
         role="status"
-      >
-        spinner.svg
-      </svg>
+      />
     </div>
   </div>
 </div>

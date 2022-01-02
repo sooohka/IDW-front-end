@@ -12,7 +12,7 @@ const prepare = async () => {
   if (process.env.NODE_ENV === "development") {
     console.log("start mock server");
 
-    const { worker } = await import("./__test__/mocks/browser");
+    const { worker } = await import("./test/mocks/browser");
 
     return worker.start({
       onUnhandledRequest: ({ method, url }) => {

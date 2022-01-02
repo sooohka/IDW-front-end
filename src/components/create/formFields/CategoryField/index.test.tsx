@@ -1,7 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import { ReactElement } from "react";
 import categories from "../../../../assets/temp/categories.json";
-import { createWithThemeProvider, render, screen } from "../../../../__test__/test-utils";
+import { createWithThemeProvider, render, screen } from "../../../../test/test-utils";
 import CategoryField from ".";
 
 describe("components/create/formFields/categoryField", () => {
