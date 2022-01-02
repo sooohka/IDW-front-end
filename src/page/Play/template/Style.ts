@@ -20,11 +20,18 @@ const Content = styled.section`
   grid-template-rows: 10rem 1fr;
   gap: 2rem;
 `;
-const Text = styled.div`
+const Title = styled.div`
   width: 100%;
   grid-row: 1/2;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-export { Container, Navbar, Content, Text };
+
+const Targets = styled.div`
+  grid-row: 2/10;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`;
+export { Container, Navbar, Content, Title, Targets };

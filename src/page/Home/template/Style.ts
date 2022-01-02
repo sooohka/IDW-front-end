@@ -20,5 +20,12 @@ const Content = styled.section`
   grid-row: 2/3;
   border: 1px solid rgba(1, 1, 1, 0.2);
 `;
-
-export { Container, Navbar, Sidebar, Content };
+const Cards = styled.div`
+  margin: 0 auto;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, 20rem);
+  grid-auto-rows: 35rem;
+  grid-gap: 2rem 2rem;
+`;
+export { Container, Navbar, Sidebar, Content, Cards };

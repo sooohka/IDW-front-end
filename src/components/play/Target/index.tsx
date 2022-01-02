@@ -1,18 +1,8 @@
 import React from "react";
-import styled from "styled-components";
-import useWorldCupReducer from "../../utils/hooks/useWorldCupReducer";
-import Img from "../common/Img";
+import useWorldCupReducer from "../../../utils/hooks/useWorldCupReducer";
+import Img from "../../common/Img";
+import * as S from "./Style";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const InfoContainer = styled.div`
-  height: 20rem;
-`;
 interface IProps {
   target: Target;
 }
@@ -29,11 +19,11 @@ const Target: React.FC<IProps> = ({ target }) => {
     selectTarget({ targetId });
   };
   return (
-    <Container>
+    <S.Target>
       <Img onClick={handleTargetClick(id)} width={600} height={750} src={big} alt={name} />
-      <InfoContainer />
+      <S.Info />
       <div>{target.id}</div>
-    </Container>
+    </S.Target>
   );
 };
 

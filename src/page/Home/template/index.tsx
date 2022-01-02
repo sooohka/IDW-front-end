@@ -1,5 +1,5 @@
 import React from "react";
-import Cards from "../../../components/home/Cards";
+import Card from "../../../components/home/Card";
 import LevelModal from "../../../components/home/LevelModal";
 import Navbar from "../../../components/layout/Navbar";
 import Sidebar from "../../../components/layout/Sidebar";
@@ -19,7 +19,11 @@ const Template: React.FC<IProps> = ({ worldCups, handlePlayBtnClick }) => (
     </S.Sidebar>
     <S.Content>
       <LevelModal />
-      <Cards worldCups={worldCups} handlePlayBtnClick={handlePlayBtnClick} />
+      <S.Cards>
+        {worldCups.map((v) => (
+          <Card handlePlayBtnClick={handlePlayBtnClick} key={v.id} worldCup={v} />
+        ))}
+      </S.Cards>
     </S.Content>
   </S.Container>
 );

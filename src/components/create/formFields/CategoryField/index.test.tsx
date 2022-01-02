@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import userEvent from "@testing-library/user-event";
 import { ReactElement } from "react";
 import categories from "../../../../assets/temp/categories.json";

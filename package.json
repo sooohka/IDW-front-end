@@ -33,6 +33,7 @@
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.16.5",
     "@types/aws-sdk": "^2.7.0",
     "@types/axios": "^0.14.0",
     "@types/react-dropzone": "^5.1.0",
