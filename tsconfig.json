@@ -2,14 +2,11 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["es6", "dom"],
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
+    "strict": true,
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
@@ -17,7 +14,21 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "paths": {
+      "@Api/*": ["api/*"],
+      "@Assets/*": ["assets/*"],
+      "@Components/*": ["components/*"],
+      "@Pages/*": ["pages/*"],
+      "@Store/*": ["store/*"],
+      "@Style/*": ["style/*"],
+      "@Test/*": ["test/*"],
+      "@Contexts/*": ["utils/contexts/*"],
+      "@Hooks/*": ["utils/hooks/*"],
+      "@Libs/*": ["utils/lib/*"],
+      "@Utils/*": ["utils/*"]
+    }
   },
-  "include": ["src/**/*","declaration.d.ts"],
+  "include": ["src/**/*", "src/declaration.d.ts"]
 }

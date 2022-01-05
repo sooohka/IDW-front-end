@@ -1,8 +1,8 @@
+import { useCategoryContext } from "@Contexts/CategoryContextProvider";
 import { FormikErrors, useFormik } from "formik";
 import React, { useCallback, useContext, useState } from "react";
 import styled from "styled-components";
 import { WorldCupApi } from "../../api";
-import CategoryContext from "../../utils/contexts/CategoryContext";
 import Button from "../common/Button";
 import PageSpinner from "../common/PageSpinner";
 import Text from "../common/Text";
@@ -34,9 +34,9 @@ const initialValues: CreateFormValues = {
   files: [],
 };
 
-const CreateForm = () => {
+function CreateForm() {
   const [isFileUploading, setIsFileUploading] = useState(true);
-  const { categories } = useContext(CategoryContext);
+  const { categories } = useCategoryContext();
 
   const onSubmit = useCallback(async (v) => {
     try {
@@ -154,6 +154,6 @@ const CreateForm = () => {
       )}
     </>
   );
-};
+}
 
 export default CreateForm;

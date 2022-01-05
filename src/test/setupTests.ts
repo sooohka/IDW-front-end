@@ -30,10 +30,6 @@ beforeEach(() => {
   //   }
   // }
   // // global.IntersectionObserver = MockedIntersectionObserver;
-<<<<<<< HEAD
-
-=======
->>>>>>> 92c4729 (chore: cra에서 webpack으로 이전)
   global.console = { ...global.console, debug: () => {} };
   Element.prototype.scrollIntoView = jest.fn();
   server.resetHandlers();

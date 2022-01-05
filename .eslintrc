@@ -7,10 +7,9 @@
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "warn",
-    "react/function-component-definition": "off",
     "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off",
-    "react/jsx-filename-extension": "off",
+    // "react/jsx-filename-extension": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-unused-vars": "warn",

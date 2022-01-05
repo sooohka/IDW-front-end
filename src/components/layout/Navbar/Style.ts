@@ -8,6 +8,7 @@ const Navbar = styled.div`
   display: grid;
   grid-template-columns: 20rem 1fr 20rem;
   gap: 1rem;
+  z-index: 100000000;
 `;
 
 const Logo = styled.div`

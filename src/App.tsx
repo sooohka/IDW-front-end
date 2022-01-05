@@ -1,27 +1,19 @@
-import React, { useMemo } from "react";
+import PageSpinner from "@Components/common/PageSpinner";
+import CategoryContextProvider, { useCategoryContext } from "@Contexts/CategoryContextProvider";
+import useFetch from "@Hooks/useFetch";
+import MainRouter from "@Pages/MainRouter";
+import React, { useEffect } from "react";
 import { CategoryApi } from "./api";
-import PageSpinner from "./components/common/PageSpinner";
-import MainRouter from "./page/MainRouter";
-import CategoryContext from "./utils/contexts/CategoryContext";
-import useFetch from "./utils/hooks/useFetch";
 
-const App = () => {
+function App() {
   // 앱 시작할때 로드해야되는것들
   const { data, isLoading } = useFetch(CategoryApi.getCategories);
-
-  const categories = useMemo(
-    () => ({
-      categories: data || [],
-    }),
-    [data],
-  );
-
+  const { handleSetCategories } = useCategoryContext();
+  useEffect(() => {
+    if (data) handleSetCategories(data);
+  }, [data]);
   if (isLoading) return <PageSpinner />;
-  return (
-    <CategoryContext.Provider value={categories}>
-      <MainRouter />
-    </CategoryContext.Provider>
-  );
-};
+  return <MainRouter />;
+}
 
 export default App;

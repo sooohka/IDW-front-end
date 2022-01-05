@@ -1,67 +1,46 @@
-import React, { useContext, useState } from "react";
-import ModalContext from "../../../utils/contexts/ModalContext";
-import Button from "../../common/Button";
-import RadioField from "../../common/RadioField";
-import XButton from "../../common/XButton";
-import Modal from "../../layout/Modal";
-import * as S from "./Style";
+import { useModalContext } from "@Contexts/ModalContextProvider";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
+import React, { useState } from "react";
 
-const LevelModal = () => {
-  const { handleModalSubmit, handleModalClose, isModalOpened } = useContext(ModalContext);
+function LevelModal() {
+  const { isModalOpened, closeModal, handleModalSubmit, worldCupId } = useModalContext();
   const [level, setLevel] = useState(4);
-
-  const handleLevelChange = (value: number) => () => setLevel(value);
+  const handleLevelChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLevel(parseInt(e.target.value, 10));
+  };
+  if (!isModalOpened) return null;
   return (
-    <>
-      {isModalOpened && (
-        <Modal handleClose={handleModalClose}>
-          <S.ContentWrapper>
-            <S.Heading>
-              <S.HeadingTitle>월드컵 강수 고르기</S.HeadingTitle>
-              <S.XContainer>
-                <XButton onClick={handleModalClose} />
-              </S.XContainer>
-            </S.Heading>
-            <S.Content>
-              <S.RadioFieldContainer>
-                {[4, 8, 16, 32, 64].map((v, i) => (
-                  <RadioField
-                    key={v}
-                    id={`level${i}`}
-                    name='level'
-                    isChecked={level === v}
-                    onChange={handleLevelChange(v)}
-                    label={`${v}강`}
-                    value={v}
-                  />
-                ))}
-              </S.RadioFieldContainer>
-              <S.BtnContainer>
-                <Button
-                  type='button'
-                  size='medium'
-                  color='white'
-                  backgroundColor='secondary'
-                  onClick={handleModalSubmit(level)}
-                >
-                  시작
-                </Button>
-                <Button
-                  type='button'
-                  size='medium'
-                  color='white'
-                  backgroundColor='gray'
-                  onClick={handleModalClose}
-                >
-                  취소
-                </Button>
-              </S.BtnContainer>
-            </S.Content>
-          </S.ContentWrapper>
-        </Modal>
-      )}
-    </>
+    <Dialog fullWidth maxWidth='xs' open={isModalOpened} onClose={closeModal}>
+      <DialogTitle>강수를 고르세요</DialogTitle>
+      <DialogContent dividers>
+        <RadioGroup
+          aria-label='ringtone'
+          name='ringtone'
+          value={level}
+          onChange={handleLevelChange}
+        >
+          {[4, 8, 16, 32].map((v) => (
+            <FormControlLabel value={v} key={v} control={<Radio />} label={v} />
+          ))}
+        </RadioGroup>
+      </DialogContent>
+      <DialogActions>
+        <Button autoFocus onClick={closeModal}>
+          Cancel
+        </Button>
+        <Button onClick={handleModalSubmit(level, worldCupId!)}>Ok</Button>
+      </DialogActions>
+    </Dialog>
   );
-};
+}
 
 export default LevelModal;
